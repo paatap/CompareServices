@@ -159,9 +159,22 @@ public class mainService extends HttpServlet {
                         + " http://192.168.18.22:9080/myweb1?register=" + s4.get(0)[0]
                         + "\n\n ლინკი აქტიურია 1 საათის განმავლობაში/ Link is valid 1 Hour "
                         + "\n\n compare.ge Please do not spam my email!";
+       
+                Thread thread = new Thread(new Runnable() {
 
-                tools.SendEmailTLS.SendEmailTLS(email, subTxt, msgTxt);
+                        public void run() {
+                            System.out.println("kuku");
+                            tools.SendEmailTLS.SendEmailTLS(email, subTxt, msgTxt);
+                            System.out.println("register  mail Sent");
 
+                        }
+
+                    });
+                thread.start();
+
+                
+                
+                
                 String ss;
                 if (s2.size() > 0) {
                     ss = "{\n\"command\":\"register\",\n"
@@ -254,19 +267,17 @@ public class mainService extends HttpServlet {
 
                 ArrayList<String[]> s1 = tools.functions.getResult(qwr, tools.functions.isnewcompare);
 
-
                 String ss;
                 if (s1.size() > 0) {
                     ss = "{\n\"command\":\"changepassword\",\n"
-                            + "\"result\":\"ok\"\n}"
-;
+                            + "\"result\":\"ok\"\n}";
                 } else {
                     ss = "{\n\"command\":\"changepassword\",\n"
                             + "\"result\":\"passworderror\"\n}";
                 }
                 System.out.println(ss);
                 response.getWriter().write(ss);
-                
+
             } else if (command.equals("getparameters")) {
 
                 //  change User FirstName LastName PID ..... 
@@ -367,6 +378,75 @@ public class mainService extends HttpServlet {
                 System.out.println(ss);
                 response.getWriter().write(ss);
 
+            } else if (command.equals("resetpassword")) {
+
+// Reset Password     
+                String ss;
+                String user = tools.functions.jsonget(job, "user");
+                System.out.println("user=" + user);
+
+                String qwr = "select id from users where username='" + user + "';";
+
+                ArrayList<String[]> s1 = tools.functions.getResult(qwr, tools.functions.isnewcompare);
+                System.out.println(qwr);
+
+                if (s1.size() > 0) {
+
+                    System.out.println("1.   s1=" + s1.get(0)[0]);
+
+                    qwr = "insert into msg_link (userid) values (" + s1.get(0)[0] + ")  returning id; ";
+
+                    ArrayList<String[]> s3 = tools.functions.getResult(qwr, tools.functions.isnewcompare);
+
+                    System.out.println("3.   s3=" + s3.get(0)[0]);
+                    System.out.println(qwr);
+
+                    qwr = "select linkmd5 from msg_link where id= " + s3.get(0)[0];
+
+                    ArrayList<String[]> s4 = tools.functions.getResult(qwr, tools.functions.isnewcompare);
+
+                    System.out.println("4.   s4=" + s4.get(0)[0]);
+                    System.out.println(qwr);
+
+                    String[] args = null;
+                    String email = user;
+
+                    String subTxt = "მოგესალმებათ info@compare.ge /Greeting from info@compare.ge";
+
+                    String msgTxt = "compare.ge გთხოვთ გადახვიდეთ ლინკზე/please folow to link"
+                            + " http://192.168.18.22:9080/myweb1?register=" + s4.get(0)[0]
+                            + "\n\n ლინკი აქტიურია 1 საათის განმავლობაში/ Link is valid 1 Hour "
+                            + "\n\n compare.ge Please do not spam my email!";
+
+                    Thread thread = new Thread(new Runnable() {
+
+                        public void run() {
+
+                            tools.SendEmailTLS.SendEmailTLS(email, subTxt, msgTxt);
+                            System.out.println("pass change mail Sent");
+
+                        }
+
+                    });
+                    thread.start();
+
+                    if (s4.size() > 0) {
+                        ss = "{\n\"command\":\"resetpassword\",\n"
+                                + "\"result\":\"sendmail\"\n}";
+
+                    } else {
+                        ss = "{\n\"command\":\"resetpassword\",\n"
+                                + "\"result\":\"nolink\"\n}";
+                    }
+
+                } else {
+
+                    System.out.println("kuku");
+                    ss = "{\n\"command\":\"resetpassword\",\n"
+                            + "\"result\":\"wrongmail\"\n}";
+                }
+                System.out.println(ss);
+                response.getWriter().write(ss);
             }
 
         } catch (Exception e) {

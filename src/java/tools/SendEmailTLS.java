@@ -24,10 +24,12 @@ public class SendEmailTLS {
         final String password = "Gelashvili2019";
 
         Properties prop = new Properties();
+//     Since you're using SSL, you can try to configure smtps namespace, not smtp   prop.put("mail.smtps.host", "smtp.gmail.com"); 
 
         prop.put("mail.smtp.host", "smtp.gmail.com");
         prop.put("mail.smtp.port", "587");
         prop.put("mail.smtp.auth", "true");
+        prop.put("mail.smtp.timeout", 1000);
         prop.put("mail.smtp.starttls.enable", "true"); //TLS
 
         Session session = Session.getInstance(prop,
