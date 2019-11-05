@@ -9,13 +9,12 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import java.io.BufferedReader;
-import javax.naming.InitialContext;
-import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -36,6 +35,7 @@ public class mainService extends HttpServlet {
         Connection conn = null;
         Statement statement = null;
         ResultSet resultSet = null;
+
 //response.getWriter().write(tools.SendEmailTLS.SendEmailTLS());
         try {
 
@@ -44,14 +44,17 @@ public class mainService extends HttpServlet {
             String result = "";
             String line;
             while ((line = br.readLine()) != null) {
+                byte[] bytes = line.getBytes(StandardCharsets.ISO_8859_1);
+                line = new String(bytes, StandardCharsets.UTF_8);
                 System.out.println(line);
                 result += line + "\n";
             }
 
+            System.out.println("111111111" + result);
             JsonElement el = new JsonParser().parse(result);
-
+            System.out.println("22222");
             JsonObject job = el.getAsJsonObject();
-
+            System.out.println("333");
             String command = tools.functions.jsonget(job, "command");
             System.out.println("command=" + command);
 
@@ -101,6 +104,12 @@ public class mainService extends HttpServlet {
                 String namelast = tools.functions.jsonget(job, "namelast");
                 System.out.println("namelast=" + namelast);
 
+                String namefirstlat = tools.functions.jsonget(job, "namefirstlat");
+                System.out.println("namefirstlat=" + namefirstlat);
+
+                String namelastlat = tools.functions.jsonget(job, "namelastlat");
+                System.out.println("namelastlat=" + namelastlat);
+
                 String personal_n = tools.functions.jsonget(job, "personal_n");
                 System.out.println("personal_n=" + personal_n);
 
@@ -128,9 +137,10 @@ public class mainService extends HttpServlet {
 
                 System.out.println("1.   s1=" + s1.get(0)[0]);
 
-                qwr = "insert into crm_contact  (name,email,userid,pid,contact_type_id,name_first,name_last,gender,birthday,phone,phonepre)"
+                qwr = "insert into crm_contact  (name,email,userid,pid,contact_type_id,name_first,name_last,gender,birthday,phone,phonepre,name_first_lat,name_last_lat)"
                         + "values('" + namefirst + " " + namelast + "','" + email + "'," + s1.get(0)[0] + ",'" + personal_n + "',1,'"
-                        + namefirst + "','" + namelast + "','" + gender + "','" + birthday + "','" + phone + "','" + phonepre + "') returning id;";
+                        + namefirst + "','" + namelast + "','" + gender + "','" + birthday + "','" + phone + "','" + phonepre
+                        + "','" + namefirstlat + "','" + namelastlat + "') returning id;";
 
                 System.out.println(qwr);
 
@@ -159,22 +169,19 @@ public class mainService extends HttpServlet {
                         + " http://192.168.18.22:9080/myweb1?register=" + s4.get(0)[0]
                         + "\n\n ლინკი აქტიურია 1 საათის განმავლობაში/ Link is valid 1 Hour "
                         + "\n\n compare.ge Please do not spam my email!";
-       
+
                 Thread thread = new Thread(new Runnable() {
 
-                        public void run() {
-                            System.out.println("kuku");
-                            tools.SendEmailTLS.SendEmailTLS(email, subTxt, msgTxt);
-                            System.out.println("register  mail Sent");
+                    public void run() {
+                        System.out.println("kuku");
+                        tools.SendEmailTLS.SendEmailTLS(email, subTxt, msgTxt);
+                        System.out.println("register  mail Sent");
 
-                        }
+                    }
 
-                    });
+                });
                 thread.start();
 
-                
-                
-                
                 String ss;
                 if (s2.size() > 0) {
                     ss = "{\n\"command\":\"register\",\n"
@@ -280,12 +287,13 @@ public class mainService extends HttpServlet {
 
             } else if (command.equals("getparameters")) {
 
-                //  change User FirstName LastName PID ..... 
+//  get User Params ..... 
                 String userid = tools.functions.jsonget(job, "userid");
                 System.out.println("userid=" + userid);
 
                 //name,email,userid,pid,contact_type_id,name_first,name_last,gender
-                String qwr = "select cc.userid,cc.name_first,cc.name_last,cc.email,cc.info2mail,cc.pid,cc.birthday,cc.phone,cc.phonepre,cc.gender"
+                String qwr = "select cc.userid,cc.name_first,cc.name_last,cc.email,cc.info2mail,cc.pid,cc.birthday,cc.phone,cc.phonepre,cc.gender,"
+                        + "cc.name_first_lat,cc.name_last_lat"
                         + " from crm_contact cc  \n"
                         + "  where userid=" + userid + ";";
                 System.out.println(qwr);
@@ -303,9 +311,11 @@ public class mainService extends HttpServlet {
                             + "\"birthday\":\"" + s2.get(0)[6] + "\",\n"
                             + "\"phone\":\"" + s2.get(0)[7] + "\",\n"
                             + "\"phonepre\":\"" + s2.get(0)[8] + "\",\n"
-                            + "\"gender\":\"" + s2.get(0)[9] + "\"\n}";
+                            + "\"gender\":\"" + s2.get(0)[9] + "\",\n"
+                            + "\"namefirstlat\":\"" + s2.get(0)[10] + "\",\n"
+                            + "\"namelastlat\":\"" + s2.get(0)[11] + "\"\n}";
                 } else {
-                    ss = "{\n\"command\":\"register3\",\n"
+                    ss = "{\n\"command\":\"getparameters\",\n"
                             + "\"result\":\"usernotfound\"\n}";
                 }
                 System.out.println(ss);
@@ -322,6 +332,12 @@ public class mainService extends HttpServlet {
 
                 String namelast = tools.functions.jsonget(job, "namelast");
                 System.out.println("namelast=" + namelast);
+
+                String namefirstlat = tools.functions.jsonget(job, "namefirstlat");
+                System.out.println("namefirstlat=" + namefirstlat);
+
+                String namelastlat = tools.functions.jsonget(job, "namelastlat");
+                System.out.println("namelastlat=" + namelastlat);
 
                 String personal_n = tools.functions.jsonget(job, "personal_n");
                 System.out.println("personal_n=" + personal_n);
@@ -340,14 +356,19 @@ public class mainService extends HttpServlet {
 
                 String info2mail = tools.functions.jsonget(job, "info2mail");
                 System.out.println("info2mail=" + info2mail);
-
+                if (info2mail.equals("")) {
+                    info2mail = "";
+                } else {
+                    info2mail = ", info2mail='" + info2mail + "',";
+                }
                 String checkboxrule = tools.functions.jsonget(job, "checkboxrule");
                 System.out.println("checkboxrule=" + checkboxrule);
 
                 String phonepre = tools.functions.jsonget(job, "phonepre");
                 System.out.println("phonepre=" + phonepre);
 
-                String qwr = "update crm_contact set  name='" + namefirst + " " + namelast + "',"
+                String qwr = "update crm_contact set  "
+                        + "name='" + namefirst + " " + namelast + "',"
                         + "name_first='" + namefirst + "',"
                         + "name_last='" + namelast + "',"
                         + "pid='" + personal_n + "',"
@@ -355,8 +376,11 @@ public class mainService extends HttpServlet {
                         + "gender='" + gender + "',"
                         + "phone='" + phone + "',"
                         + "phonepre='" + phonepre + "',"
-                        + "email='" + email + "',"
-                        + "info2mail='" + info2mail + "'  where userid=" + userid + " returning id";
+                        + "email='" + email + "'"
+                        + info2mail
+                        + "name_first_lat='" + namefirstlat + "',"
+                        + "name_last_lat='" + namelastlat + "'"
+                        + "  where userid=" + userid + " returning id";
 
                 System.out.println(qwr);
 
@@ -447,9 +471,438 @@ public class mainService extends HttpServlet {
                 }
                 System.out.println(ss);
                 response.getWriter().write(ss);
+            } else if (command.equals("getcars")) {
+// get car models
+
+                String qwr = "select id,mark,model,supported from car_models order by mark,model ";
+
+                ArrayList<String[]> s2 = tools.functions.getResult(qwr, tools.functions.isnewcompare);
+                String ss;
+                if (s2.size() > 0) {
+                    ss = "{\n\"command\":\"getcars\",\n"
+                            + "\"result\":\"ok\",\n"
+                            + "\"cars\":[\n";
+                    for (int i = 0; i < s2.size(); i++) {
+
+                        if (i == 0) {
+                            ss += "{\"id\":\"" + s2.get(i)[0] + "\","
+                                    + "\"mark\":\"" + s2.get(i)[1] + "\","
+                                    + "\"model\":\"" + s2.get(i)[2] + "\","
+                                    + "\"supported\":\"" + s2.get(i)[3] + "\"}";
+                        } else {
+                            ss += ",\n{\"id\":\"" + s2.get(i)[0] + "\","
+                                    + "\"mark\":\"" + s2.get(i)[1] + "\","
+                                    + "\"model\":\"" + s2.get(i)[2] + "\","
+                                    + "\"supported\":\"" + s2.get(i)[3] + "\"}";
+                        }
+                    }
+                    ss += "\n]\n}";
+                } else {
+                    ss = "{\n\"command\":\"getcars\",\n"
+                            + "\"result\":\"nocarmodels\"\n}";
+                }
+                System.out.println(ss);
+                response.getWriter().write(ss);
+            } else if (command.equals("getpersondata")) {
+
+//  get person data  ..... 
+                String userid = tools.functions.jsonget(job, "userid");
+                String pid = tools.functions.jsonget(job, "personal_n");
+                System.out.println("userid=" + userid);
+                System.out.println("personal_n=" + pid);
+
+                //name,email,userid,pid,contact_type_id,name_first,name_last,gender
+                String qwr = "select cc.userid,cc.name_first,cc.name_last,cc.email,cc.info2mail,cc.pid,cc.birthday,cc.phone,cc.phonepre,cc.gender,cc.name_first_lat,cc.name_last_lat"
+                        + " from crm_contact cc  \n"
+                        + "  where pid='" + pid + "' and userid=" + userid + ";";
+                System.out.println(qwr);
+                ArrayList<String[]> s2 = tools.functions.getResult(qwr, tools.functions.isnewcompare);
+                String ss;
+                if (s2.size() > 0) {
+                    ss = "{\n\"command\":\"getpersondata\",\n"
+                            + "\"result\":\"ok\",\n"
+                            + "\"userid\":\"" + s2.get(0)[0] + "\",\n"
+                            + "\"namefirst\":\"" + s2.get(0)[1] + "\",\n"
+                            + "\"namelast\":\"" + s2.get(0)[2] + "\",\n"
+                            + "\"username\":\"" + s2.get(0)[3] + "\",\n"
+                            + "\"info2mail\":\"" + s2.get(0)[4] + "\",\n"
+                            + "\"pid\":\"" + s2.get(0)[5] + "\",\n"
+                            + "\"birthday\":\"" + s2.get(0)[6] + "\",\n"
+                            + "\"phone\":\"" + s2.get(0)[7] + "\",\n"
+                            + "\"phonepre\":\"" + s2.get(0)[8] + "\",\n"
+                            + "\"gender\":\"" + s2.get(0)[9] + "\",\n"
+                            + "\"namefirstlat\":\"" + s2.get(0)[10] + "\",\n"
+                            + "\"namelastlat\":\"" + s2.get(0)[11] + "\"\n}";
+
+                } else {
+                    ss = "{\n\"command\":\"getpersondata\",\n"
+                            + "\"result\":\"usernotfound\"\n}";
+                }
+                System.out.println(ss);
+                response.getWriter().write(ss);
+
+            } else if (command.equals("getcardata")) {
+
+//  get car data  ..... 
+                String userid = tools.functions.jsonget(job, "userid");
+                String carnumber = tools.functions.jsonget(job, "carnumber");
+                System.out.println("userid=" + userid);
+                System.out.println("carnumber=" + carnumber);
+
+                //name,email,userid,pid,contact_type_id,name_first,name_last,gender
+                String qwr = "select mc.owner_id,mc.car_number,mc.vincode,mc.man_date,cm.mark,cm.model,mc.car_model_id from ma_mtpl_cars mc left join car_models  cm on mc.car_model_id=cm.id "
+                        + "where  mc.car_number='" + carnumber + "' and mc.owner_id=" + userid + ";";
+                System.out.println(qwr);
+                ArrayList<String[]> s2 = tools.functions.getResult(qwr, tools.functions.isnewcompare);
+                String ss;
+                if (s2.size() > 0) {
+                    ss = "{\n\"command\":\"getcardata\",\n"
+                            + "\"result\":\"ok\",\n"
+                            + "\"userid\":\"" + s2.get(0)[0] + "\",\n"
+                            + "\"carnumber\":\"" + s2.get(0)[1] + "\",\n"
+                            + "\"vincode\":\"" + s2.get(0)[2] + "\",\n"
+                            + "\"year\":\"" + s2.get(0)[3] + "\",\n"
+                            + "\"mark\":\"" + s2.get(0)[4] + "\",\n"
+                            + "\"model\":\"" + s2.get(0)[5] + "\",\n"
+                            + "\"modelid\":\"" + s2.get(0)[6] + "\"\n}";
+
+                } else {
+                    ss = "{\n\"command\":\"getcardata\",\n"
+                            + "\"result\":\"carnotfound\"\n}";
+                }
+                System.out.println(ss);
+                response.getWriter().write(ss);
+
+            } else if (command.equals("getcasco")) {
+
+//  change user getcasco 
+                String forwho = tools.functions.jsonget(job, "forwho");
+                System.out.println("forwho=" + forwho);
+
+                String userid = tools.functions.jsonget(job, "userid");
+                System.out.println("userid=" + userid);
+
+                String namefirst = tools.functions.jsonget(job, "namefirst");
+                System.out.println("namefirst=" + namefirst);
+
+                String namelast = tools.functions.jsonget(job, "namelast");
+                System.out.println("namelast=" + namelast);
+
+                String personal_n = tools.functions.jsonget(job, "personal_n");
+                System.out.println("personal_n=" + personal_n);
+
+                String birthday = tools.functions.jsonget(job, "birthday2");
+                System.out.println("birthday=" + birthday);
+
+                String gender = tools.functions.jsonget(job, "gender");
+                System.out.println("gender=" + gender);
+
+                String phone = tools.functions.jsonget(job, "phone");
+                System.out.println("phone=" + phone);
+
+                String email = tools.functions.jsonget(job, "email");
+                System.out.println("email=" + email);
+
+                String info2mail = tools.functions.jsonget(job, "info2mail");
+                System.out.println("info2mail=" + info2mail);
+                if (info2mail.equals("")) {
+                    info2mail = "";
+                } else {
+                    info2mail = ", info2mail='" + info2mail + "',";
+                }
+
+                String checkboxrule = tools.functions.jsonget(job, "checkboxrule");
+                System.out.println("checkboxrule=" + checkboxrule);
+
+                String phonepre = tools.functions.jsonget(job, "phonepre");
+                System.out.println("phonepre=" + phonepre);
+
+                String qwr = "update crm_contact set  name='" + namefirst + " " + namelast + "',"
+                        + "name_first='" + namefirst + "',"
+                        + "name_last='" + namelast + "',"
+                        + "pid='" + personal_n + "',"
+                        + "birthday='" + birthday + "',"
+                        + "gender='" + gender + "',"
+                        + "phone='" + phone + "',"
+                        + "phonepre='" + phonepre + "',"
+                        + "email='" + email + "'"
+                        + info2mail
+                        + " where userid=" + userid + " returning id";
+
+                System.out.println(qwr);
+
+                ArrayList<String[]> s1 = tools.functions.getResult(qwr, tools.functions.isnewcompare);
+                System.out.println("2 s1=     " + s1.get(0)[0]);
+
+                System.out.println(qwr);
+
+                String ss;
+                if (s1.size() > 0) {
+                    ss = "{\n\"command\":\"getcasco\",\n"
+                            + "\"result\":\"ok\"\n}";
+
+                } else {
+                    ss = "{\n\"command\":\"getcasco\",\n"
+                            + "\"result\":\"false\"\n}";
+                }
+
+                System.out.println(ss);
+                response.getWriter().write(ss);
+            } else if (command.equals("getliability")) {
+
+//   change user getliability 
+                String userid = tools.functions.jsonget(job, "userid");
+                System.out.println("userid=" + userid);
+
+                String forwho = tools.functions.jsonget(job, "forwho");
+                System.out.println("forwho=" + forwho);
+
+                String personal_n = tools.functions.jsonget(job, "personal_n");
+                System.out.println("personal_n=" + personal_n);
+
+                String birthday = tools.functions.jsonget(job, "birthday");
+                System.out.println("birthday=" + birthday);
+
+                String namefirst = tools.functions.jsonget(job, "namefirst");
+                System.out.println("namefirst=" + namefirst);
+
+                String namelast = tools.functions.jsonget(job, "namelast");
+                System.out.println("namelast=" + namelast);
+
+                String gender = tools.functions.jsonget(job, "gender");
+                System.out.println("gender=" + gender);
+
+                String phone = tools.functions.jsonget(job, "phone");
+                System.out.println("phone=" + phone);
+
+                String email = tools.functions.jsonget(job, "email");
+                System.out.println("email=" + email);
+
+// editional person
+                String personal_n2 = tools.functions.jsonget(job, "2personal_n");
+                System.out.println("2personal_n=" + personal_n2);
+
+                String namelast2 = tools.functions.jsonget(job, "2namelast");
+                System.out.println("namelast2=" + namelast2);
+
+                String namefirst2 = tools.functions.jsonget(job, "2namefirstlat");
+                System.out.println("namelast2=" + namefirst2);
+
+                String birthday2 = tools.functions.jsonget(job, "2birthday");
+                System.out.println("birthday2=" + birthday2);
+
+                String gender2 = tools.functions.jsonget(job, "2gender");
+                System.out.println("gender2=" + gender);
+
+/// insert into
+                String qwr = "select * from ma_mtpl_cars limit 1";
+
+                System.out.println(qwr);
+
+                ArrayList<String[]> s1 = tools.functions.getResult(qwr, tools.functions.isnewcompare);
+                System.out.println("2 s1=     " + s1.get(0)[0]);
+
+                System.out.println(qwr);
+
+                String benefititem = "";
+                String benefits = "[\"100 ლარის საწვავი ვისოლში\",\"100 ლარის საწვავი ვისოლში\",\"100 ლარის საწვავი ვისოლში\"]";
+                String benefits2 = "[\"მანქანის 10ჯერ უფასოდ რეცხვა\",\"150 ლარის საწვავი ვისოლში\",\"150 ლარის საწვავი ვისოლში\"]";
+                String benefits6 = "[\"100 ლარის საწვავი ლუკოილში\",\"100 ლარის საწვავი ლუკოილში\",\"100 ლარის საწვავი ლუკოილში\"]";
+
+                String proposal = "{\n\"providerid\":\"" + 5 + "\",\n"
+                        + "\"providername\":\"" + "aldagi" + "\",\n"
+                        + "\"productid\":\"" + 111 + "\",\n"
+                        + "\"limit\":\"" + 15000 + "\",\n"
+                        + "\"franchise\":\"" + "1%" + "\",\n"
+                        + "\"benefits\":" + benefits + ",\n"
+                        + "\"price\":\"" + "14_gel" + "\"\n}";
+
+                String proposal3 = "{\n\"providerid\":\"" + 6 + "\",\n"
+                        + "\"providername\":\"" + "gpi" + "\",\n"
+                        + "\"productid\":\"" + 112 + "\",\n"
+                        + "\"limit\":\"" + 16000 + "\",\n"
+                        + "\"franchise\":\"" + "1%" + "\",\n"
+                        + "\"benefits\":" + benefits + ",\n"
+                        + "\"price\":\"" + "5.50_eu" + "\"\n}";
+                String proposal4 = "{\n\"providerid\":\"" + 7 + "\",\n"
+                        + "\"providername\":\"" + "tbc" + "\",\n"
+                        + "\"productid\":\"" + 113 + "\",\n"
+                        + "\"limit\":\"" + 16000 + "\",\n"
+                        + "\"franchise\":\"" + "1%" + "\",\n"
+                        + "\"benefits\":" + benefits + ",\n"
+                        + "\"price\":\"" + "15.50_gel" + "\"\n}";
+                String proposal5 = "{\n\"providerid\":\"" + 8 + "\",\n"
+                        + "\"providername\":\"" + "benefits" + "\",\n"
+                        + "\"productid\":\"" + 114 + "\",\n"
+                        + "\"limit\":\"" + 16000 + "\",\n"
+                        + "\"franchise\":\"" + "1%" + "\",\n"
+                        + "\"benefits\":" + benefits6 + ",\n"
+                        + "\"price\":\"" + "5.5_usd" + "\"\n}";
+
+                //            proposal=proposal2="\"kuku\"";
+                String ss;
+                if (s1.size() > 0) {
+                    ss = "{\n\"command\":\"getliability\",\n"
+                            + "\"result\":\"ok\",\n"
+                            + "\"userid\":\"" + 94 + "\",\n"
+                            + "\"proposals\":[" + proposal + ","
+                            + proposal3 + "," + proposal4 + "," + proposal5 + "]\n}";
+
+                } else {
+                    ss = "{\n\"command\":\"getliability\",\n"
+                            + "\"result\":\"noproposals\"\n}";
+                }
+
+                System.out.println(ss);
+                response.getWriter().write(ss);
+            } else if (command.equals("getliabilitydetails")) {
+
+//   getliability details
+                String userid = tools.functions.jsonget(job, "userid");
+                System.out.println("userid=" + userid);
+
+                String forwho = tools.functions.jsonget(job, "forwho");
+                System.out.println("forwho=" + forwho);
+
+                String personal_n = tools.functions.jsonget(job, "personal_n");
+                System.out.println("personal_n=" + personal_n);
+
+                String birthday = tools.functions.jsonget(job, "birthday");
+                System.out.println("birthday=" + birthday);
+
+                String namefirst = tools.functions.jsonget(job, "namefirst");
+                System.out.println("namefirst=" + namefirst);
+
+                String namelast = tools.functions.jsonget(job, "namelast");
+                System.out.println("namelast=" + namelast);
+
+                String gender = tools.functions.jsonget(job, "gender");
+                System.out.println("gender=" + gender);
+
+                String phone = tools.functions.jsonget(job, "phone");
+                System.out.println("phone=" + phone);
+
+                String email = tools.functions.jsonget(job, "email");
+                System.out.println("email=" + email);
+
+// editional person
+                String personal_n2 = tools.functions.jsonget(job, "2personal_n");
+                System.out.println("2personal_n=" + personal_n2);
+
+                String namelast2 = tools.functions.jsonget(job, "2namelast");
+                System.out.println("namelast2=" + namelast2);
+
+                String namefirst2 = tools.functions.jsonget(job, "2namefirstlat");
+                System.out.println("namelast2=" + namefirst2);
+
+                String birthday2 = tools.functions.jsonget(job, "2birthday");
+                System.out.println("birthday2=" + birthday2);
+
+                String gender2 = tools.functions.jsonget(job, "2gender");
+                System.out.println("gender2=" + gender);
+
+                String productid = tools.functions.jsonget(job, "productid");
+                System.out.println("productid=" + productid);
+
+/// ინსერტ ინთო
+                String qwr = "select * from ma_mtpl_cars limit 1";
+
+                System.out.println(qwr);
+
+                ArrayList<String[]> s1 = tools.functions.getResult(qwr, tools.functions.isnewcompare);
+                System.out.println("2 s1=     " + s1.get(0)[0]);
+
+                System.out.println(qwr);
+
+                String benefititem = "";
+                String benefits = "[\"100 ლარის საწვავი ვისოლში\",\"100 ლარის საწვავი ვისოლში\",\"100 ლარის საწვავი ვისოლში\"]";
+                String benefits2 = "[\"მანქანის 10ჯერ უფასოდ რეცხვა\",\"150 ლარის საწვავი ვისოლში\",\"150 ლარის საწვავი ვისოლში\"]";
+                String benefits6 = "[\"100 ლარის საწვავი ლუკოილში\",\"100 ლარის საწვავი ლუკოილში\",\"100 ლარის საწვავი ლუკოილში\"]";
+
+           
+                ArrayList<String> Detailitem=new ArrayList<String>();
+                
+//                Detailitem.add("დამზღვევი;"+namefirst+" "+namelast);
+//                Detailitem.add("დაზღვეული;"+namefirst2+" "+namelast2);
+                Detailitem.add("დამზღვევი;ალექსანდრე სარჩიმელია");
+                Detailitem.add("დაზღვეული;ალექსანდრე სარჩიმელია");
+                Detailitem.add("სახ. ნომერი;"+ tools.functions.jsonget(job, "carnumber") );
+                Detailitem.add("ვინ. კოდი;"+ tools.functions.jsonget(job, "carvin"));
+                Detailitem.add("ლიმიტი;"+ tools.functions.jsonget(job, "liabilitylimit")); 
+                Detailitem.add("სადაზღვევო პერიოდი;"+ tools.functions.jsonget(job, "date1")+"დან"+ tools.functions.jsonget(job, "date2")); 
+                
+                Detailitem.add("");
+                
+                Detailitem.add( "ძირითადი დაფარვა;ლიმიტი;ფრანშიზა"); 
+                Detailitem.add ("სასწრაფო სამედიცინო დაფარვის,ულიმიტო;$0");
+                Detailitem.add( "გადაუდებელი ჰოსპიტალური მკურნალობის ხარჯები;$500 დღე (სულ$20K);$0");
+                Detailitem.add( "გადაუდებელი ამბულატორიული მკურნალობის ხარჯები;$5K;$100");
+                Detailitem.add( "გადაუდებელი სტომატოლოგიური მკურნალობის ხარჯები;$500;$100");
+                Detailitem.add( "გადაუდებელი ოფთალმოლოგიური მკურნალობის ხარჯები;$1000;$100");
+                Detailitem.add( "დაზღვეულის რეპატრიაცია;$1000;$0");
+                
+              
+
+                ArrayList<String[]> s2 = tools.functions.getResult(qwr, tools.functions.isnewcompare);
+                String ss;
+                if (s2.size() > 0) {
+                    
+                    
+                    
+                    
+                    ss = "{\n\"command\":\"getliabilitydetails\",\n"
+                            + "\"result\":\"ok\",\n"
+                            + "\"userid\":\"" + userid + "\",\n"
+                            + "\"forwho\":\"" + forwho + "\",\n"
+                            + "\"personal_n\":\"" + personal_n + "\",\n"
+                            + "\"birthday\":\"" + birthday + "\",\n"
+                            + "\"namefirstlat\":\"" + namefirst + "\",\n"
+                            + "\"namelastlat\":\"" + namelast + "\",\n"
+                            + "\"phone\":\"" + phone + "\",\n"
+                            + "\"email\":\"" + email + "\",\n"
+                            + "\"2personal_n\":\"" + personal_n2 + "\",\n"
+                            + "\"2namefirstlat\":\"" + namefirst2 + "\",\n"
+                            + "\"2namelastlat\":\"" + namelast2 + "\",\n"
+                            + "\"2birthday\":\"" + birthday2 + "\",\n"
+                            + "\"checkboxrule\":\"" + tools.functions.jsonget(job, "checkboxrule") + "\",\n"
+                            + "\"carnumber\":\"" + tools.functions.jsonget(job, "carnumber") + "\",\n"
+                            + "\"carvin\":\"" + tools.functions.jsonget(job, "carvin") + "\",\n"
+                            + "\"liabilitylimit\":\"" + tools.functions.jsonget(job, "liabilitylimit") + "\",\n"
+                            + "\"date1\":\"" + tools.functions.jsonget(job, "date1") + "\",\n"
+                            + "\"date2\":\""  + tools.functions.jsonget(job, "date2") + "\",\n"
+                            + "\"productid\":\"" + tools.functions.jsonget(job, "productid") + "\",\n"
+                            + "\"birthday2\":\"" + tools.functions.jsonget(job, "birthday2") + "\",\n"
+                            + "\"2birthday2\":\"" + tools.functions.jsonget(job, "2birthday2") + "\",\n"
+                            + "\"date12\":\"" + tools.functions.jsonget(job, "date12") + "\",\n"
+                            + "\"date22\":\"" + tools.functions.jsonget(job, "date22") + "\",\n"
+                            + "\"gender\":\""  + tools.functions.jsonget(job, "gender") + "\",\n"
+                            + "\"modelid\":\""  + tools.functions.jsonget(job, "modelid")+ "\",\n"
+                            + "\"Detailitem\":[";
+                    ss+="\"\"";
+                    for (int i=0;i<Detailitem.size();i++)
+                        ss+=",\""+ Detailitem.get(i) + "\"\n";
+ 
+                    //ss+="\"\"";
+                    //for (int i=0;i<Detailitem2.size();i++)
+                    //    ss+="\""+ Detailitem2.get(i) + "\",\n";
+                    
+                    
+                            ss+="],\n}";
+
+
+
+                } else {
+                    ss = "{\n\"command\":\"getliabilitydetails\",\n"
+                            + "\"result\":\"productnotfound\"\n}";
+                }
+
+
+                System.out.println(ss);
+                response.getWriter().write(ss);
             }
 
         } catch (Exception e) {
+            System.out.println("tryend" + e.toString());
             e.printStackTrace();
         } finally {
             if (conn != null) {

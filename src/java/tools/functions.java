@@ -1490,22 +1490,25 @@ public class functions {
     public static String jsonget(JsonObject json, String name) {
         JsonElement ss = json.get(name);
         if (ss == null) {
+
             return "";
         }
         if (ss.isJsonNull()) {
+
             return "";
         } else {
+
             return ss.getAsString().replace("\t", " ").replace("\n", " ");
         }
     }
 
     public static String dateConverter(String oldFormat, String newFormat, String ddate) {
         // data formats ald "dd-MM-yyyy" new "yyyy-MM-dd HH:mm:ss"
-        
+
         SimpleDateFormat originalFormat = new SimpleDateFormat(oldFormat);
         SimpleDateFormat targetFormat = new SimpleDateFormat(newFormat);
-            java.util.Date  date;
-           
+        java.util.Date date;
+
         try {
             date = originalFormat.parse(ddate);
             System.out.println("Old Format :   " + originalFormat.format(date));
