@@ -693,28 +693,88 @@ public class mainService extends HttpServlet {
 
                 String gender2 = tools.functions.jsonget(job, "2gender");
                 System.out.println("gender2=" + gender);
-
+                
+                String liabilitylimit = tools.functions.jsonget(job, "liabilitylimit");
+                System.out.println("liabilitylimit=" + liabilitylimit);
+                
+                String currency = tools.functions.jsonget(job, "currency");
+                System.out.println("currency=" + currency);
+                
+                int curr=0;
+                
+                if (currency.equals("_lari")) curr=12;
+                else if (currency.equals("_usd")) curr=14;
+                else if (currency.equals("_eur")) curr=37;
 /// insert into
-                String qwr = "select * from ma_mtpl_cars limit 1";
+              String qwr = "select provider_id,provider.name,amount_limit,amount_price,p.id from ma_mtpl_params p,provider \n" +
+"where provider_id=provider.id and p.amount_limit='"+liabilitylimit+"' and exchange_rate_id='"+curr+"'";
 
-                System.out.println(qwr);
+             System.out.println("kukuuuuuuuuuuu"+qwr);
 
-                ArrayList<String[]> s1 = tools.functions.getResult(qwr, tools.functions.isnewcompare);
-                System.out.println("2 s1=     " + s1.get(0)[0]);
+               ArrayList<String[]> provider = tools.functions.getResult(qwr, tools.functions.isnewcompare);
+               String ss;
 
-                System.out.println(qwr);
+               
+               if (provider.size()==0){
+                        ss = "{\n\"command\":\"getliability\",\n"
+                            + "\"result\":\"noproposals\"\n}";
+               }else{
+                                                      ss = "{\n\"command\":\"getliability\",\n"
+                            + "\"result\":\"ok\",\n"
+                            + "\"userid\":\"" + 94 + "\",\n"
+                            + "\"proposals\":[" ;
+               for (int i=0;i<provider.size();i++){
+                   String sql="select name from ma_mtpl_params p left join ma_mtpl_benefits b on p.id=b.ma_mtpl_params_id where p.id='"+
+                           provider.get(i)[4]+"'";
+                   ArrayList<String[]> benefits2 = tools.functions.getResult(qwr, tools.functions.isnewcompare);
+                   String benefits="";
+                   for (int j=0;j<benefits2.size();j++)
+                       if (j==0) benefits=benefits2.get(j)[0]; else benefits+=","+benefits2.get(j)[0];
+                        String proposal = "{\n\"providerid\":\"" + provider.get(i)[0] + "\",\n"
+                        + "\"providername\":\"" + provider.get(i)[1] + "\",\n"
+                        + "\"productid\":\"" + 111 + "\",\n"
+                        + "\"limit\":\"" + liabilitylimit + "\",\n"
+                     
+                        //+ "\"benefits\":" + benefits + ",\n"
+                        //+ "\"detals\":" + detals + ",\n"
+                        + "\"price\":\"" + provider.get(i)[3] +" "+currency+ "\"\n}";
+                        if (i==0) ss+=proposal;
+                        else ss+=","+proposal;
+               }
+               ss+="]\n}";
+               }
+                //System.out.println("2 s1=     " + s1.get(0)[0]);
 
+               System.out.println(ss);
+/*
                 String benefititem = "";
                 String benefits = "[\"100 ლარის საწვავი ვისოლში\",\"100 ლარის საწვავი ვისოლში\",\"100 ლარის საწვავი ვისოლში\"]";
                 String benefits2 = "[\"მანქანის 10ჯერ უფასოდ რეცხვა\",\"150 ლარის საწვავი ვისოლში\",\"150 ლარის საწვავი ვისოლში\"]";
                 String benefits6 = "[\"100 ლარის საწვავი ლუკოილში\",\"100 ლარის საწვავი ლუკოილში\",\"100 ლარის საწვავი ლუკოილში\"]";
 
+                ArrayList<String> Detailitem=new ArrayList<String>();               
+                Detailitem.add( "ძირითადი დაფარვა;ლიმიტი;ფრანშიზა;header"); 
+                Detailitem.add ("სასწრაფო სამედიცინო დაფარვის,ულიმიტო;$0");
+                Detailitem.add( "გადაუდებელი ჰოსპიტალური მკურნალობის ხარჯები;$500 დღე (სულ$20K);$0");
+                Detailitem.add( "გადაუდებელი ამბულატორიული მკურნალობის ხარჯები;$5K;$100");
+                Detailitem.add( "გადაუდებელი სტომატოლოგიური მკურნალობის ხარჯები;$500;$100");
+                Detailitem.add( "გადაუდებელი ოფთალმოლოგიური მკურნალობის ხარჯები;$1000;$100");
+                Detailitem.add( "დაზღვეულის რეპატრიაცია;$1000;$0");
+                
+                String detals;
+                
+                detals=  "[\"ძირითადი დაფარვა;ლიმიტი;ფრანშიზა\","
+                        + "\"ძირითადი დაფარვა1;1000;25\","
+                        + "\"ძირითადი დაფარვა2;2000;75\","
+                        + "\"ძირითადი დაფარვა3;3000;35\""
+                        + "]";
                 String proposal = "{\n\"providerid\":\"" + 5 + "\",\n"
                         + "\"providername\":\"" + "aldagi" + "\",\n"
                         + "\"productid\":\"" + 111 + "\",\n"
                         + "\"limit\":\"" + 15000 + "\",\n"
                         + "\"franchise\":\"" + "1%" + "\",\n"
                         + "\"benefits\":" + benefits + ",\n"
+                        + "\"detals\":" + detals + ",\n"
                         + "\"price\":\"" + "14_gel" + "\"\n}";
 
                 String proposal3 = "{\n\"providerid\":\"" + 6 + "\",\n"
@@ -740,8 +800,8 @@ public class mainService extends HttpServlet {
                         + "\"price\":\"" + "5.5_usd" + "\"\n}";
 
                 //            proposal=proposal2="\"kuku\"";
-                String ss;
-                if (s1.size() > 0) {
+
+                if (provider.size() > 0) {
                     ss = "{\n\"command\":\"getliability\",\n"
                             + "\"result\":\"ok\",\n"
                             + "\"userid\":\"" + 94 + "\",\n"
@@ -753,7 +813,7 @@ public class mainService extends HttpServlet {
                             + "\"result\":\"noproposals\"\n}";
                 }
 
-                System.out.println(ss);
+                System.out.println(ss);*/
                 response.getWriter().write(ss);
             } else if (command.equals("getliabilitydetails")) {
 
@@ -829,11 +889,11 @@ public class mainService extends HttpServlet {
                 Detailitem.add("სახ. ნომერი;"+ tools.functions.jsonget(job, "carnumber") );
                 Detailitem.add("ვინ. კოდი;"+ tools.functions.jsonget(job, "carvin"));
                 Detailitem.add("ლიმიტი;"+ tools.functions.jsonget(job, "liabilitylimit")); 
-                Detailitem.add("სადაზღვევო პერიოდი;"+ tools.functions.jsonget(job, "date1")+"დან"+ tools.functions.jsonget(job, "date2")); 
+                Detailitem.add("სადაზღვევო პერიოდი;"+ tools.functions.jsonget(job, "date1")+"-"+ tools.functions.jsonget(job, "date2")); 
                 
                 Detailitem.add("");
                 
-                Detailitem.add( "ძირითადი დაფარვა;ლიმიტი;ფრანშიზა"); 
+                Detailitem.add( "ძირითადი დაფარვა;ლიმიტი;ფრანშიზა;header"); 
                 Detailitem.add ("სასწრაფო სამედიცინო დაფარვის,ულიმიტო;$0");
                 Detailitem.add( "გადაუდებელი ჰოსპიტალური მკურნალობის ხარჯები;$500 დღე (სულ$20K);$0");
                 Detailitem.add( "გადაუდებელი ამბულატორიული მკურნალობის ხარჯები;$5K;$100");
