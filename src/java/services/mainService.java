@@ -21,6 +21,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import tools.functions;
 
 /**
  *
@@ -700,6 +701,9 @@ public class mainService extends HttpServlet {
                 String currency = tools.functions.jsonget(job, "currency");
                 System.out.println("currency=" + currency);
                 
+                String paymentschedule = tools.functions.jsonget(job, "paymentschedule");
+                System.out.println("paymentschedule=" + paymentschedule);
+                
                 int curr=0;
                 
                 if (currency.equals("_lari")) curr=12;
@@ -709,7 +713,7 @@ public class mainService extends HttpServlet {
               String qwr = "select provider_id,provider.name,amount_limit,amount_price,p.id from ma_mtpl_params p,provider \n" +
 "where provider_id=provider.id and p.amount_limit='"+liabilitylimit+"' and exchange_rate_id='"+curr+"'";
 
-             System.out.println("kukuuuuuuuuuuu"+qwr);
+             System.out.println("qwr=    "+qwr);
 
                ArrayList<String[]> provider = tools.functions.getResult(qwr, tools.functions.isnewcompare);
                String ss;
@@ -724,19 +728,38 @@ public class mainService extends HttpServlet {
                             + "\"userid\":\"" + 94 + "\",\n"
                             + "\"proposals\":[" ;
                for (int i=0;i<provider.size();i++){
+                   System.out.println("provider=  "+provider.get(i)[1]);
                    String sql="select name from ma_mtpl_params p left join ma_mtpl_benefits b on p.id=b.ma_mtpl_params_id where p.id='"+
                            provider.get(i)[4]+"'";
-                   ArrayList<String[]> benefits2 = tools.functions.getResult(qwr, tools.functions.isnewcompare);
+                   ArrayList<String[]> benefits2 = tools.functions.getResult(sql, tools.functions.isnewcompare);
                    String benefits="";
                    for (int j=0;j<benefits2.size();j++)
-                       if (j==0) benefits=benefits2.get(j)[0]; else benefits+=","+benefits2.get(j)[0];
+                       if (j==0) benefits="\""+benefits2.get(j)[0]+"\""; else benefits+=",\""+benefits2.get(j)[0]+"\"";
+                   String details="";
+                    double price=0;
+                   String paymentschedule2=paymentschedule;
+                   if (paymentschedule.equals("inmounth")){
+                            price=functions.str2double0(provider.get(i)[3])/12;
+                          
+                            
+                        } else if (paymentschedule.equals("inkvart")){
+                            price=functions.str2double0(provider.get(i)[3])/4;
+                        } else if (paymentschedule.equals("inyear2")){
+                            price=functions.str2double0(provider.get(i)[3])/2;
+                           // paymentschedule2=paymentschedule+"br";
+                        } else if (paymentschedule.equals("inonce")){
+                            price=functions.str2double0(provider.get(i)[3]);
+                        }
+                   System.out.println("price="+provider.get(i)[3]+"="+functions.str2int0(provider.get(i)[3])+"="+price);
+                        details="\"limit;"+ provider.get(i)[2]+" "+currency+"\",\"price;"+provider.get(i)[3]+" "+currency+"\",\""+paymentschedule+";"+String.format("%.2f", price)+" "+currency+"\"";    
+                   
                         String proposal = "{\n\"providerid\":\"" + provider.get(i)[0] + "\",\n"
                         + "\"providername\":\"" + provider.get(i)[1] + "\",\n"
                         + "\"productid\":\"" + 111 + "\",\n"
                         + "\"limit\":\"" + liabilitylimit + "\",\n"
-                     
-                        //+ "\"benefits\":" + benefits + ",\n"
-                        //+ "\"detals\":" + detals + ",\n"
+                        + "\"franchise\":\"" + "0" + "\",\n"
+                        + "\"benefits\":[" + benefits + "],\n"
+                        + "\"detals\":[" + details + "],\n"
                         + "\"price\":\"" + provider.get(i)[3] +" "+currency+ "\"\n}";
                         if (i==0) ss+=proposal;
                         else ss+=","+proposal;
@@ -746,74 +769,7 @@ public class mainService extends HttpServlet {
                 //System.out.println("2 s1=     " + s1.get(0)[0]);
 
                System.out.println(ss);
-/*
-                String benefititem = "";
-                String benefits = "[\"100 ლარის საწვავი ვისოლში\",\"100 ლარის საწვავი ვისოლში\",\"100 ლარის საწვავი ვისოლში\"]";
-                String benefits2 = "[\"მანქანის 10ჯერ უფასოდ რეცხვა\",\"150 ლარის საწვავი ვისოლში\",\"150 ლარის საწვავი ვისოლში\"]";
-                String benefits6 = "[\"100 ლარის საწვავი ლუკოილში\",\"100 ლარის საწვავი ლუკოილში\",\"100 ლარის საწვავი ლუკოილში\"]";
 
-                ArrayList<String> Detailitem=new ArrayList<String>();               
-                Detailitem.add( "ძირითადი დაფარვა;ლიმიტი;ფრანშიზა;header"); 
-                Detailitem.add ("სასწრაფო სამედიცინო დაფარვის,ულიმიტო;$0");
-                Detailitem.add( "გადაუდებელი ჰოსპიტალური მკურნალობის ხარჯები;$500 დღე (სულ$20K);$0");
-                Detailitem.add( "გადაუდებელი ამბულატორიული მკურნალობის ხარჯები;$5K;$100");
-                Detailitem.add( "გადაუდებელი სტომატოლოგიური მკურნალობის ხარჯები;$500;$100");
-                Detailitem.add( "გადაუდებელი ოფთალმოლოგიური მკურნალობის ხარჯები;$1000;$100");
-                Detailitem.add( "დაზღვეულის რეპატრიაცია;$1000;$0");
-                
-                String detals;
-                
-                detals=  "[\"ძირითადი დაფარვა;ლიმიტი;ფრანშიზა\","
-                        + "\"ძირითადი დაფარვა1;1000;25\","
-                        + "\"ძირითადი დაფარვა2;2000;75\","
-                        + "\"ძირითადი დაფარვა3;3000;35\""
-                        + "]";
-                String proposal = "{\n\"providerid\":\"" + 5 + "\",\n"
-                        + "\"providername\":\"" + "aldagi" + "\",\n"
-                        + "\"productid\":\"" + 111 + "\",\n"
-                        + "\"limit\":\"" + 15000 + "\",\n"
-                        + "\"franchise\":\"" + "1%" + "\",\n"
-                        + "\"benefits\":" + benefits + ",\n"
-                        + "\"detals\":" + detals + ",\n"
-                        + "\"price\":\"" + "14_gel" + "\"\n}";
-
-                String proposal3 = "{\n\"providerid\":\"" + 6 + "\",\n"
-                        + "\"providername\":\"" + "gpi" + "\",\n"
-                        + "\"productid\":\"" + 112 + "\",\n"
-                        + "\"limit\":\"" + 16000 + "\",\n"
-                        + "\"franchise\":\"" + "1%" + "\",\n"
-                        + "\"benefits\":" + benefits + ",\n"
-                        + "\"price\":\"" + "5.50_eu" + "\"\n}";
-                String proposal4 = "{\n\"providerid\":\"" + 7 + "\",\n"
-                        + "\"providername\":\"" + "tbc" + "\",\n"
-                        + "\"productid\":\"" + 113 + "\",\n"
-                        + "\"limit\":\"" + 16000 + "\",\n"
-                        + "\"franchise\":\"" + "1%" + "\",\n"
-                        + "\"benefits\":" + benefits + ",\n"
-                        + "\"price\":\"" + "15.50_gel" + "\"\n}";
-                String proposal5 = "{\n\"providerid\":\"" + 8 + "\",\n"
-                        + "\"providername\":\"" + "benefits" + "\",\n"
-                        + "\"productid\":\"" + 114 + "\",\n"
-                        + "\"limit\":\"" + 16000 + "\",\n"
-                        + "\"franchise\":\"" + "1%" + "\",\n"
-                        + "\"benefits\":" + benefits6 + ",\n"
-                        + "\"price\":\"" + "5.5_usd" + "\"\n}";
-
-                //            proposal=proposal2="\"kuku\"";
-
-                if (provider.size() > 0) {
-                    ss = "{\n\"command\":\"getliability\",\n"
-                            + "\"result\":\"ok\",\n"
-                            + "\"userid\":\"" + 94 + "\",\n"
-                            + "\"proposals\":[" + proposal + ","
-                            + proposal3 + "," + proposal4 + "," + proposal5 + "]\n}";
-
-                } else {
-                    ss = "{\n\"command\":\"getliability\",\n"
-                            + "\"result\":\"noproposals\"\n}";
-                }
-
-                System.out.println(ss);*/
                 response.getWriter().write(ss);
             } else if (command.equals("getliabilitydetails")) {
 
