@@ -652,7 +652,6 @@ public class mainService extends HttpServlet {
             } else if (command.equals("getliability")) {
 
 //   change user getliability 
-
                 String userid = tools.functions.jsonget(job, "userid");
                 System.out.println("userid=" + userid);
 
@@ -785,7 +784,6 @@ public class mainService extends HttpServlet {
             } else if (command.equals("gettravel")) {
 
 //   change user gettravel
-
                 String userid = tools.functions.jsonget(job, "userid");
                 System.out.println("userid=" + userid);
 
@@ -829,8 +827,8 @@ public class mainService extends HttpServlet {
                 String gender2 = tools.functions.jsonget(job, "2gender");
                 System.out.println("gender2=" + gender);
 
-                String liabilitylimit = tools.functions.jsonget(job, "liabilitylimit");
-                System.out.println("liabilitylimit=" + liabilitylimit);
+                String insurancelimit = tools.functions.jsonget(job, "insurancelimit");
+                System.out.println("insurancelimit=" + insurancelimit);
 
                 String currency = tools.functions.jsonget(job, "currency");
                 System.out.println("currency=" + currency);
@@ -848,8 +846,8 @@ public class mainService extends HttpServlet {
                     curr = 37;
                 }
 /// insert into
-                String qwr = "select provider_id,provider.name,amount_limit,amount_price,p.id from ma_mtpl_params p,provider \n"
-                        + "where provider_id=provider.id and p.amount_limit='" + liabilitylimit + "' and exchange_rate_id='" + curr + "'";
+                String qwr = "select provider_id,provider.name,amount_limit,amount_price,p.id from travel_params p,provider \n"
+                        + "where provider_id=provider.id and p.amount_limit='" + insurancelimit + "' and exchange_rate_id='" + curr + "'";
 
                 System.out.println("qwr=    " + qwr);
 
@@ -857,10 +855,10 @@ public class mainService extends HttpServlet {
                 String ss;
 
                 if (provider.size() == 0) {
-                    ss = "{\n\"command\":\"getliability\",\n"
+                    ss = "{\n\"command\":\"gettravel\",\n"
                             + "\"result\":\"noproposals\"\n}";
                 } else {
-                    ss = "{\n\"command\":\"getliability\",\n"
+                    ss = "{\n\"command\":\"gettravel\",\n"
                             + "\"result\":\"ok\",\n"
                             + "\"userid\":\"" + 94 + "\",\n"
                             + "\"proposals\":[";
@@ -897,7 +895,7 @@ public class mainService extends HttpServlet {
                         String proposal = "{\n\"providerid\":\"" + provider.get(i)[0] + "\",\n"
                                 + "\"providername\":\"" + provider.get(i)[1] + "\",\n"
                                 + "\"productid\":\"" + 111 + "\",\n"
-                                + "\"limit\":\"" + liabilitylimit + "\",\n"
+                                + "\"limit\":\"" + insurancelimit + "\",\n"
                                 + "\"franchise\":\"" + "0" + "\",\n"
                                 + "\"benefits\":[" + benefits + "],\n"
                                 + "\"detals\":[" + details + "],\n"
@@ -915,6 +913,276 @@ public class mainService extends HttpServlet {
                 System.out.println(ss);
 
                 response.getWriter().write(ss);
+
+            } else if (command.equals("getproperty")) {
+
+//   change user getproperty
+                String userid = tools.functions.jsonget(job, "userid");
+                System.out.println("userid=" + userid);
+
+                String forwho = tools.functions.jsonget(job, "forwho");
+                System.out.println("forwho=" + forwho);
+
+                String personal_n = tools.functions.jsonget(job, "personal_n");
+                System.out.println("personal_n=" + personal_n);
+
+                String birthday = tools.functions.jsonget(job, "birthday");
+                System.out.println("birthday=" + birthday);
+
+                String namefirst = tools.functions.jsonget(job, "namefirst");
+                System.out.println("namefirst=" + namefirst);
+
+                String namelast = tools.functions.jsonget(job, "namelast");
+                System.out.println("namelast=" + namelast);
+
+                String gender = tools.functions.jsonget(job, "gender");
+                System.out.println("gender=" + gender);
+
+                String phone = tools.functions.jsonget(job, "phone");
+                System.out.println("phone=" + phone);
+
+                String email = tools.functions.jsonget(job, "email");
+                System.out.println("email=" + email);
+
+// editional person
+                String personal_n2 = tools.functions.jsonget(job, "2personal_n");
+                System.out.println("2personal_n=" + personal_n2);
+
+                String namelast2 = tools.functions.jsonget(job, "2namelast");
+                System.out.println("namelast2=" + namelast2);
+
+                String namefirst2 = tools.functions.jsonget(job, "2namefirstlat");
+                System.out.println("namelast2=" + namefirst2);
+
+                String birthday2 = tools.functions.jsonget(job, "2birthday");
+                System.out.println("birthday2=" + birthday2);
+
+                String gender2 = tools.functions.jsonget(job, "2gender");
+                System.out.println("gender2=" + gender);
+
+                String insurancelimit = tools.functions.jsonget(job, "homeinsurancelimit");
+                System.out.println("homeinsurancelimit=" + insurancelimit);
+
+                String currency = tools.functions.jsonget(job, "currency");
+                System.out.println("currency=" + currency);
+
+                String paymentschedule = tools.functions.jsonget(job, "paymentschedule");
+                System.out.println("paymentschedule=" + paymentschedule);
+
+                int curr = 0;
+
+                if (currency.equals("_lari")) {
+                    curr = 12;
+                } else if (currency.equals("_usd")) {
+                    curr = 14;
+                } else if (currency.equals("_eur")) {
+                    curr = 37;
+                }
+/// insert into
+                String qwr = "select provider_id,provider.name,amount_limit,amount_price,p.id from property_params p,provider \n"
+                        + "where provider_id=provider.id and p.amount_limit='" + insurancelimit + "' and exchange_rate_id='" + curr + "'";
+
+                System.out.println("qwr=    " + qwr);
+
+                ArrayList<String[]> provider = tools.functions.getResult(qwr, tools.functions.isnewcompare);
+                String ss;
+
+                if (provider.size() == 0) {
+                    ss = "{\n\"command\":\"getproperty\",\n"
+                            + "\"result\":\"noproposals\"\n}";
+                } else {
+                    ss = "{\n\"command\":\"gettravel\",\n"
+                            + "\"result\":\"ok\",\n"
+                            + "\"userid\":\"" + 94 + "\",\n"
+                            + "\"proposals\":[";
+                    for (int i = 0; i < provider.size(); i++) {
+                        System.out.println("provider=  " + provider.get(i)[1]);
+                        String sql = "select name from ma_mtpl_params p left join ma_mtpl_benefits b on p.id=b.ma_mtpl_params_id where p.id='"
+                                + provider.get(i)[4] + "'";
+                        ArrayList<String[]> benefits2 = tools.functions.getResult(sql, tools.functions.isnewcompare);
+                        String benefits = "";
+                        for (int j = 0; j < benefits2.size(); j++) {
+                            if (j == 0) {
+                                benefits = "\"" + benefits2.get(j)[0] + "\"";
+                            } else {
+                                benefits += ",\"" + benefits2.get(j)[0] + "\"";
+                            }
+                        }
+                        String details = "";
+                        double price = 0;
+                        String paymentschedule2 = paymentschedule;
+                        if (paymentschedule.equals("inmounth")) {
+                            price = functions.str2double0(provider.get(i)[3]) / 12;
+
+                        } else if (paymentschedule.equals("inkvart")) {
+                            price = functions.str2double0(provider.get(i)[3]) / 4;
+                        } else if (paymentschedule.equals("inyear2")) {
+                            price = functions.str2double0(provider.get(i)[3]) / 2;
+                            // paymentschedule2=paymentschedule+"br";
+                        } else if (paymentschedule.equals("inonce")) {
+                            price = functions.str2double0(provider.get(i)[3]);
+                        }
+                        System.out.println("price=" + provider.get(i)[3] + "=" + functions.str2int0(provider.get(i)[3]) + "=" + price);
+                        details = "\"limit;" + provider.get(i)[2] + " " + currency + "\",\"price;" + provider.get(i)[3] + " " + currency + "\",\"" + paymentschedule + ";" + String.format("%.2f", price) + " " + currency + "\"";
+
+                        String proposal = "{\n\"providerid\":\"" + provider.get(i)[0] + "\",\n"
+                                + "\"providername\":\"" + provider.get(i)[1] + "\",\n"
+                                + "\"productid\":\"" + 111 + "\",\n"
+                                + "\"limit\":\"" + insurancelimit + "\",\n"
+                                + "\"franchise\":\"" + "0" + "\",\n"
+                                + "\"benefits\":[" + benefits + "],\n"
+                                + "\"detals\":[" + details + "],\n"
+                                + "\"price\":\"" + provider.get(i)[3] + " " + currency + "\"\n}";
+                        if (i == 0) {
+                            ss += proposal;
+                        } else {
+                            ss += "," + proposal;
+                        }
+                    }
+                    ss += "]\n}";
+                }
+                //System.out.println("2 s1=     " + s1.get(0)[0]);
+
+                System.out.println(ss);
+
+                response.getWriter().write(ss);
+            }else if (command.equals("gethealth")) {
+
+//   change user gethealth
+                String userid = tools.functions.jsonget(job, "userid");
+                System.out.println("userid=" + userid);
+
+                String forwho = tools.functions.jsonget(job, "forwho");
+                System.out.println("forwho=" + forwho);
+
+                String personal_n = tools.functions.jsonget(job, "personal_n");
+                System.out.println("personal_n=" + personal_n);
+
+                String birthday = tools.functions.jsonget(job, "birthday");
+                System.out.println("birthday=" + birthday);
+
+                String namefirst = tools.functions.jsonget(job, "namefirst");
+                System.out.println("namefirst=" + namefirst);
+
+                String namelast = tools.functions.jsonget(job, "namelast");
+                System.out.println("namelast=" + namelast);
+
+                String gender = tools.functions.jsonget(job, "gender");
+                System.out.println("gender=" + gender);
+
+                String phone = tools.functions.jsonget(job, "phone");
+                System.out.println("phone=" + phone);
+
+                String email = tools.functions.jsonget(job, "email");
+                System.out.println("email=" + email);
+
+// editional person
+                String personal_n2 = tools.functions.jsonget(job, "2personal_n");
+                System.out.println("2personal_n=" + personal_n2);
+
+                String namelast2 = tools.functions.jsonget(job, "2namelast");
+                System.out.println("namelast2=" + namelast2);
+
+                String namefirst2 = tools.functions.jsonget(job, "2namefirstlat");
+                System.out.println("namelast2=" + namefirst2);
+
+                String birthday2 = tools.functions.jsonget(job, "2birthday");
+                System.out.println("birthday2=" + birthday2);
+
+                String gender2 = tools.functions.jsonget(job, "2gender");
+                System.out.println("gender2=" + gender);
+
+                String insurancelimit = tools.functions.jsonget(job, "homeinsurancelimit");
+                System.out.println("homeinsurancelimit=" + insurancelimit);
+
+                String currency = tools.functions.jsonget(job, "currency");
+                System.out.println("currency=" + currency);
+
+                String paymentschedule = tools.functions.jsonget(job, "paymentschedule");
+                System.out.println("paymentschedule=" + paymentschedule);
+
+                int curr = 12;
+
+                if (currency.equals("_lari")) {
+                    curr = 12;
+                } else if (currency.equals("_usd")) {
+                    curr = 14;
+                } else if (currency.equals("_eur")) {
+                    curr = 37;
+                }
+/// insert into
+                String qwr = "select provider_id,provider.name,amount_limit,amount_price,p.id from health_params p,provider \n"
+                        + "where provider_id=provider.id  and exchange_rate_id='" + curr + "'"; ;
+
+                System.out.println("qwr=    " + qwr);
+
+                ArrayList<String[]> provider = tools.functions.getResult(qwr, tools.functions.isnewcompare);
+                String ss;
+
+                if (provider.size() == 0) {
+                    ss = "{\n\"command\":\"gethealth\",\n"
+                            + "\"result\":\"noproposals\"\n}";
+                } else {
+                    ss = "{\n\"command\":\"gettravel\",\n"
+                            + "\"result\":\"ok\",\n"
+                            + "\"userid\":\"" + 94 + "\",\n"
+                            + "\"proposals\":[";
+                    for (int i = 0; i < provider.size(); i++) {
+                        System.out.println("provider=  " + provider.get(i)[1]);
+                        String sql = "select name from ma_mtpl_params p left join ma_mtpl_benefits b on p.id=b.ma_mtpl_params_id where p.id='"
+                                + provider.get(i)[4] + "'";
+                        ArrayList<String[]> benefits2 = tools.functions.getResult(sql, tools.functions.isnewcompare);
+                        String benefits = "";
+                        for (int j = 0; j < benefits2.size(); j++) {
+                            if (j == 0) {
+                                benefits = "\"" + benefits2.get(j)[0] + "\"";
+                            } else {
+                                benefits += ",\"" + benefits2.get(j)[0] + "\"";
+                            }
+                        }
+                        String details = "";
+                        double price = 0;
+                        String paymentschedule2 = paymentschedule;
+                        if (paymentschedule.equals("inmounth")) {
+                            price = functions.str2double0(provider.get(i)[3]) / 12;
+
+                        } else if (paymentschedule.equals("inkvart")) {
+                            price = functions.str2double0(provider.get(i)[3]) / 4;
+                        } else if (paymentschedule.equals("inyear2")) {
+                            price = functions.str2double0(provider.get(i)[3]) / 2;
+                            // paymentschedule2=paymentschedule+"br";
+                        } else if (paymentschedule.equals("inonce")) {
+                            price = functions.str2double0(provider.get(i)[3]);
+                        }
+                        System.out.println("price=" + provider.get(i)[3] + "=" + functions.str2int0(provider.get(i)[3]) + "=" + price);
+                        details = "\"limit;" + provider.get(i)[2] + " " + currency + "\",\"price;" + provider.get(i)[3] + " " + currency + "\",\"" + paymentschedule + ";" + String.format("%.2f", price) + " " + currency + "\"";
+
+                        String proposal = "{\n\"providerid\":\"" + provider.get(i)[0] + "\",\n"
+                                + "\"providername\":\"" + provider.get(i)[1] + "\",\n"
+                                + "\"productid\":\"" + 111 + "\",\n"
+                                + "\"limit\":\"" + provider.get(i)[2] + "\",\n"
+                                + "\"franchise\":\"" + "0" + "\",\n"
+                                + "\"benefits\":[" + benefits + "],\n"
+                                + "\"detals\":[" + details + "],\n"
+                                + "\"price\":\"" + provider.get(i)[3] + " " + currency + "\"\n}";
+                        if (i == 0) {
+                            ss += proposal;
+                        } else {
+                            ss += "," + proposal;
+                        }
+                    }
+                    ss += "]\n}";
+                }
+                //System.out.println("2 s1=     " + s1.get(0)[0]);
+
+                System.out.println(ss);
+
+                response.getWriter().write(ss);
+                
+                
+                
+                
+                
             } else if (command.equals("getliabilitydetails")) {
 
 //   getliability details
