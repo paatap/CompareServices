@@ -759,7 +759,8 @@ public class mainService extends HttpServlet {
                         }
                         System.out.println("price=" + provider.get(i)[3] + "=" + functions.str2int0(provider.get(i)[3]) + "=" + price);
                         details = "\"limit;" + provider.get(i)[2] + " " + currency + "\",\"price;" + provider.get(i)[3] + " " + currency + "\",\"" + paymentschedule + ";" + String.format("%.2f", price) + " " + currency + "\"";
-
+                        String mypdf = command + provider.get(i)[1];
+                        //              + "\"pdf\":\"pdf/" + mypdf + ".pdf\",\n"
                         String proposal = "{\n\"providerid\":\"" + provider.get(i)[0] + "\",\n"
                                 + "\"providername\":\"" + provider.get(i)[1] + "\",\n"
                                 + "\"productid\":\"" + 111 + "\",\n"
@@ -767,6 +768,7 @@ public class mainService extends HttpServlet {
                                 + "\"franchise\":\"" + "0" + "\",\n"
                                 + "\"benefits\":[" + benefits + "],\n"
                                 + "\"detals\":[" + details + "],\n"
+                                + "\"pdf\":\"pdf/" + mypdf + ".pdf\",\n"
                                 + "\"price\":\"" + provider.get(i)[3] + " " + currency + "\"\n}";
                         if (i == 0) {
                             ss += proposal;
@@ -793,8 +795,8 @@ public class mainService extends HttpServlet {
                 String personal_n = tools.functions.jsonget(job, "personal_n");
                 System.out.println("personal_n=" + personal_n);
 
-                String birthday = tools.functions.jsonget(job, "birthday");
-                System.out.println("birthday=" + birthday);
+                String birthday = tools.functions.jsonget(job, "birthday2");
+                System.out.println("birthday=++" + birthday);
 
                 String namefirst = tools.functions.jsonget(job, "namefirst");
                 System.out.println("namefirst=" + namefirst);
@@ -811,6 +813,9 @@ public class mainService extends HttpServlet {
                 String email = tools.functions.jsonget(job, "email");
                 System.out.println("email=" + email);
 
+                String birthday2 = tools.functions.jsonget(job, "birthday2");
+                System.out.println("birthday2=" + birthday2);
+
 // editional person
                 String personal_n2 = tools.functions.jsonget(job, "2personal_n");
                 System.out.println("2personal_n=" + personal_n2);
@@ -820,9 +825,6 @@ public class mainService extends HttpServlet {
 
                 String namefirst2 = tools.functions.jsonget(job, "2namefirstlat");
                 System.out.println("namelast2=" + namefirst2);
-
-                String birthday2 = tools.functions.jsonget(job, "2birthday");
-                System.out.println("birthday2=" + birthday2);
 
                 String gender2 = tools.functions.jsonget(job, "2gender");
                 System.out.println("gender2=" + gender);
@@ -847,7 +849,9 @@ public class mainService extends HttpServlet {
                 }
 /// insert into
                 String qwr = "select provider_id,provider.name,amount_limit,amount_price,p.id from travel_params p,provider \n"
-                        + "where provider_id=provider.id and p.amount_limit='" + insurancelimit + "' and exchange_rate_id='" + curr + "'";
+                        + "where provider_id=provider.id and p.amount_limit='" + insurancelimit + "' and exchange_rate_id='" + curr
+                        + "' and  date_part('year', age( now(),'" + birthday + "'))>age_min and  date_part('year', age( now(),'" + birthday + "'))<age_max" //      date_part('year', age( now(),'1972-1-23'))>age_min  and    date_part('year', age( now(),'1972-1-23'))<age_max
+                        ;
 
                 System.out.println("qwr=    " + qwr);
 
@@ -891,7 +895,8 @@ public class mainService extends HttpServlet {
                         }
                         System.out.println("price=" + provider.get(i)[3] + "=" + functions.str2int0(provider.get(i)[3]) + "=" + price);
                         details = "\"limit;" + provider.get(i)[2] + " " + currency + "\",\"price;" + provider.get(i)[3] + " " + currency + "\",\"" + paymentschedule + ";" + String.format("%.2f", price) + " " + currency + "\"";
-
+                        String mypdf = command + provider.get(i)[1];
+                        //              + "\"pdf\":\"pdf/" + mypdf + ".pdf\",\n"
                         String proposal = "{\n\"providerid\":\"" + provider.get(i)[0] + "\",\n"
                                 + "\"providername\":\"" + provider.get(i)[1] + "\",\n"
                                 + "\"productid\":\"" + 111 + "\",\n"
@@ -899,6 +904,7 @@ public class mainService extends HttpServlet {
                                 + "\"franchise\":\"" + "0" + "\",\n"
                                 + "\"benefits\":[" + benefits + "],\n"
                                 + "\"detals\":[" + details + "],\n"
+                                + "\"pdf\":\"pdf/" + mypdf + ".pdf\",\n"
                                 + "\"price\":\"" + provider.get(i)[3] + " " + currency + "\"\n}";
                         if (i == 0) {
                             ss += proposal;
@@ -1024,7 +1030,8 @@ public class mainService extends HttpServlet {
                         }
                         System.out.println("price=" + provider.get(i)[3] + "=" + functions.str2int0(provider.get(i)[3]) + "=" + price);
                         details = "\"limit;" + provider.get(i)[2] + " " + currency + "\",\"price;" + provider.get(i)[3] + " " + currency + "\",\"" + paymentschedule + ";" + String.format("%.2f", price) + " " + currency + "\"";
-
+                        String mypdf = command + provider.get(i)[1];
+                        //              + "\"pdf\":\"pdf/" + mypdf + ".pdf\",\n"
                         String proposal = "{\n\"providerid\":\"" + provider.get(i)[0] + "\",\n"
                                 + "\"providername\":\"" + provider.get(i)[1] + "\",\n"
                                 + "\"productid\":\"" + 111 + "\",\n"
@@ -1032,6 +1039,7 @@ public class mainService extends HttpServlet {
                                 + "\"franchise\":\"" + "0" + "\",\n"
                                 + "\"benefits\":[" + benefits + "],\n"
                                 + "\"detals\":[" + details + "],\n"
+                                + "\"pdf\":\"pdf/" + mypdf + ".pdf\",\n"
                                 + "\"price\":\"" + provider.get(i)[3] + " " + currency + "\"\n}";
                         if (i == 0) {
                             ss += proposal;
@@ -1046,7 +1054,7 @@ public class mainService extends HttpServlet {
                 System.out.println(ss);
 
                 response.getWriter().write(ss);
-            }else if (command.equals("gethealth")) {
+            } else if (command.equals("gethealth")) {
 
 //   change user gethealth
                 String userid = tools.functions.jsonget(job, "userid");
@@ -1111,8 +1119,8 @@ public class mainService extends HttpServlet {
                     curr = 37;
                 }
 /// insert into
-                String qwr = "select provider_id,provider.name,amount_limit,amount_price,p.id from health_params p,provider \n"
-                        + "where provider_id=provider.id  and exchange_rate_id='" + curr + "'"; ;
+                String qwr = "select provider_id,provider.name,amount_limit,amount_price,p.id,add_html from health_params p,provider \n"
+                        + "where provider_id=provider.id  and exchange_rate_id='" + curr + "'";;
 
                 System.out.println("qwr=    " + qwr);
 
@@ -1123,7 +1131,7 @@ public class mainService extends HttpServlet {
                     ss = "{\n\"command\":\"gethealth\",\n"
                             + "\"result\":\"noproposals\"\n}";
                 } else {
-                    ss = "{\n\"command\":\"gettravel\",\n"
+                    ss = "{\n\"command\":\"gethealth\",\n"
                             + "\"result\":\"ok\",\n"
                             + "\"userid\":\"" + 94 + "\",\n"
                             + "\"proposals\":[";
@@ -1156,14 +1164,20 @@ public class mainService extends HttpServlet {
                         }
                         System.out.println("price=" + provider.get(i)[3] + "=" + functions.str2int0(provider.get(i)[3]) + "=" + price);
                         details = "\"limit;" + provider.get(i)[2] + " " + currency + "\",\"price;" + provider.get(i)[3] + " " + currency + "\",\"" + paymentschedule + ";" + String.format("%.2f", price) + " " + currency + "\"";
-
+                        String mypdf = command + provider.get(i)[1];
+                        String addhtml=provider.get(i)[5];
+                        if (addhtml==null) addhtml="";
+                        else  addhtml=addhtml.replace("\n", "") ;
+                        //              + "\"pdf\":\"pdf/" + mypdf + ".pdf\",\n"
                         String proposal = "{\n\"providerid\":\"" + provider.get(i)[0] + "\",\n"
                                 + "\"providername\":\"" + provider.get(i)[1] + "\",\n"
                                 + "\"productid\":\"" + 111 + "\",\n"
                                 + "\"limit\":\"" + provider.get(i)[2] + "\",\n"
                                 + "\"franchise\":\"" + "0" + "\",\n"
                                 + "\"benefits\":[" + benefits + "],\n"
+                                + "\"addhtml\":\"" + addhtml + "\",\n"
                                 + "\"detals\":[" + details + "],\n"
+                                + "\"pdf\":\"pdf/" + mypdf + ".pdf\",\n"
                                 + "\"price\":\"" + provider.get(i)[3] + " " + currency + "\"\n}";
                         if (i == 0) {
                             ss += proposal;
@@ -1178,11 +1192,7 @@ public class mainService extends HttpServlet {
                 System.out.println(ss);
 
                 response.getWriter().write(ss);
-                
-                
-                
-                
-                
+
             } else if (command.equals("getliabilitydetails")) {
 
 //   getliability details
@@ -1270,6 +1280,8 @@ public class mainService extends HttpServlet {
 
                 ArrayList<String[]> s2 = tools.functions.getResult(qwr, tools.functions.isnewcompare);
                 String ss;
+ //               String mypdf = command + provider.get(i)[1];
+                //              + "\"pdf\":\"pdf/" + mypdf + ".pdf\",\n" 
                 if (s2.size() > 0) {
 
                     ss = "{\n\"command\":\"getliabilitydetails\",\n"
