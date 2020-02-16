@@ -167,7 +167,7 @@ public class mainService extends HttpServlet {
                 String subTxt = "მოგესალმებათ info@compare.ge /Greeting from info@compare.ge";
 
                 String msgTxt = "compare.ge გთხოვთ გადახვიდეთ ლინკზე/please folow to link"
-                        + " http://192.168.18.22:9080/myweb1?register=" + s4.get(0)[0]
+                        + " https://compare.ge/myweb1?register=" + s4.get(0)[0]
                         + "\n\n ლინკი აქტიურია 1 საათის განმავლობაში/ Link is valid 1 Hour "
                         + "\n\n compare.ge Please do not spam my email!";
 

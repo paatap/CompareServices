@@ -51,12 +51,13 @@ public class SendEmailTLS {
             message.setHeader("Content-Type", "text/plain; charset=UTF-8");
 
             message.setSubject(subTxt);
-//            message.setSubject("მოგესალმებათ info@compare.ge /Greeting from info@compare.ge");
+            message.setSubject("მოგესალმებათ info@compare.ge /Greeting from info@compare.ge");
 
 //           msgTxt = "compare.ge გთხოვთ გადახვიდეთ ლინკზე/please folow to link"
 //                    + " http://192.168.18.22:9080/myweb1?register=" + linkmd5
 //                    + "\n\n ლინკი აქტიურია 1 საათის განმავლობაში/ Link is valid 1 Hour "
 //                    + "\n\n compare.ge Please do not spam my email!";
+
 
             MimeBodyPart messageBodyPart = new MimeBodyPart();
 
@@ -67,8 +68,8 @@ public class SendEmailTLS {
 
             MimeBodyPart attachPart = new MimeBodyPart();
 
-            String file = "/home/paatap/Desktop/61664582.pdf";
-            String fileName = "61664582.pdf";
+            String file = "/home/paatap/JAVA/apache-tomcat-8.5.30/webapps/ROOT/pdf/home.svg";
+            String fileName = "/home/paatap/JAVA/apache-tomcat-8.5.30/webapps/ROOT/pdf/health.svg";
             DataSource source = new FileDataSource(file);
             attachPart.setDataHandler(new DataHandler(source));
             attachPart.setFileName(fileName);
