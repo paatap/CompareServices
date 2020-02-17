@@ -167,7 +167,7 @@ public class mainService extends HttpServlet {
                 String subTxt = "მოგესალმებათ info@compare.ge /Greeting from info@compare.ge";
 
                 String msgTxt = "compare.ge გთხოვთ გადახვიდეთ ლინკზე/please folow to link"
-                        + " https://compare.ge/myweb1?register=" + s4.get(0)[0]
+                        + " https://compare.ge/compare?register=" + s4.get(0)[0]
                         + "\n\n ლინკი აქტიურია 1 საათის განმავლობაში/ Link is valid 1 Hour "
                         + "\n\n compare.ge Please do not spam my email!";
 
@@ -763,7 +763,7 @@ public class mainService extends HttpServlet {
                         //              + "\"pdf\":\"pdf/" + mypdf + ".pdf\",\n"
                         String proposal = "{\n\"providerid\":\"" + provider.get(i)[0] + "\",\n"
                                 + "\"providername\":\"" + provider.get(i)[1] + "\",\n"
-                                + "\"productid\":\"" + 111 + "\",\n"
+                                + "\"productid\":\"" + provider.get(i)[4] + "\",\n"
                                 + "\"limit\":\"" + liabilitylimit + "\",\n"
                                 + "\"franchise\":\"" + "0" + "\",\n"
                                 + "\"benefits\":[" + benefits + "],\n"
@@ -903,7 +903,7 @@ public class mainService extends HttpServlet {
                         else  addhtml=addhtml.replace("\n", "") ;
                         String proposal = "{\n\"providerid\":\"" + provider.get(i)[0] + "\",\n"
                                 + "\"providername\":\"" + provider.get(i)[1] + "\",\n"
-                                + "\"productid\":\"" + 111 + "\",\n"
+                                + "\"productid\":\"" + provider.get(i)[4] + "\",\n"
                                 + "\"limit\":\"" + insurancelimit + "\",\n"
                                 + "\"franchise\":\"" + "0" + "\",\n"
                                 + "\"benefits\":[" + benefits + "],\n"
@@ -1039,7 +1039,7 @@ public class mainService extends HttpServlet {
                         //              + "\"pdf\":\"pdf/" + mypdf + ".pdf\",\n"
                         String proposal = "{\n\"providerid\":\"" + provider.get(i)[0] + "\",\n"
                                 + "\"providername\":\"" + provider.get(i)[1] + "\",\n"
-                                + "\"productid\":\"" + 111 + "\",\n"
+                                + "\"productid\":\"" + provider.get(i)[4] + "\",\n"
                                 + "\"limit\":\"" + insurancelimit + "\",\n"
                                 + "\"franchise\":\"" + "0" + "\",\n"
                                 + "\"benefits\":[" + benefits + "],\n"
