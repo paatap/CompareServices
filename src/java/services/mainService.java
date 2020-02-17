@@ -1176,7 +1176,7 @@ public class mainService extends HttpServlet {
                         //              + "\"pdf\":\"pdf/" + mypdf + ".pdf\",\n"
                         String proposal = "{\n\"providerid\":\"" + provider.get(i)[0] + "\",\n"
                                 + "\"providername\":\"" + provider.get(i)[1] + "\",\n"
-                                + "\"productid\":\"" + 111 + "\",\n"
+                                + "\"productid\":\"" + provider.get(i)[4] + "\",\n"
                                 + "\"limit\":\"" + provider.get(i)[2] + "\",\n"
                                 + "\"franchise\":\"" + "0" + "\",\n"
                                 + "\"benefits\":[" + benefits + "],\n"
