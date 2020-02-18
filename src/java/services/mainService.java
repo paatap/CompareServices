@@ -848,7 +848,7 @@ public class mainService extends HttpServlet {
                     curr = 37;
                 }
 /// insert into
-                String qwr = "select provider_id,provider.name,amount_limit,amount_price,p.id,add_html from travel_params p,provider \n"
+                String qwr = "select provider_id,provider.name,amount_limit,amount_price,p.id,add_html,franchise from travel_params p,provider \n"
                         + "where provider_id=provider.id and p.amount_limit='" + insurancelimit + "' and exchange_rate_id='" + curr
                         + "' and  date_part('year', age( now(),'" + birthday + "'))>age_min and  date_part('year', age( now(),'" + birthday + "'))<age_max" //      date_part('year', age( now(),'1972-1-23'))>age_min  and    date_part('year', age( now(),'1972-1-23'))<age_max
                         ;
@@ -898,14 +898,14 @@ public class mainService extends HttpServlet {
                         String mypdf = command + provider.get(i)[1];
                         //              + "\"pdf\":\"pdf/" + mypdf + ".pdf\",\n"
                         
-                                                String addhtml=provider.get(i)[5];
+                        String addhtml=provider.get(i)[5];
                         if (addhtml==null) addhtml="";
                         else  addhtml=addhtml.replace("\n", "") ;
                         String proposal = "{\n\"providerid\":\"" + provider.get(i)[0] + "\",\n"
                                 + "\"providername\":\"" + provider.get(i)[1] + "\",\n"
                                 + "\"productid\":\"" + provider.get(i)[4] + "\",\n"
                                 + "\"limit\":\"" + insurancelimit + "\",\n"
-                                + "\"franchise\":\"" + "0" + "\",\n"
+                                + "\"franchise\":\"" + provider.get(i)[6] + "\",\n"
                                 + "\"benefits\":[" + benefits + "],\n"
                                 + "\"addhtml\":\"" + addhtml + "\",\n"
                                 + "\"detals\":[" + details + "],\n"
@@ -1124,7 +1124,7 @@ public class mainService extends HttpServlet {
                     curr = 37;
                 }
 /// insert into
-                String qwr = "select provider_id,provider.name,amount_limit,amount_price,p.id,add_html from health_params p,provider \n"
+                String qwr = "select provider_id,provider.name,amount_limit,amount_price,p.id,add_html,franchise from health_params p,provider \n"
                         + "where provider_id=provider.id  and exchange_rate_id='" + curr + "'";;
 
                 System.out.println("qwr=    " + qwr);
@@ -1178,7 +1178,7 @@ public class mainService extends HttpServlet {
                                 + "\"providername\":\"" + provider.get(i)[1] + "\",\n"
                                 + "\"productid\":\"" + provider.get(i)[4] + "\",\n"
                                 + "\"limit\":\"" + provider.get(i)[2] + "\",\n"
-                                + "\"franchise\":\"" + "0" + "\",\n"
+                                + "\"franchise\":\"" + provider.get(i)[6] + "\",\n"
                                 + "\"benefits\":[" + benefits + "],\n"
                                 + "\"addhtml\":\"" + addhtml + "\",\n"
                                 + "\"detals\":[" + details + "],\n"
