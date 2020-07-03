@@ -36,6 +36,8 @@ public class mainService extends HttpServlet {
         Connection conn = null;
         Statement statement = null;
         ResultSet resultSet = null;
+        String ptable = "";
+        String buytable = "";
 
 //response.getWriter().write(tools.SendEmailTLS.SendEmailTLS());
         try {
@@ -67,21 +69,6 @@ public class mainService extends HttpServlet {
                 System.out.println("pass=" + pass);
                 String qwr = "select u.id,name_first,name_last from users u left join crm_contact cc on u.id=cc.userid where username='" + user + "'  and password='" + pass + "'";
 
-                /*
-                InitialContext ctx = new InitialContext();
-                DataSource ds = (DataSource) ctx.lookup("java:/comp/env/jdbc/workflow");
-                conn = ds.getConnection();
-                statement = conn.createStatement();
-                //           resultSet = statement.executeQuery("select 'hhhaaaaaaa' as ttt");
-                String qwr="select u.id,name_first,name_last from users u left join crm_contact cc on u.id=cc.userid where username='"+user+"'  and password='"+pass+"'";
-                System.out.println(qwr);
-                resultSet = statement.executeQuery(qwr);
-                while (resultSet.next()) {
-                    response.getWriter().write(command + " " + resultSet.getString("name_first")+","+resultSet.getString("name_last"));
-                    System.out.println(command + " " + resultSet.getString("name_first")+","+resultSet.getString("name_last"));
-                    
-                }
-                 */
                 ArrayList<String[]> s2 = tools.functions.getResult(qwr, tools.functions.isnewcompare);
                 String ss;
                 if (s2.size() > 0) {
@@ -93,6 +80,179 @@ public class mainService extends HttpServlet {
                 } else {
                     ss = "{\n\"command\":\"login\",\n"
                             + "\"result\":\"usernotfound\"\n}";
+                }
+                System.out.println(ss);
+                response.getWriter().write(ss);
+            } else if (command.equals("getpolicelist")) {
+// getpolicelist
+                String userid = tools.functions.jsonget(job, "userid");
+                System.out.println("userid=" + userid);
+
+                String lang = tools.functions.jsonget(job, "namefirst");
+                System.out.println("lang=" + lang);
+
+                //               String qwr = "select u.id,name_first,name_last from users u left join crm_contact cc on u.id=cc.userid where username='" + user + "'  and password='" + pass + "'";
+                String qwr = "select now()";
+                ArrayList<String[]> s2 = tools.functions.getResult(qwr, tools.functions.isnewcompare);
+
+                String ss;
+
+                if (s2.size() > 0) {
+//                    ss = "{\n\"command\":\"getpolicelist\",\n"
+//                            + "\"result\":\"ok\",\n"
+//                            + "\"userid\":\"" + userid + "\",\n"
+//                            + "\"policelist\":\"<style>  table.orderlist td,th {border: 1px solid #dddddd;text-align: left;padding: 8px;width:50%}</style>\\n"
+//                            + "<h2>გადახდილი პოლისები</h2>\\n"
+//                            +"<table class='orderlist' table style='cursor:hand;width:100%;margin-top: 20px' id='policelist1a' onclick=\\\"$('#policelist1a').css('display', 'none');$('#policelist1b').css('display', 'table');\\\">\\n"
+//                    //        +"<tr style='color:blue'> <td style='width:50%'>ავტო მპპდ</th><td><img style='margin: auto;' src='icons/aldagi.png'></td></tr>\\n"
+//                             +"<tr style='color:blue'> <td >ავტო მპპდ</th><td><img style='margin: auto;' src='icons/aldagi.png'></td></tr>\\n"
+//                            +"</table>\\n"
+//                            +"<table class='orderlist' id='policelist1b' style='display: none;width:100%;margin-top: 20px'>\\n"
+//                  
+//                            +"<tr onclick=\\\"$('#policelist1b').css('display', 'none');$('#policelist1a').css('display', 'table');\\\" style='color:blue;cursor:hand;'> <td  colspan='2' style='width:50%'>ავტო მპპდ</td></tr>\\n"
+//                            
+////                            +"<table class='orderlist' id='policelist1b' style='display: none;width:100%;margin-top: 20px' onclick=\\\"$('#policelist1b').css('display', 'none');$('#policelist1a').css('display', 'table');\\\">\\n"
+////                  
+////                            +"<tr style='color:blue;cursor:hand;'> <td  colspan='2' style='width:50%'>ავტო მპპდ</td></tr>\\n"
+//                            +"<tr> <td style='padding-left: 20px;'>პროვაიდერი</td> <td><img style='margin: auto;' src='icons/aldagi.png'></td> </tr>\\n"
+//                            +"<tr> <td style='padding-left: 20px;'>დაზღვეული</td> <td >კურდღელაშვილი ნაზიბროლა</td> </tr>\\n"
+//                            +"<tr> <td style='padding-left: 20px;'>შეძენისთარიღი</td> <td></td> </tr>\\n"
+//                            +"<tr> <td style='padding-left: 20px;'>მოქმედებისვადა</td> <td>პოლისის გააქტიურება</td> </tr>\\n"
+//                            +"<tr> <td style='padding-left: 20px;'>ღირებულება</td> <td></td> </tr>\\n"
+//                            +"<tr> <td style='padding-left: 20px;'>გადახდისგრაფიკი</td> <td>მიმდინარე გადასახადი 30 ლარი 15.04.2020</td> </tr>\\n"
+//                            +"<tr> <td style='padding-left: 20px;'>ფოტოსატვირთვა</td> <td>ფოტოებს არ საჭიროებს</td> </tr>\\n"
+//                            +"<tr> <td style='padding-left: 20px;'>პოლისი</td> <td>იხილეთ მიმაგრებული პოლისი</td></tr>\\n"
+//                            +"</table>\\n"
+//                            
+//             ///////////////////////////////////////
+//                     
+//                            +"<table class='orderlist' table style='cursor:hand;width:100%;margin-top: 20px' id='policelist2a' onclick=\\\"$('#policelist2a').css('display', 'none');$('#policelist2b').css('display', 'table');\\\">\\n"
+//                     
+//                            +"<tr style='color:blue'> <td style='width:50%'>კასკო</td>    <td><img style='margin: auto;' src='icons/imedil.png'></td></tr>\\n"
+//                            +"</table>\\n"
+//                     
+//                            +"<table class='orderlist' id='policelist2b' style='display: none;width:100%;margin-top: 20px' onclick=\\\"$('#policelist2b').css('display', 'none');$('#policelist2a').css('display', 'table');\\\">\\n"
+//                            
+//                            +"<tr style='color:blue;cursor:hand;'> <td  colspan='2' style='width:50%'>კასკო</td></tr>\\n"
+//                   //         +"<tr style='color:blue;cursor:hand;'><td style='width:50%'>პროდუქტი</td> <td style='width:50%'>კასკო</td></tr>\\n"
+//                            +"<tr> <td style='padding-left: 20px;'>პროვაიდერი</td> <td><img style='margin: auto;' src='icons/imedil.png'></td> </tr>\\n"
+//                            +"<tr> <td style='padding-left: 20px;'>დაზღვეული</td> <td>ტოპოლკაროევი კოლა</td> </tr>\\n"
+//                            +"<tr> <td style='padding-left: 20px;'>შეძენისთარიღი</td> <td></td> </tr>\\n"
+//                            +"<tr> <td style='padding-left: 20px;'>მოქმედებისვადა</td> <td></td> </tr>\\n"
+//                            +"<tr> <td style='padding-left: 20px;'>ღირებულება</td> <td></td> </tr>\\n"
+//                            +"<tr> <td style='padding-left: 20px;'>გადახდისგრაფიკი</td> <td></td> </tr>\\n"
+//                            +"<tr> <td style='padding-left: 20px;'>ფოტოსატვირთვა</td> <td></td> </tr>\\n"
+//                            +"<tr> <td style='padding-left: 20px;'>პოლისი</td> <td></td> </tr>\\n"
+//                            + "</table>\\n"
+//                            + "\"}";
+//  ********************************************
+                    ss = "{\n\"command\":\"getpolicelist\",\n"
+                            + "\"result\":\"ok\",\n"
+                            + "\"userid\":\"" + userid + "\",\n"
+                            + "\"policelist\":\"<style>  table.orderlist td,th {border: 1px solid #dddddd;text-align: left;padding: 8px;width:50%}</style>\\n"
+                            + "<h2>გადახდილი პოლისები</h2>\\n"
+                            + "<table class='orderlist' table style='cursor:hand;width:100%;margin-top: 20px' id='policelist1a' onclick=\\\"$('#policelist1a').css('display', 'none');$('#policelist1b').css('display', 'table');\\\">\\n"
+                            //        +"<tr style='color:blue'> <td style='width:50%'>ავტო მპპდ</th><td><img style='margin: auto;' src='icons/aldagi.png'></td></tr>\\n"
+                            + "<tr style='color:blue'> <td >ავტო მპპდ</th><td><img style='margin: auto;' src='icons/aldagi.png'></td></tr>\\n"
+                            + "</table>\\n"
+                            + "<table class='orderlist' id='policelist1b' style='display: none;width:100%;margin-top: 20px'>\\n"
+                            + "<tr onclick=\\\"$('#policelist1b').css('display', 'none');$('#policelist1a').css('display', 'table');\\\" style='color:blue;cursor:hand;'> <td  colspan='2' style='width:50%'>ავტო მპპდ</td></tr>\\n"
+                            //                            +"<table class='orderlist' id='policelist1b' style='display: none;width:100%;margin-top: 20px' onclick=\\\"$('#policelist1b').css('display', 'none');$('#policelist1a').css('display', 'table');\\\">\\n"
+                            //                  
+                            //                            +"<tr style='color:blue;cursor:hand;'> <td  colspan='2' style='width:50%'>ავტო მპპდ</td></tr>\\n"
+                            + "<tr> <td style='padding-left: 20px;'>პროვაიდერი</td> <td><img style='margin: auto;' src='icons/aldagi.png'></td> </tr>\\n"
+                            + "<tr> <td style='padding-left: 20px;'>დაზღვეული</td> <td >კურდღელაშვილი ნაზიბროლა</td> </tr>\\n"
+                            + "<tr> <td style='padding-left: 20px;'>შეძენისთარიღი</td> <td></td> </tr>\\n"
+                            + "<tr> <td style='padding-left: 20px;'>მოქმედებისვადა</td> <td>პოლისის გააქტიურება</td> </tr>\\n"
+                            + "<tr> <td style='padding-left: 20px;'>ღირებულება</td> <td></td> </tr>\\n"
+                            + "<tr> <td style='padding-left: 20px;'>გადახდისგრაფიკი</td> <td>მიმდინარე გადასახადი 30 ლარი 15.04.2020</td> </tr>\\n"
+                            + "<tr> <td style='padding-left: 20px;'>ფოტოსატვირთვა</td> <td>ფოტოებს არ საჭიროებს</td> </tr>\\n"
+                            + "<tr> <td style='padding-left: 20px;'>პოლისი</td> <td>იხილეთ მიმაგრებული პოლისი</td></tr>\\n"
+                            + "</table>\\n"
+                            ///////////////////////////////////////
+
+                            + "<table class='orderlist' table style='cursor:hand;width:100%;margin-top: 20px' id='policelist2a' onclick=\\\"$('#policelist2a').css('display', 'none');$('#policelist2b').css('display', 'table');\\\">\\n"
+                            + "<tr style='color:blue'> <td style='width:50%'>კასკო</td>    <td><img style='margin: auto;' src='icons/imedil.png'></td></tr>\\n"
+                            + "</table>\\n"
+                            + "<table class='orderlist' id='policelist2b' style='display: none;width:100%;margin-top: 20px' onclick=\\\"$('#policelist2b').css('display', 'none');$('#policelist2a').css('display', 'table');\\\">\\n"
+                            + "<tr style='color:blue;cursor:hand;'> <td  colspan='2' style='width:50%'>კასკო</td></tr>\\n"
+                            //         +"<tr style='color:blue;cursor:hand;'><td style='width:50%'>პროდუქტი</td> <td style='width:50%'>კასკო</td></tr>\\n"
+                            + "<tr> <td style='padding-left: 20px;'>პროვაიდერი</td> <td><img style='margin: auto;' src='icons/imedil.png'></td> </tr>\\n"
+                            + "<tr> <td style='padding-left: 20px;'>დაზღვეული</td> <td>ტოპოლკაროევი კოლა</td> </tr>\\n"
+                            + "<tr> <td style='padding-left: 20px;'>შეძენისთარიღი</td> <td></td> </tr>\\n"
+                            + "<tr> <td style='padding-left: 20px;'>მოქმედებისვადა</td> <td></td> </tr>\\n"
+                            + "<tr> <td style='padding-left: 20px;'>ღირებულება</td> <td></td> </tr>\\n"
+                            + "<tr> <td style='padding-left: 20px;'>გადახდისგრაფიკი</td> <td></td> </tr>\\n"
+                            + "<tr> <td style='padding-left: 20px;'>ფოტოსატვირთვა</td> <td></td> </tr>\\n"
+                            + "<tr> <td style='padding-left: 20px;'>პოლისი</td> <td></td> </tr>\\n"
+                            + "</table>\\n"
+                            /// ////////  NEw            
+                            //         +"<table class='orderlist' table style='cursor:hand;width:100%;margin-top: 20px' id='policelist1a' onclick=\\\"$('#policelist1a').css('display', 'none');$('#policelist1b').css('display', 'table');\\\">\\n"
+                            + "<table class='orderlist'  style='cursor:hand;width:100%;margin-top: 20px' id='policelist9991a'  onclick=\\\"$('#policelist9991a').css('display', 'none');$('#policelist9991b').css('display', 'table');\\\">\\n"
+                            + "<tr style='color:blue'> <td >ავტო მპპდ</th><td><img style='margin: auto;' src='icons/aldagi.png'></td></tr>\\n"
+                            + "</table>\\n"
+                            //            +"<table class='orderlist' id='policelist1b' style='display: none;width:100%;margin-top: 20px'>\\n"
+                            + "<table class='orderlist' id='policelist9991b' style='display: none;width:100%;margin-top: 20px'>\\n"
+                            //         +"<tr onclick=\\\"$('#policelist1b').css('display', 'none');$('#policelist1a').css('display', 'table');\\\" style='color:blue;cursor:hand;'> <td  colspan='2' style='width:50%'>ავტო მპპდ</td></tr>\\n"
+                            + "<tr onclick=\\\"$('#policelist9991b').css('display', 'none');$('#policelist9991a').css('display', 'table');\\\" style='color:blue;cursor:hand;'><td  colspan='2' style='width:50%'>ავტო მპპდ</td></tr>\\n"
+                            //                          
+                            + "<tr> <td style='padding-left: 20px;'>პროვაიდერი</td> <td><img style='margin: auto;' src='icons/aldagi.png'></td> </tr>\\n"
+                            + "<tr> <td style='padding-left: 20px;'>დაზღვეული</td> <td >სერვერავა ეიჩპი</td> </tr>\\n"
+                            + "<tr> <td style='padding-left: 20px;'>შეძენისთარიღი</td> <td></td> </tr>\\n"
+                            + "<tr> <td style='padding-left: 20px;'>მოქმედებისვადა</td> <td>პოლისის გააქტიურება</td> </tr>\\n"
+                            + "<tr> <td style='padding-left: 20px;'>ღირებულება</td> <td></td> </tr>\\n"
+                            //                            +"<tr> <td style='padding-left: 20px;'>გადახდისგრაფიკი</td> <td>მიმდინარე გადასახადი 30 ლარი 15.04.2020</td> </tr>\\n"
+                            //                            +"<tr> <td style='padding-left: 20px;'>ფოტოსატვირთვა</td> <td>ფოტოებს არ საჭიროებს</td> </tr>\\n"
+                            //                            +"<tr> <td style='padding-left: 20px;'>პოლისი</td> <td>იხილეთ მიმაგრებული პოლისი</td></tr>\\n"
+                            + "<tr> <td style='padding-left: 20px;cursor:hand;text-decoration: underline;' onclick=\\\"detalssubmitajax('123456','getmodalgraphic');\\\">გადახდისგრაფიკი</td> <td>მიმდინარე გადასახადი 30 ლარი</td> </tr>\\n"
+                            + "<tr> <td style='padding-left: 20px;cursor:hand;text-decoration: underline;' onclick=\\\"detalssubmitajax('123456','getmodalphoto');\\\">ფოტოსატვირთვა</td> <td>ფოტოებს არ საჭიროებს</td> </tr>\\n"
+                            + "<tr> <td style='padding-left: 20px;cursor:hand;text-decoration: underline;' onclick=\\\"showpdf('pdf/getliabilityunison.pdf')\\\">პოლისი</td> <td>იხილეთ მიმაგრებული პოლისი</td></tr>\\n"
+                            + "</table>\\n"
+                            + "\"}";
+
+                    //                + "\"result\":\"passworderror\"\n}";
+                } else {
+                    ss = "{\n\"command\":\"getpolicelist\",\\n"
+                            + "\"result\":\"usernotfound\"\\n}";
+                }
+                System.out.println(ss);
+                response.getWriter().write(ss);
+
+            } else if (command.equals("getmodalgraphic")) {
+// getpolicelist
+//                String userid = tools.functions.jsonget(job, "userid");
+//                System.out.println("userid=" + userid);
+//
+//                String lang = tools.functions.jsonget(job, "namefirst");
+//                System.out.println("lang=" + lang);
+
+                String productid = tools.functions.jsonget(job, "productid");
+                System.out.println("productid=" + productid);
+                productid = "123456";
+
+                //               String qwr = "select u.id,name_first,name_last from users u left join crm_contact cc on u.id=cc.userid where username='" + user + "'  and password='" + pass + "'";
+                String qwr = "select now()";
+                ArrayList<String[]> s2 = tools.functions.getResult(qwr, tools.functions.isnewcompare);
+
+                String ss;
+
+                if (s2.size() > 0) {
+//  ********************************************   getmodalgraphic
+                    ss = "{\n\"command\":\"getmodalgraphic\",\n"
+                            + "\"result\":\"ok\",\n"
+                            + "\"productid\":\"" + productid + "\",\n"
+                            //    + "\"txt\":\"<style>  table.modalgraphiclist td,th {border: 1px solid #dddddd;text-align: left;padding: 8px;width:100%} </style>\\n"
+                            + "\"txt\":\"<style>  table.modalgraphiclist td,th {border: 1px solid #dddddd;border-collapse: collapse; text-align: left;padding: 8px;}  </style>\\n"
+                            + "<table class='modalgraphiclist' style='width: 100%; margin-bottom:30px;' ><tbody>"
+                            + "<tr><td colspan='2'>გადახდის გრაფიკი</td></tr>"
+                            + "<tr><td>თარიღი</td><td>თანხა</td></tr><tr><td>2020.05.01</td><td>30 ლარი</td></tr>"
+                            + "<tr><td>2020.06.01</td><td>30 ლარი</td></tr><tr><td>2020.07.01</td><td>30 ლარი</td></tr></tbody></table>\\n"
+                            + "\"}";
+
+                    //                + "\"result\":\"passworderror\"\n}";
+                } else {
+                    ss = "{\n\"command\":\"getmodalgrapbhic\",\\n"
+                            + "\"result\":\"productnotfound\"\\n}";
                 }
                 System.out.println(ss);
                 response.getWriter().write(ss);
@@ -726,8 +886,51 @@ public class mainService extends HttpServlet {
                     ss = "{\n\"command\":\"getliability\",\n"
                             + "\"result\":\"noproposals\"\n}";
                 } else {
+                    // ptable space
+                    ptable = "<style>\\n"
+                            + "table.pparameters {font-size: 14px;font-family: arial, sans-serif;border-collapse: collapse;width: 100%;}\\n"
+                            + "table.pparameters td, th {border: 1px solid #dddddd;text-align: left;padding: 8px}\\n"
+                            + "</style>\\n"
+                            + "<table class='pparameters'>\\n"
+                            + "<tr><td style='background-color: #dddddd'><b>დამზღვევის მონაცემები </b></td> <td style='background-color: #dddddd'><a href='#' onclick='myshowtab(0)' >პარამეტრების ცვლილება</a></td></tr>\\n"
+                            + "<tr><td><b>პირადი N</b></td><td>01012015625</td></tr>\\n"
+                            + "<tr><td><b>დაბადების თარიღი</b></td><td>1975.01.01</td></tr>\\n"
+                            + "<tr><td><b>სახელი</b></td><td>ალეკო</td></tr>\\n"
+                            + "<tr><td><b>გვარი</b></td><td>სარჩიმელია</td></tr>\\n"
+                            + "<tr><td><b>სახელი ლათინურად</b></td><td>Alexander</td></tr>\\n"
+                            + "<tr><td><b>გვარი ლათინურად</b></td><td>Sarchimelia</td></tr>\\n"
+                            + "<tr><td><b>მოქალაქეობა</b></td><td>საქართველო</td></tr>\\n"
+                            + "<tr><td><b>სქესი</b></td><td>Male</td></tr>\\n"
+                            + "<tr><td><b>ტელეფონი</b></td><td>+995599612324</td></tr>\\n"
+                            + "<tr><td><b>eMail</b></td><td>agamemnon1975@gmail.com</td></tr>\\n"
+                            + "<tr><td style='background-color: #dddddd' ><b>დაზღვეულის მონაცემები</b></td><td style='background-color: #dddddd'><a href='#' onclick='myshowtab(0)' >პარამეტრების ცვლილება</a></td></tr>\\n"
+                            + "<tr><td><b>პირადი N</b></td><td>01012015625</td></tr>\\n"
+                            + "<tr><td><b>დაბადების თარიღი</b></td><td>1975.01.01</td></tr>\\n"
+                            + "<tr><td><b>სახელი</b></td><td>ალეკო</td></tr>\\n"
+                            + "<tr><td><b>გვარი</b></td><td>სარჩიმელია</td></tr>\\n"
+                            + "<tr><td><b>სახელი ლათინურად</b></td><td>Alexander</td></tr>\\n"
+                            + "<tr><td><b>გვარი ლათინურად</b></td><td>Sarchimelia</td></tr>\\n"
+                            + "<tr><td><b>მოქალაქეობა</b></td><td>საქართველო</td></tr>\\n"
+                            + "<tr><td><b>სქესი</b></td><td>Male</td></tr>\\n"
+                            + "<tr><td><b>ტელეფონი</b></td><td>+995599612324</td></tr>\\n"
+                            + "<tr><td><b>eMail</b></td><td>agamemnon1975@gmail.com</td></tr>\\n"
+                            + "<tr><td style='background-color: #dddddd' ><b>პასუხისმგებლობის დეტალები</b></td><td style='background-color: #dddddd'><a href='#' onclick='myshowtab(1)' >პარამეტრების ცვლილება</a></td></tr>\\n"
+                            + "<tr><td><b>სახელმწიფო ნომერი</b></td><td>AH865HA</td></tr>\\n"
+                            + "<tr><td><b>ვინკოდი</b></td><td>AH865HA</td></tr>\\n"
+                            + "<tr><td><b>მარკა</b></td><td>BMW</td></tr>\\n"
+                            + "<tr><td><b>მოდელი</b></td><td>Z6</td></tr>\\n"
+                            + "<tr><td><b>წელი</b></td><td>2016</td></tr>\\n"
+                            + "<tr><td><b>სადაზღვევო პერიოდი</b></td><td>2020.08.08-2020.10.23</td></tr>\\n"
+                            + "<tr><td><b>პასუხისმგებლობის ლიმიტი</b> </td><td>20000 USD</td></tr>\\n"
+                            + "<tr><td><b>გადახდის გრაფიკი</b></td><td>კვარტლური</td></tr>\\n"
+                            //                   + "<tr><td><b>ჯამური თანხა</b></td><td>14 ლარი</td></tr>\\n"
+
+                            + "</table>\\n";
+                    // end ptable
                     ss = "{\n\"command\":\"getliability\",\n"
                             + "\"result\":\"ok\",\n"
+                            + "\"addtable\":\"" + ptable + "\",\n"
+                            + "\"addtable2\":\"" + ptable + "\",\n"
                             + "\"userid\":\"" + 94 + "\",\n"
                             + "\"proposals\":[";
                     for (int i = 0; i < provider.size(); i++) {
@@ -761,9 +964,12 @@ public class mainService extends HttpServlet {
                         details = "\"limit;" + provider.get(i)[2] + " " + currency + "\",\"price;" + provider.get(i)[3] + " " + currency + "\",\"" + paymentschedule + ";" + String.format("%.2f", price) + " " + currency + "\"";
                         String mypdf = command + provider.get(i)[1];
                         //              + "\"pdf\":\"pdf/" + mypdf + ".pdf\",\n"
-                        String addhtml=provider.get(i)[5];                      
-                        if (addhtml==null) addhtml="";
-                        else  addhtml=addhtml.replace("\n", "") ;
+                        String addhtml = provider.get(i)[5];
+                        if (addhtml == null) {
+                            addhtml = "";
+                        } else {
+                            addhtml = addhtml.replace("\n", "");
+                        }
                         String proposal = "{\n\"providerid\":\"" + provider.get(i)[0] + "\",\n"
                                 + "\"providername\":\"" + provider.get(i)[1] + "\",\n"
                                 + "\"productid\":\"" + provider.get(i)[4] + "\",\n"
@@ -842,32 +1048,120 @@ public class mainService extends HttpServlet {
                 String paymentschedule = tools.functions.jsonget(job, "paymentschedule");
                 System.out.println("paymentschedule=" + paymentschedule);
 
+                String datestart = tools.functions.jsonget(job, "date12");
+                System.out.println("date12=" + datestart);
+                String dateend = tools.functions.jsonget(job, "date22");
+                System.out.println("dateend=" + dateend);
+
                 int curr = 0;
 
                 if (currency.equals("_lari")) {
                     curr = 12;
                 } else if (currency.equals("_usd")) {
                     curr = 14;
-                } else if (currency.equals("_eur")) {
-                    curr = 37;
+                } else if (currency.equals("_euro")) {
+                    curr = 15;
                 }
-/// insert into
-                String qwr = "select provider_id,provider.name,amount_limit,amount_price,p.id,add_html,franchise from travel_params p,provider \n"
+/// select Query
+//                String qwr = "select provider_id,provider.name,amount_limit,amount_price,p.id,add_html,franchise from travel_params p,provider \n"
+//                        + "where provider_id=provider.id and p.amount_limit='" + insurancelimit + "' and exchange_rate_id='" + curr
+//                        + "' and  date_part('year', age( now(),'" + birthday + "'))>age_min and  date_part('year', age( now(),'" + birthday + "'))<age_max" //      date_part('year', age( now(),'1972-1-23'))>age_min  and    date_part('year', age( now(),'1972-1-23'))<age_max
+//                        ;
+ 
+               String qwr = "select provider_id,provider.name,amount_limit,amount_price * (date '"+dateend+"'- date'"+datestart+"'),p.id,add_html,franchise from travel_params p,provider \n"
                         + "where provider_id=provider.id and p.amount_limit='" + insurancelimit + "' and exchange_rate_id='" + curr
                         + "' and  date_part('year', age( now(),'" + birthday + "'))>age_min and  date_part('year', age( now(),'" + birthday + "'))<age_max" //      date_part('year', age( now(),'1972-1-23'))>age_min  and    date_part('year', age( now(),'1972-1-23'))<age_max
                         ;
-
+                System.out.println("curr=" + curr);
                 System.out.println("qwr=    " + qwr);
 
                 ArrayList<String[]> provider = tools.functions.getResult(qwr, tools.functions.isnewcompare);
                 String ss;
-
+                currency = "_lari";
                 if (provider.size() == 0) {
                     ss = "{\n\"command\":\"gettravel\",\n"
                             + "\"result\":\"noproposals\"\n}";
                 } else {
+
+                    ptable = "<style>\\n"
+                            + "table.pparameters {font-size: 14px;font-family: arial, sans-serif;border-collapse: collapse;width: 100%;}\\n"
+                            + "table.pparameters td, th {border: 1px solid #dddddd;text-align: left;padding: 8px}\\n"
+                            + "</style>\\n"
+                            + "<table class='pparameters'>\\n"
+                            + "<tr><td style='background-color: #dddddd'><b>დამზღვევის მონაცემები </b></td> <td style='background-color: #dddddd'><a href='#' onclick='myshowtab(0)' >პარამეტრების ცვლილება</a></td></tr>\\n"
+                            + "<tr><td><b>პირადი N</b></td><td>01012015625</td></tr>\\n"
+                            + "<tr><td><b>დაბადების თარიღი</b></td><td>1975.01.01</td></tr>\\n"
+                            + "<tr><td><b>სახელი</b></td><td>ალეკო</td></tr>\\n"
+                            + "<tr><td><b>გვარი</b></td><td>სარჩიმელია</td></tr>\\n"
+                            + "<tr><td><b>სახელი ლათინურად</b></td><td>Alexander</td></tr>\\n"
+                            + "<tr><td><b>გვარი ლათინურად</b></td><td>Sarchimelia</td></tr>\\n"
+                            + "<tr><td><b>მოქალაქეობა</b></td><td>საქართველო</td></tr>\\n"
+                            + "<tr><td><b>სქესი</b></td><td>Male</td></tr>\\n"
+                            + "<tr><td><b>ტელეფონი</b></td><td>+995599612324</td></tr>\\n"
+                            + "<tr><td><b>eMail</b></td><td>agamemnon1975@gmail.com</td></tr>\\n"
+                            + "<tr><td style='background-color: #dddddd' ><b>დაზღვეულის მონაცემები</b></td><td style='background-color: #dddddd'><a href='#' onclick='myshowtab(0)' >პარამეტრების ცვლილება</a></td></tr>\\n"
+                            + "<tr><td><b>პირადი N</b></td><td>01012015625</td></tr>\\n"
+                            + "<tr><td><b>დაბადების თარიღი</b></td><td>1975.01.01</td></tr>\\n"
+                            + "<tr><td><b>სახელი</b></td><td>ალეკო</td></tr>\\n"
+                            + "<tr><td><b>გვარი</b></td><td>სარჩიმელია</td></tr>\\n"
+                            + "<tr><td><b>სახელი ლათინურად</b></td><td>Alexander</td></tr>\\n"
+                            + "<tr><td><b>გვარი ლათინურად</b></td><td>Sarchimelia</td></tr>\\n"
+                            + "<tr><td><b>მოქალაქეობა</b></td><td>საქართველო</td></tr>\\n"
+                            + "<tr><td><b>სქესი</b></td><td>Male</td></tr>\\n"
+                            + "<tr><td><b>ტელეფონი</b></td><td>+995599612324</td></tr>\\n"
+                            + "<tr><td><b>eMail</b></td><td>agamemnon1975@gmail.com</td></tr>\\n"
+                            + "<tr><td style='background-color: #dddddd' ><b>მოგზაურობის დეტალები</b></td><td style='background-color: #dddddd'><a href='#' onclick='myshowtab(1)' >პარამეტრების ცვლილება</a></td></tr>\\n"
+                            + "<tr><td><b>რომელ ქვეყანაში მოგზაურობთ</b></td><td>ჰონდურასი</td></tr>\\n"
+                            + "<tr><td><b>სადაზღვევო პერიოდი</b></td><td>2020.08.08-2020.10.23</td></tr>\\n"
+                            + "<tr><td><b>სადაზღვევო თანხა</b> </td><td>50000 USD</td></tr>\\n"
+                            + "<tr><td><b>ბარგის დაზღვევა</b></td><td>კი</td></tr>\\n"
+                            + "<tr><td><b>რეისის დაზღვევა</b></td><td>არა</td></tr>\\n"
+                            //                   + "<tr><td><b>ჯამური თანხა</b></td><td>14 ლარი</td></tr>\\n"
+
+                            + "</table>\\n";
+                    buytable = "<style>\\n"
+                            + "table.pparameters {font-size: 14px;font-family: arial, sans-serif;border-collapse: collapse;width: 100%;}\\n"
+                            + "table.pparameters td, th {border: 1px solid #dddddd;text-align: left;padding: 8px}\\n"
+                            + "</style>\\n"
+                            + "<table class='pparameters'>\\n"
+                            + "<tr><td style='background-color: #dddddd' colspan='2'> <b>დამზღვევის მონაცემები </b></td> </tr>\\n"
+                            + "<tr><td><b>პირადი N</b></td><td>01012015625</td></tr>\\n"
+                            + "<tr><td><b>დაბადების თარიღი</b></td><td>1975.01.01</td></tr>\\n"
+                            + "<tr><td><b>სახელი</b></td><td>ალეკო</td></tr>\\n"
+                            + "<tr><td><b>გვარი</b></td><td>სარჩიმელია</td></tr>\\n"
+                            + "<tr><td><b>სახელი ლათინურად</b></td><td>Alexander</td></tr>\\n"
+                            + "<tr><td><b>გვარი ლათინურად</b></td><td>Sarchimelia</td></tr>\\n"
+                            + "<tr><td><b>მოქალაქეობა</b></td><td>საქართველო</td></tr>\\n"
+                            + "<tr><td><b>სქესი</b></td><td>Male</td></tr>\\n"
+                            + "<tr><td><b>ტელეფონი</b></td><td>+995599612324</td></tr>\\n"
+                            + "<tr><td><b>eMail</b></td><td>agamemnon1975@gmail.com</td></tr>\\n"
+                            + "<tr><td style='background-color: #dddddd' colspan='2'><b>დაზღვეულის მონაცემები</b></tr>\\n"
+                            + "<tr><td><b>პირადი N</b></td><td>01012015625</td></tr>\\n"
+                            + "<tr><td><b>დაბადების თარიღი</b></td><td>1975.01.01</td></tr>\\n"
+                            + "<tr><td><b>სახელი</b></td><td>ალეკო</td></tr>\\n"
+                            + "<tr><td><b>გვარი</b></td><td>სარჩიმელია</td></tr>\\n"
+                            + "<tr><td><b>სახელი ლათინურად</b></td><td>Alexander</td></tr>\\n"
+                            + "<tr><td><b>გვარი ლათინურად</b></td><td>Sarchimelia</td></tr>\\n"
+                            + "<tr><td><b>მოქალაქეობა</b></td><td>საქართველო</td></tr>\\n"
+                            + "<tr><td><b>სქესი</b></td><td>Male</td></tr>\\n"
+                            + "<tr><td><b>ტელეფონი</b></td><td>+995599612324</td></tr>\\n"
+                            + "<tr><td><b>eMail</b></td><td>agamemnon1975@gmail.com</td></tr>\\n"
+                            + "<tr><td style='background-color: #dddddd' colspan='2' ><b>მოგზაურობის დეტალები</b></td></tr>\\n"
+                            + "<tr><td><b>რომელ ქვეყანაში მოგზაურობთ</b></td><td>ჰონდურასი</td></tr>\\n"
+                            + "<tr><td><b>სადაზღვევო პერიოდი</b></td><td>2020.08.08-2020.10.23</td></tr>\\n"
+                            + "<tr><td><b>სადაზღვევო თანხა</b> </td><td>50000 USD</td></tr>\\n"
+                            + "<tr><td><b>ბარგის დაზღვევა</b></td><td>კი</td></tr>\\n"
+                            + "<tr><td><b>რეისის დაზღვევა</b></td><td>არა</td></tr>\\n"
+                            //                   + "<tr><td><b>ჯამური თანხა</b></td><td>14 ლარი</td></tr>\\n"
+
+                            + "</table>\\n";
+
                     ss = "{\n\"command\":\"gettravel\",\n"
                             + "\"result\":\"ok\",\n"
+                            //                           + "\"addtable\":\"mytable\",\n"
+                            + "\"addtable\":\"" + ptable + "\",\n"
+                            + "\"addtable2\":\"" + buytable + "\",\n"
+                            //                            + "\"addtable\":\"" + 94 + "\",\n"
                             + "\"userid\":\"" + 94 + "\",\n"
                             + "\"proposals\":[";
                     for (int i = 0; i < provider.size(); i++) {
@@ -901,10 +1195,13 @@ public class mainService extends HttpServlet {
                         details = "\"limit;" + provider.get(i)[2] + " " + currency + "\",\"price;" + provider.get(i)[3] + " " + currency + "\",\"" + paymentschedule + ";" + String.format("%.2f", price) + " " + currency + "\"";
                         String mypdf = command + provider.get(i)[1];
                         //              + "\"pdf\":\"pdf/" + mypdf + ".pdf\",\n"
-                        
-                        String addhtml=provider.get(i)[5];
-                        if (addhtml==null) addhtml="";
-                        else  addhtml=addhtml.replace("\n", "") ;
+
+                        String addhtml = provider.get(i)[5];
+                        if (addhtml == null) {
+                            addhtml = "";
+                        } else {
+                            addhtml = addhtml.replace("\n", "");
+                        }
                         String proposal = "{\n\"providerid\":\"" + provider.get(i)[0] + "\",\n"
                                 + "\"providername\":\"" + provider.get(i)[1] + "\",\n"
                                 + "\"productid\":\"" + provider.get(i)[4] + "\",\n"
@@ -921,6 +1218,7 @@ public class mainService extends HttpServlet {
                             ss += "," + proposal;
                         }
                     }
+
                     ss += "]\n}";
                 }
                 //System.out.println("2 s1=     " + s1.get(0)[0]);
@@ -994,7 +1292,7 @@ public class mainService extends HttpServlet {
                     curr = 37;
                 }
 /// insert into
-                String qwr = "select provider_id,provider.name,amount_limit,amount_price,p.id,add_html,franchise from property_params p,provider \n"
+                String qwr = "select provider_id,provider.name,amount_limit,amount_price ,p.id,add_html,franchise from property_params p,provider \n"
                         + "where provider_id=provider.id and p.amount_limit='" + insurancelimit + "' and exchange_rate_id='" + curr + "'";
 
                 System.out.println("qwr=    " + qwr);
@@ -1041,10 +1339,13 @@ public class mainService extends HttpServlet {
                         details = "\"limit;" + provider.get(i)[2] + " " + currency + "\",\"price;" + provider.get(i)[3] + " " + currency + "\",\"" + paymentschedule + ";" + String.format("%.2f", price) + " " + currency + "\"";
                         String mypdf = command + provider.get(i)[1];
                         //              + "\"pdf\":\"pdf/" + mypdf + ".pdf\",\n"
-                        
-                        String addhtml=provider.get(i)[5];
-                        if (addhtml==null) addhtml="";
-                        else  addhtml=addhtml.replace("\n", "") ;
+
+                        String addhtml = provider.get(i)[5];
+                        if (addhtml == null) {
+                            addhtml = "";
+                        } else {
+                            addhtml = addhtml.replace("\n", "");
+                        }
                         String proposal = "{\n\"providerid\":\"" + provider.get(i)[0] + "\",\n"
                                 + "\"providername\":\"" + provider.get(i)[1] + "\",\n"
                                 + "\"productid\":\"" + provider.get(i)[4] + "\",\n"
@@ -1145,8 +1446,44 @@ public class mainService extends HttpServlet {
                     ss = "{\n\"command\":\"gethealth\",\n"
                             + "\"result\":\"noproposals\"\n}";
                 } else {
+                    ptable = "<style>\\n"
+                            + "table.pparameters {font-size: 14px;font-family: arial, sans-serif;border-collapse: collapse;width: 100%;}\\n"
+                            + "table.pparameters td, th {border: 1px solid #dddddd;text-align: left;padding: 8px}\\n"
+                            + "</style>\\n"
+                            + "<table class='pparameters'>\\n"
+                            + "<tr><td style='background-color: #dddddd'><b>დამზღვევის მონაცემები </b></td> <td style='background-color: #dddddd'><a href='#' onclick='myshowtab(0)' >პარამეტრების ცვლილება</a></td></tr>\\n"
+                            + "<tr><td><b>პირადი N</b></td><td>01012015625</td></tr>\\n"
+                            + "<tr><td><b>დაბადების თარიღი</b></td><td>1975.01.01</td></tr>\\n"
+                            + "<tr><td><b>სახელი</b></td><td>ალეკო</td></tr>\\n"
+                            + "<tr><td><b>გვარი</b></td><td>სარჩიმელია</td></tr>\\n"
+                            + "<tr><td><b>სახელი ლათინურად</b></td><td>Alexander</td></tr>\\n"
+                            + "<tr><td><b>გვარი ლათინურად</b></td><td>Sarchimelia</td></tr>\\n"
+                            + "<tr><td><b>მოქალაქეობა</b></td><td>საქართველო</td></tr>\\n"
+                            + "<tr><td><b>სქესი</b></td><td>Male</td></tr>\\n"
+                            + "<tr><td><b>ტელეფონი</b></td><td>+995599612324</td></tr>\\n"
+                            + "<tr><td><b>eMail</b></td><td>agamemnon1975@gmail.com</td></tr>\\n"
+                            + "<tr><td style='background-color: #dddddd' ><b>დაზღვეულის მონაცემები</b></td><td style='background-color: #dddddd'><a href='#' onclick='myshowtab(0)' >პარამეტრების ცვლილება</a></td></tr>\\n"
+                            + "<tr><td><b>პირადი N</b></td><td>01012015625</td></tr>\\n"
+                            + "<tr><td><b>დაბადების თარიღი</b></td><td>1975.01.01</td></tr>\\n"
+                            + "<tr><td><b>სახელი</b></td><td>ალეკო</td></tr>\\n"
+                            + "<tr><td><b>გვარი</b></td><td>სარჩიმელია</td></tr>\\n"
+                            + "<tr><td><b>სახელი ლათინურად</b></td><td>Alexander</td></tr>\\n"
+                            + "<tr><td><b>გვარი ლათინურად</b></td><td>Sarchimelia</td></tr>\\n"
+                            + "<tr><td><b>მოქალაქეობა</b></td><td>საქართველო</td></tr>\\n"
+                            + "<tr><td><b>სქესი</b></td><td>Male</td></tr>\\n"
+                            + "<tr><td><b>ტელეფონი</b></td><td>+995599612324</td></tr>\\n"
+                            + "<tr><td><b>eMail</b></td><td>agamemnon1975@gmail.com</td></tr>\\n"
+                            + "<tr><td style='background-color: #dddddd' ><b>პასუხისმგებლობის დეტალები</b></td><td style='background-color: #dddddd'><a href='#' onclick='myshowtab(1)' >პარამეტრების ცვლილება</a></td></tr>\\n"
+                            + "<tr><td><b>სადაზღვევო პერიოდი</b></td><td>2020.08.08-2020.10.23</td></tr>\\n"
+                            + "<tr><td><b>გადახდის გრაფიკი</b></td><td>კვარტლური</td></tr>\\n"
+                            //                   + "<tr><td><b>ჯამური თანხა</b></td><td>14 ლარი</td></tr>\\n"
+
+                            + "</table>\\n";
+
                     ss = "{\n\"command\":\"gethealth\",\n"
                             + "\"result\":\"ok\",\n"
+                            + "\"addtable\":\"" + ptable + "\",\n"
+                            + "\"addtable2\":\"" + ptable + "\",\n"
                             + "\"userid\":\"" + 94 + "\",\n"
                             + "\"proposals\":[";
                     for (int i = 0; i < provider.size(); i++) {
@@ -1179,10 +1516,13 @@ public class mainService extends HttpServlet {
                         System.out.println("price=" + provider.get(i)[3] + "=" + functions.str2int0(provider.get(i)[3]) + "=" + price);
                         details = "\"limit;" + provider.get(i)[2] + " " + currency + "\",\"price;" + provider.get(i)[3] + " " + currency + "\",\"" + paymentschedule + ";" + String.format("%.2f", price) + " " + currency + "\"";
                         String mypdf = command + provider.get(i)[1];
-                        String addhtml=provider.get(i)[5];                      
-                        if (addhtml==null) addhtml="";
-                        else  addhtml=addhtml.replace("\n", "") ;
-                       
+                        String addhtml = provider.get(i)[5];
+                        if (addhtml == null) {
+                            addhtml = "";
+                        } else {
+                            addhtml = addhtml.replace("\n", "");
+                        }
+
                         String proposal = "{\n\"providerid\":\"" + provider.get(i)[0] + "\",\n"
                                 + "\"providername\":\"" + provider.get(i)[1] + "\",\n"
                                 + "\"productid\":\"" + provider.get(i)[4] + "\",\n"
@@ -1294,7 +1634,7 @@ public class mainService extends HttpServlet {
 
                 ArrayList<String[]> s2 = tools.functions.getResult(qwr, tools.functions.isnewcompare);
                 String ss;
- //               String mypdf = command + provider.get(i)[1];
+                //               String mypdf = command + provider.get(i)[1];
                 //              + "\"pdf\":\"pdf/" + mypdf + ".pdf\",\n" 
                 if (s2.size() > 0) {
 
