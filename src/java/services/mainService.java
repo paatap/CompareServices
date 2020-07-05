@@ -206,7 +206,8 @@ public class mainService extends HttpServlet {
                             //                            +"<tr> <td style='padding-left: 20px;'>პოლისი</td> <td>იხილეთ მიმაგრებული პოლისი</td></tr>\\n"
                             + "<tr> <td style='padding-left: 20px;cursor:hand;text-decoration: underline;' onclick=\\\"detalssubmitajax('123456','getmodalgraphic');\\\">გადახდისგრაფიკი</td> <td>მიმდინარე გადასახადი 30 ლარი</td> </tr>\\n"
                             + "<tr> <td style='padding-left: 20px;cursor:hand;text-decoration: underline;' onclick=\\\"detalssubmitajax('123456','getmodalphoto');\\\">ფოტოსატვირთვა</td> <td>ფოტოებს არ საჭიროებს</td> </tr>\\n"
-                            + "<tr> <td style='padding-left: 20px;cursor:hand;text-decoration: underline;' onclick=\\\"showpdf('pdf/getliabilityunison.pdf')\\\">პოლისი</td> <td>იხილეთ მიმაგრებული პოლისი</td></tr>\\n"
+                            + "<tr> <td style='padding-left: 20px;cursor:hand;text-decoration: underline;' onclick=\\\"showpdf('pdf/getliabilityunison.pdf')\\\">ხელშეკრულება</td> <td>იხილეთ მიმაგრებული ხელშეკრულება</td></tr>\\n"
+                            + "<tr> <td style='padding-left: 20px;cursor:hand;text-decoration: underline;' onclick=\\\"showpdf('pdf/policy.pdf')\\\">პოლისი</td> <td>იხილეთ მიმაგრებული პოლისი</td></tr>\\n"
                             + "</table>\\n"
                             + "\"}";
 
@@ -839,21 +840,55 @@ public class mainService extends HttpServlet {
                 String email = tools.functions.jsonget(job, "email");
                 System.out.println("email=" + email);
 
+                String namefirstlat = tools.functions.jsonget(job, "namefirstlat");
+                System.out.println("namefirstlat=" + namefirstlat);
+
+                String namelastlat = tools.functions.jsonget(job, "namelastlat");
+                System.out.println("namelastlat=" + namelastlat);
+
+                String citizenship_code = tools.functions.jsonget(job, "citizenship_code");
+                System.out.println("citizenship_code=" + citizenship_code);
+
 // editional person
                 String personal_n2 = tools.functions.jsonget(job, "2personal_n");
                 System.out.println("2personal_n=" + personal_n2);
 
+                String namefirst2 = tools.functions.jsonget(job, "2namefirst");
+                System.out.println("namefirst2=" + namefirst2);
+
                 String namelast2 = tools.functions.jsonget(job, "2namelast");
                 System.out.println("namelast2=" + namelast2);
 
-                String namefirst2 = tools.functions.jsonget(job, "2namefirstlat");
-                System.out.println("namelast2=" + namefirst2);
+                String namefirstlat2 = tools.functions.jsonget(job, "2namefirstlat");
+                System.out.println("namefirstlat2=" + namefirstlat2);
 
-                String birthday2 = tools.functions.jsonget(job, "2birthday");
-                System.out.println("birthday2=" + birthday2);
+                String namelastlat2 = tools.functions.jsonget(job, "2namelastlat");
+                System.out.println("namelastlat2=" + namelastlat2);
+
+                String birthdayp2 = tools.functions.jsonget(job, "2birthday2");
+                System.out.println("birthdayp2=" + birthdayp2);
+
+                String citizenship_code2 = tools.functions.jsonget(job, "2citizenship_code");
+                System.out.println("citizenship_code2=" + citizenship_code2);
 
                 String gender2 = tools.functions.jsonget(job, "2gender");
                 System.out.println("gender2=" + gender);
+
+//   product parameters
+                String carnumber = tools.functions.jsonget(job, "carnumber");
+                System.out.println("carnumber=" + carnumber);
+
+                String carvin = tools.functions.jsonget(job, "carvin");
+                System.out.println("carvin=" + carvin);
+
+                String marca = tools.functions.jsonget(job, "marca");
+                System.out.println("marca=" + marca);
+
+                String model = tools.functions.jsonget(job, "model");
+                System.out.println("model=" + model);
+
+                String caryear = tools.functions.jsonget(job, "year");
+                System.out.println("caryear=" + caryear);
 
                 String liabilitylimit = tools.functions.jsonget(job, "liabilitylimit");
                 System.out.println("liabilitylimit=" + liabilitylimit);
@@ -863,6 +898,12 @@ public class mainService extends HttpServlet {
 
                 String paymentschedule = tools.functions.jsonget(job, "paymentschedule");
                 System.out.println("paymentschedule=" + paymentschedule);
+
+                String datestart = tools.functions.jsonget(job, "date12");
+                System.out.println("date12=" + datestart);
+
+                String dateend = tools.functions.jsonget(job, "date22");
+                System.out.println("dateend=" + dateend);
 
                 int curr = 0;
 
@@ -893,36 +934,34 @@ public class mainService extends HttpServlet {
                             + "</style>\\n"
                             + "<table class='pparameters'>\\n"
                             + "<tr><td style='background-color: #dddddd'><b>დამზღვევის მონაცემები </b></td> <td style='background-color: #dddddd'><a href='#' onclick='myshowtab(0)' >პარამეტრების ცვლილება</a></td></tr>\\n"
-                            + "<tr><td><b>პირადი N</b></td><td>01012015625</td></tr>\\n"
-                            + "<tr><td><b>დაბადების თარიღი</b></td><td>1975.01.01</td></tr>\\n"
-                            + "<tr><td><b>სახელი</b></td><td>ალეკო</td></tr>\\n"
-                            + "<tr><td><b>გვარი</b></td><td>სარჩიმელია</td></tr>\\n"
-                            + "<tr><td><b>სახელი ლათინურად</b></td><td>Alexander</td></tr>\\n"
-                            + "<tr><td><b>გვარი ლათინურად</b></td><td>Sarchimelia</td></tr>\\n"
-                            + "<tr><td><b>მოქალაქეობა</b></td><td>საქართველო</td></tr>\\n"
-                            + "<tr><td><b>სქესი</b></td><td>Male</td></tr>\\n"
-                            + "<tr><td><b>ტელეფონი</b></td><td>+995599612324</td></tr>\\n"
-                            + "<tr><td><b>eMail</b></td><td>agamemnon1975@gmail.com</td></tr>\\n"
+                            + "<tr><td><b>პირადი N</b></td><td>" + personal_n + "</td></tr>\\n"
+                            + "<tr><td><b>დაბადების თარიღი</b></td><td>" + birthday + "</td></tr>\\n"
+                            + "<tr><td><b>სახელი</b></td><td>" + namefirst + "</td></tr>\\n"
+                            + "<tr><td><b>გვარი</b></td><td>" + namelast + "</td></tr>\\n"
+                            + "<tr><td><b>სახელი ლათინურად</b></td><td>" + namefirstlat + "</td></tr>\\n"
+                            + "<tr><td><b>გვარი ლათინურად</b></td><td>" + namelastlat + "</td></tr>\\n"
+                            + "<tr><td><b>მოქალაქეობა</b></td><td>" + citizenship_code + "</td></tr>\\n"
+                            + "<tr><td><b>სქესი</b></td><td>" + gender + "</td></tr>\\n"
+                            + "<tr><td><b>ტელეფონი</b></td><td>" + phone + "</td></tr>\\n"
+                            + "<tr><td><b>eMail</b></td><td>" + email + "</td></tr>\\n"
                             + "<tr><td style='background-color: #dddddd' ><b>დაზღვეულის მონაცემები</b></td><td style='background-color: #dddddd'><a href='#' onclick='myshowtab(0)' >პარამეტრების ცვლილება</a></td></tr>\\n"
-                            + "<tr><td><b>პირადი N</b></td><td>01012015625</td></tr>\\n"
-                            + "<tr><td><b>დაბადების თარიღი</b></td><td>1975.01.01</td></tr>\\n"
-                            + "<tr><td><b>სახელი</b></td><td>ალეკო</td></tr>\\n"
-                            + "<tr><td><b>გვარი</b></td><td>სარჩიმელია</td></tr>\\n"
-                            + "<tr><td><b>სახელი ლათინურად</b></td><td>Alexander</td></tr>\\n"
-                            + "<tr><td><b>გვარი ლათინურად</b></td><td>Sarchimelia</td></tr>\\n"
-                            + "<tr><td><b>მოქალაქეობა</b></td><td>საქართველო</td></tr>\\n"
-                            + "<tr><td><b>სქესი</b></td><td>Male</td></tr>\\n"
-                            + "<tr><td><b>ტელეფონი</b></td><td>+995599612324</td></tr>\\n"
-                            + "<tr><td><b>eMail</b></td><td>agamemnon1975@gmail.com</td></tr>\\n"
+                            + "<tr><td><b>პირადი N</b></td><td>" + personal_n2 + "</td></tr>\\n"
+                            + "<tr><td><b>დაბადების თარიღი</b></td><td>" + birthdayp2 + "</td></tr>\\n"
+                            + "<tr><td><b>სახელი</b></td><td>" + namefirst2 + "</td></tr>\\n"
+                            + "<tr><td><b>გვარი</b></td><td>" + namelast2 + "</td></tr>\\n"
+                            + "<tr><td><b>სახელი ლათინურად</b></td><td>" + namefirstlat2 + "</td></tr>\\n"
+                            + "<tr><td><b>გვარი ლათინურად</b></td><td>" + namelastlat2 + "</td></tr>\\n"
+                            + "<tr><td><b>მოქალაქეობა</b></td><td>" + citizenship_code2 + "</td></tr>\\n"
+                            + "<tr><td><b>სქესი</b></td><td>" + gender2 + "</td></tr>\\n"
                             + "<tr><td style='background-color: #dddddd' ><b>პასუხისმგებლობის დეტალები</b></td><td style='background-color: #dddddd'><a href='#' onclick='myshowtab(1)' >პარამეტრების ცვლილება</a></td></tr>\\n"
-                            + "<tr><td><b>სახელმწიფო ნომერი</b></td><td>AH865HA</td></tr>\\n"
-                            + "<tr><td><b>ვინკოდი</b></td><td>AH865HA</td></tr>\\n"
-                            + "<tr><td><b>მარკა</b></td><td>BMW</td></tr>\\n"
-                            + "<tr><td><b>მოდელი</b></td><td>Z6</td></tr>\\n"
-                            + "<tr><td><b>წელი</b></td><td>2016</td></tr>\\n"
-                            + "<tr><td><b>სადაზღვევო პერიოდი</b></td><td>2020.08.08-2020.10.23</td></tr>\\n"
-                            + "<tr><td><b>პასუხისმგებლობის ლიმიტი</b> </td><td>20000 USD</td></tr>\\n"
-                            + "<tr><td><b>გადახდის გრაფიკი</b></td><td>კვარტლური</td></tr>\\n"
+                            + "<tr><td><b>სახელმწიფო ნომერი</b></td><td>" + carnumber + "</td></tr>\\n"
+                            + "<tr><td><b>ვინკოდი</b></td><td>" + carvin + "</td></tr>\\n"
+                            + "<tr><td><b>მარკა</b></td><td>" + marca + "</td></tr>\\n"
+                            + "<tr><td><b>მოდელი</b></td><td>" + model + "</td></tr>\\n"
+                            + "<tr><td><b>წელი</b></td><td>" + caryear + "</td></tr>\\n"
+                            + "<tr><td><b>სადაზღვევო პერიოდი</b></td><td>" + datestart + "-" + dateend + "</td></tr>\\n"
+                            + "<tr><td><b>სადაზღვევო თანხა</b> </td><td>" + liabilitylimit + " " + currency + "</td></tr>\\n"
+                            + "<tr><td><b>გადახდის გრაფიკი</b></td><td>"+paymentschedule+"</td></tr>\\n"
                             //                   + "<tr><td><b>ჯამური თანხა</b></td><td>14 ლარი</td></tr>\\n"
 
                             + "</table>\\n";
@@ -1014,6 +1053,15 @@ public class mainService extends HttpServlet {
                 String namelast = tools.functions.jsonget(job, "namelast");
                 System.out.println("namelast=" + namelast);
 
+                String namefirstlat = tools.functions.jsonget(job, "namefirstlat");
+                System.out.println("namefirstlat=" + namefirstlat);
+
+                String namelastlat = tools.functions.jsonget(job, "namelastlat");
+                System.out.println("namelastlat=" + namelastlat);
+
+                String citizenship_code = tools.functions.jsonget(job, "citizenship_code");
+                System.out.println("citizenship_code=" + citizenship_code);
+
                 String gender = tools.functions.jsonget(job, "gender");
                 System.out.println("gender=" + gender);
 
@@ -1026,18 +1074,46 @@ public class mainService extends HttpServlet {
                 String birthday2 = tools.functions.jsonget(job, "birthday2");
                 System.out.println("birthday2=" + birthday2);
 
+                String country_code = tools.functions.jsonget(job, "country_code");
+                System.out.println("country_code=" + country_code);
+
 // editional person
                 String personal_n2 = tools.functions.jsonget(job, "2personal_n");
                 System.out.println("2personal_n=" + personal_n2);
 
+                String namefirst2 = tools.functions.jsonget(job, "2namefirst");
+                System.out.println("namefirst2=" + namefirst2);
+
                 String namelast2 = tools.functions.jsonget(job, "2namelast");
                 System.out.println("namelast2=" + namelast2);
 
-                String namefirst2 = tools.functions.jsonget(job, "2namefirstlat");
-                System.out.println("namelast2=" + namefirst2);
+                String namefirstlat2 = tools.functions.jsonget(job, "2namefirstlat");
+                System.out.println("namefirstlat2=" + namefirstlat2);
+
+                String namelastlat2 = tools.functions.jsonget(job, "2namelastlat");
+                System.out.println("namelastlat2=" + namelastlat2);
+
+                String birthdayp2 = tools.functions.jsonget(job, "2birthday2");
+                System.out.println("birthdayp2=" + birthdayp2);
+
+                String citizenship_code2 = tools.functions.jsonget(job, "2citizenship_code");
+                System.out.println("citizenship_code2=" + citizenship_code2);
 
                 String gender2 = tools.functions.jsonget(job, "2gender");
                 System.out.println("gender2=" + gender);
+
+//   product parameters
+                String checkboxrule = tools.functions.jsonget(job, "checkboxrule");
+                System.out.println("checkboxrule=" + checkboxrule);
+
+                String baggageinsurance = tools.functions.jsonget(job, "baggageinsurance");
+                System.out.println("baggageinsurance=" + baggageinsurance);
+
+                String reisinsurance = tools.functions.jsonget(job, "reisinsurance");
+                System.out.println("reisinsurance=" + reisinsurance);
+//
+//                String email2 = tools.functions.jsonget(job, "email");
+//                System.out.println("email=" + email);
 
                 String insurancelimit = tools.functions.jsonget(job, "insurancelimit");
                 System.out.println("insurancelimit=" + insurancelimit);
@@ -1050,6 +1126,7 @@ public class mainService extends HttpServlet {
 
                 String datestart = tools.functions.jsonget(job, "date12");
                 System.out.println("date12=" + datestart);
+
                 String dateend = tools.functions.jsonget(job, "date22");
                 System.out.println("dateend=" + dateend);
 
@@ -1067,8 +1144,8 @@ public class mainService extends HttpServlet {
 //                        + "where provider_id=provider.id and p.amount_limit='" + insurancelimit + "' and exchange_rate_id='" + curr
 //                        + "' and  date_part('year', age( now(),'" + birthday + "'))>age_min and  date_part('year', age( now(),'" + birthday + "'))<age_max" //      date_part('year', age( now(),'1972-1-23'))>age_min  and    date_part('year', age( now(),'1972-1-23'))<age_max
 //                        ;
- 
-               String qwr = "select provider_id,provider.name,amount_limit,amount_price * (date '"+dateend+"'- date'"+datestart+"'),p.id,add_html,franchise from travel_params p,provider \n"
+
+                String qwr = "select provider_id,provider.name,amount_limit,amount_price * ((date '" + dateend + "'- date'" + datestart + "')+1),p.id,add_html,franchise from travel_params p,provider \n"
                         + "where provider_id=provider.id and p.amount_limit='" + insurancelimit + "' and exchange_rate_id='" + curr
                         + "' and  date_part('year', age( now(),'" + birthday + "'))>age_min and  date_part('year', age( now(),'" + birthday + "'))<age_max" //      date_part('year', age( now(),'1972-1-23'))>age_min  and    date_part('year', age( now(),'1972-1-23'))<age_max
                         ;
@@ -1089,33 +1166,31 @@ public class mainService extends HttpServlet {
                             + "</style>\\n"
                             + "<table class='pparameters'>\\n"
                             + "<tr><td style='background-color: #dddddd'><b>დამზღვევის მონაცემები </b></td> <td style='background-color: #dddddd'><a href='#' onclick='myshowtab(0)' >პარამეტრების ცვლილება</a></td></tr>\\n"
-                            + "<tr><td><b>პირადი N</b></td><td>01012015625</td></tr>\\n"
-                            + "<tr><td><b>დაბადების თარიღი</b></td><td>1975.01.01</td></tr>\\n"
-                            + "<tr><td><b>სახელი</b></td><td>ალეკო</td></tr>\\n"
-                            + "<tr><td><b>გვარი</b></td><td>სარჩიმელია</td></tr>\\n"
-                            + "<tr><td><b>სახელი ლათინურად</b></td><td>Alexander</td></tr>\\n"
-                            + "<tr><td><b>გვარი ლათინურად</b></td><td>Sarchimelia</td></tr>\\n"
-                            + "<tr><td><b>მოქალაქეობა</b></td><td>საქართველო</td></tr>\\n"
-                            + "<tr><td><b>სქესი</b></td><td>Male</td></tr>\\n"
-                            + "<tr><td><b>ტელეფონი</b></td><td>+995599612324</td></tr>\\n"
-                            + "<tr><td><b>eMail</b></td><td>agamemnon1975@gmail.com</td></tr>\\n"
+                            + "<tr><td><b>პირადი N</b></td><td>" + personal_n + "</td></tr>\\n"
+                            + "<tr><td><b>დაბადების თარიღი</b></td><td>" + birthday + "</td></tr>\\n"
+                            + "<tr><td><b>სახელი</b></td><td>" + namefirst + "</td></tr>\\n"
+                            + "<tr><td><b>გვარი</b></td><td>" + namelast + "</td></tr>\\n"
+                            + "<tr><td><b>სახელი ლათინურად</b></td><td>" + namefirstlat + "</td></tr>\\n"
+                            + "<tr><td><b>გვარი ლათინურად</b></td><td>" + namelastlat + "</td></tr>\\n"
+                            + "<tr><td><b>მოქალაქეობა</b></td><td>" + citizenship_code + "</td></tr>\\n"
+                            + "<tr><td><b>სქესი</b></td><td>" + gender + "</td></tr>\\n"
+                            + "<tr><td><b>ტელეფონი</b></td><td>" + phone + "</td></tr>\\n"
+                            + "<tr><td><b>eMail</b></td><td>" + email + "</td></tr>\\n"
                             + "<tr><td style='background-color: #dddddd' ><b>დაზღვეულის მონაცემები</b></td><td style='background-color: #dddddd'><a href='#' onclick='myshowtab(0)' >პარამეტრების ცვლილება</a></td></tr>\\n"
-                            + "<tr><td><b>პირადი N</b></td><td>01012015625</td></tr>\\n"
-                            + "<tr><td><b>დაბადების თარიღი</b></td><td>1975.01.01</td></tr>\\n"
-                            + "<tr><td><b>სახელი</b></td><td>ალეკო</td></tr>\\n"
-                            + "<tr><td><b>გვარი</b></td><td>სარჩიმელია</td></tr>\\n"
-                            + "<tr><td><b>სახელი ლათინურად</b></td><td>Alexander</td></tr>\\n"
-                            + "<tr><td><b>გვარი ლათინურად</b></td><td>Sarchimelia</td></tr>\\n"
-                            + "<tr><td><b>მოქალაქეობა</b></td><td>საქართველო</td></tr>\\n"
-                            + "<tr><td><b>სქესი</b></td><td>Male</td></tr>\\n"
-                            + "<tr><td><b>ტელეფონი</b></td><td>+995599612324</td></tr>\\n"
-                            + "<tr><td><b>eMail</b></td><td>agamemnon1975@gmail.com</td></tr>\\n"
+                            + "<tr><td><b>პირადი N</b></td><td>" + personal_n2 + "</td></tr>\\n"
+                            + "<tr><td><b>დაბადების თარიღი</b></td><td>" + birthdayp2 + "</td></tr>\\n"
+                            + "<tr><td><b>სახელი</b></td><td>" + namefirst2 + "</td></tr>\\n"
+                            + "<tr><td><b>გვარი</b></td><td>" + namelast2 + "</td></tr>\\n"
+                            + "<tr><td><b>სახელი ლათინურად</b></td><td>" + namefirstlat2 + "</td></tr>\\n"
+                            + "<tr><td><b>გვარი ლათინურად</b></td><td>" + namelastlat2 + "</td></tr>\\n"
+                            + "<tr><td><b>მოქალაქეობა</b></td><td>" + citizenship_code2 + "</td></tr>\\n"
+                            + "<tr><td><b>სქესი</b></td><td>" + gender2 + "</td></tr>\\n"
                             + "<tr><td style='background-color: #dddddd' ><b>მოგზაურობის დეტალები</b></td><td style='background-color: #dddddd'><a href='#' onclick='myshowtab(1)' >პარამეტრების ცვლილება</a></td></tr>\\n"
-                            + "<tr><td><b>რომელ ქვეყანაში მოგზაურობთ</b></td><td>ჰონდურასი</td></tr>\\n"
-                            + "<tr><td><b>სადაზღვევო პერიოდი</b></td><td>2020.08.08-2020.10.23</td></tr>\\n"
-                            + "<tr><td><b>სადაზღვევო თანხა</b> </td><td>50000 USD</td></tr>\\n"
-                            + "<tr><td><b>ბარგის დაზღვევა</b></td><td>კი</td></tr>\\n"
-                            + "<tr><td><b>რეისის დაზღვევა</b></td><td>არა</td></tr>\\n"
+                            + "<tr><td><b>რომელ ქვეყანაში მოგზაურობთ</b></td><td>" + country_code + "</td></tr>\\n"
+                            + "<tr><td><b>სადაზღვევო პერიოდი</b></td><td>" + datestart + "-" + dateend + "</td></tr>\\n"
+                            + "<tr><td><b>სადაზღვევო თანხა</b> </td><td>" + insurancelimit + " " + currency + "</td></tr>\\n"
+                            + "<tr><td><b>ბარგის დაზღვევა</b></td><td>" + baggageinsurance + "</td></tr>\\n"
+                            + "<tr><td><b>რეისის დაზღვევა</b></td><td>" + reisinsurance + "</td></tr>\\n"
                             //                   + "<tr><td><b>ჯამური თანხა</b></td><td>14 ლარი</td></tr>\\n"
 
                             + "</table>\\n";
@@ -1125,34 +1200,31 @@ public class mainService extends HttpServlet {
                             + "</style>\\n"
                             + "<table class='pparameters'>\\n"
                             + "<tr><td style='background-color: #dddddd' colspan='2'> <b>დამზღვევის მონაცემები </b></td> </tr>\\n"
-                            + "<tr><td><b>პირადი N</b></td><td>01012015625</td></tr>\\n"
-                            + "<tr><td><b>დაბადების თარიღი</b></td><td>1975.01.01</td></tr>\\n"
-                            + "<tr><td><b>სახელი</b></td><td>ალეკო</td></tr>\\n"
-                            + "<tr><td><b>გვარი</b></td><td>სარჩიმელია</td></tr>\\n"
-                            + "<tr><td><b>სახელი ლათინურად</b></td><td>Alexander</td></tr>\\n"
-                            + "<tr><td><b>გვარი ლათინურად</b></td><td>Sarchimelia</td></tr>\\n"
-                            + "<tr><td><b>მოქალაქეობა</b></td><td>საქართველო</td></tr>\\n"
-                            + "<tr><td><b>სქესი</b></td><td>Male</td></tr>\\n"
-                            + "<tr><td><b>ტელეფონი</b></td><td>+995599612324</td></tr>\\n"
-                            + "<tr><td><b>eMail</b></td><td>agamemnon1975@gmail.com</td></tr>\\n"
+                            + "<tr><td><b>პირადი N</b></td><td>" + personal_n + "</td></tr>\\n"
+                            + "<tr><td><b>დაბადების თარიღი</b></td><td>" + birthday + "</td></tr>\\n"
+                            + "<tr><td><b>სახელი</b></td><td>" + namefirst + "</td></tr>\\n"
+                            + "<tr><td><b>გვარი</b></td><td>" + namelast + "</td></tr>\\n"
+                            + "<tr><td><b>სახელი ლათინურად</b></td><td>" + namefirstlat + "</td></tr>\\n"
+                            + "<tr><td><b>გვარი ლათინურად</b></td><td>" + namelastlat + "</td></tr>\\n"
+                            + "<tr><td><b>მოქალაქეობა</b></td><td>" + citizenship_code + "</td></tr>\\n"
+                            + "<tr><td><b>სქესი</b></td><td>" + gender + "</td></tr>\\n"
+                            + "<tr><td><b>ტელეფონი</b></td><td>" + phone + "</td></tr>\\n"
+                            + "<tr><td><b>eMail</b></td><td>" + email + "</td></tr>\\n"
                             + "<tr><td style='background-color: #dddddd' colspan='2'><b>დაზღვეულის მონაცემები</b></tr>\\n"
-                            + "<tr><td><b>პირადი N</b></td><td>01012015625</td></tr>\\n"
-                            + "<tr><td><b>დაბადების თარიღი</b></td><td>1975.01.01</td></tr>\\n"
-                            + "<tr><td><b>სახელი</b></td><td>ალეკო</td></tr>\\n"
-                            + "<tr><td><b>გვარი</b></td><td>სარჩიმელია</td></tr>\\n"
-                            + "<tr><td><b>სახელი ლათინურად</b></td><td>Alexander</td></tr>\\n"
-                            + "<tr><td><b>გვარი ლათინურად</b></td><td>Sarchimelia</td></tr>\\n"
-                            + "<tr><td><b>მოქალაქეობა</b></td><td>საქართველო</td></tr>\\n"
-                            + "<tr><td><b>სქესი</b></td><td>Male</td></tr>\\n"
-                            + "<tr><td><b>ტელეფონი</b></td><td>+995599612324</td></tr>\\n"
-                            + "<tr><td><b>eMail</b></td><td>agamemnon1975@gmail.com</td></tr>\\n"
+                            + "<tr><td><b>პირადი N</b></td><td>" + personal_n2 + "</td></tr>\\n"
+                            + "<tr><td><b>დაბადების თარიღი</b></td><td>" + birthdayp2 + "</td></tr>\\n"
+                            + "<tr><td><b>სახელი</b></td><td>" + namefirst2 + "</td></tr>\\n"
+                            + "<tr><td><b>გვარი</b></td><td>" + namelast2 + "</td></tr>\\n"
+                            + "<tr><td><b>სახელი ლათინურად</b></td><td>" + namefirstlat2 + "</td></tr>\\n"
+                            + "<tr><td><b>გვარი ლათინურად</b></td><td>" + namelastlat2 + "</td></tr>\\n"
+                            + "<tr><td><b>მოქალაქეობა</b></td><td>" + citizenship_code2 + "</td></tr>\\n"
+                            + "<tr><td><b>სქესი</b></td><td>" + gender2 + "</td></tr>\\n"
                             + "<tr><td style='background-color: #dddddd' colspan='2' ><b>მოგზაურობის დეტალები</b></td></tr>\\n"
-                            + "<tr><td><b>რომელ ქვეყანაში მოგზაურობთ</b></td><td>ჰონდურასი</td></tr>\\n"
-                            + "<tr><td><b>სადაზღვევო პერიოდი</b></td><td>2020.08.08-2020.10.23</td></tr>\\n"
-                            + "<tr><td><b>სადაზღვევო თანხა</b> </td><td>50000 USD</td></tr>\\n"
-                            + "<tr><td><b>ბარგის დაზღვევა</b></td><td>კი</td></tr>\\n"
-                            + "<tr><td><b>რეისის დაზღვევა</b></td><td>არა</td></tr>\\n"
-                            //                   + "<tr><td><b>ჯამური თანხა</b></td><td>14 ლარი</td></tr>\\n"
+                            + "<tr><td><b>რომელ ქვეყანაში მოგზაურობთ</b></td><td>" + country_code + "</td></tr>\\n"
+                            + "<tr><td><b>სადაზღვევო პერიოდი</b></td><td>" + datestart + "-" + dateend + "</td></tr>\\n"
+                            + "<tr><td><b>სადაზღვევო თანხა</b> </td><td>" + insurancelimit + " " + currency + "</td></tr>\\n"
+                            + "<tr><td><b>ბარგის დაზღვევა</b></td><td>" + baggageinsurance + "</td></tr>\\n"
+                            + "<tr><td><b>რეისის დაზღვევა</b></td><td>" + reisinsurance + "</td></tr>\\n" //                   + "<tr><td><b>ჯამური თანხა</b></td><td>14 ლარი</td></tr>\\n"
 
                             + "</table>\\n";
 
