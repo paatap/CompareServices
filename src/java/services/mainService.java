@@ -287,6 +287,9 @@ public class mainService extends HttpServlet {
                 String email = tools.functions.jsonget(job, "email");
                 System.out.println("email=" + email);
 
+                String citizenship_code = tools.functions.jsonget(job, "citizenship_code");
+                System.out.println("citizenship_code=" + citizenship_code);
+
                 String checkboxrule = tools.functions.jsonget(job, "checkboxrule");
                 System.out.println("checkboxrule=" + checkboxrule);
 
@@ -299,8 +302,8 @@ public class mainService extends HttpServlet {
 
                 System.out.println("1.   s1=" + s1.get(0)[0]);
 
-                qwr = "insert into crm_contact  (name,email,userid,pid,contact_type_id,name_first,name_last,gender,birthday,phone,phonepre,name_first_lat,name_last_lat)"
-                        + "values('" + namefirst + " " + namelast + "','" + email + "'," + s1.get(0)[0] + ",'" + personal_n + "',1,'"
+                qwr = "insert into crm_contact  (name,email,idn,userid,pid,contact_type_id,name_first,name_last,gender,birthday,phone,phonepre,name_first_lat,name_last_lat)"
+                        + "values('" + namefirst + " " + namelast + "','" + email + "'," + citizenship_code + "'," + s1.get(0)[0] + ",'" + personal_n + "',1,'"
                         + namefirst + "','" + namelast + "','" + gender + "','" + birthday + "','" + phone + "','" + phonepre
                         + "','" + namefirstlat + "','" + namelastlat + "') returning id;";
 
@@ -455,7 +458,7 @@ public class mainService extends HttpServlet {
 
                 //name,email,userid,pid,contact_type_id,name_first,name_last,gender
                 String qwr = "select cc.userid,cc.name_first,cc.name_last,cc.email,cc.info2mail,cc.pid,cc.birthday,cc.phone,cc.phonepre,cc.gender,"
-                        + "cc.name_first_lat,cc.name_last_lat"
+                        + "cc.name_first_lat,cc.name_last_lat,idn"
                         + " from crm_contact cc  \n"
                         + "  where userid=" + userid + ";";
                 System.out.println(qwr);
@@ -475,7 +478,8 @@ public class mainService extends HttpServlet {
                             + "\"phonepre\":\"" + s2.get(0)[8] + "\",\n"
                             + "\"gender\":\"" + s2.get(0)[9] + "\",\n"
                             + "\"namefirstlat\":\"" + s2.get(0)[10] + "\",\n"
-                            + "\"namelastlat\":\"" + s2.get(0)[11] + "\"\n}";
+                            + "\"namelastlat\":\"" + s2.get(0)[11] + "\",\n"
+                            + "\"citizenship_code\":\"" + s2.get(0)[12] + "\"\n}";
                 } else {
                     ss = "{\n\"command\":\"getparameters\",\n"
                             + "\"result\":\"usernotfound\"\n}";
@@ -516,6 +520,9 @@ public class mainService extends HttpServlet {
                 String email = tools.functions.jsonget(job, "email");
                 System.out.println("email=" + email);
 
+                String citizenship_code = tools.functions.jsonget(job, "citizenship_code");
+                System.out.println("citizenship_code=" + citizenship_code);
+
                 String info2mail = tools.functions.jsonget(job, "info2mail");
                 System.out.println("info2mail=" + info2mail);
                 if (info2mail.equals("")) {
@@ -538,8 +545,9 @@ public class mainService extends HttpServlet {
                         + "gender='" + gender + "',"
                         + "phone='" + phone + "',"
                         + "phonepre='" + phonepre + "',"
-                        + "email='" + email + "'"
-                        + info2mail
+                        + "email='" + email + "',"
+                        + "idn='" + citizenship_code + "',"
+                        //                        + "info2mail="+
                         + "name_first_lat='" + namefirstlat + "',"
                         + "name_last_lat='" + namelastlat + "'"
                         + "  where userid=" + userid + " returning id";
@@ -674,7 +682,7 @@ public class mainService extends HttpServlet {
                 System.out.println("personal_n=" + pid);
 
                 //name,email,userid,pid,contact_type_id,name_first,name_last,gender
-                String qwr = "select cc.userid,cc.name_first,cc.name_last,cc.email,cc.info2mail,cc.pid,cc.birthday,cc.phone,cc.phonepre,cc.gender,cc.name_first_lat,cc.name_last_lat"
+                String qwr = "select cc.userid,cc.name_first,cc.name_last,cc.email,cc.info2mail,cc.pid,cc.birthday,cc.phone,cc.phonepre,cc.gender,cc.name_first_lat,cc.name_last_lat,cc_idn"
                         + " from crm_contact cc  \n"
                         + "  where pid='" + pid + "' and userid=" + userid + ";";
                 System.out.println(qwr);
@@ -694,7 +702,8 @@ public class mainService extends HttpServlet {
                             + "\"phonepre\":\"" + s2.get(0)[8] + "\",\n"
                             + "\"gender\":\"" + s2.get(0)[9] + "\",\n"
                             + "\"namefirstlat\":\"" + s2.get(0)[10] + "\",\n"
-                            + "\"namelastlat\":\"" + s2.get(0)[11] + "\"\n}";
+                            + "\"citizenship_code\":\"" + s2.get(0)[11] + "\",\n"
+                            + "\"namelastlat\":\"" + s2.get(0)[12] + "\"\n}";
 
                 } else {
                     ss = "{\n\"command\":\"getpersondata\",\n"
@@ -873,6 +882,33 @@ public class mainService extends HttpServlet {
 
                 String gender2 = tools.functions.jsonget(job, "2gender");
                 System.out.println("gender2=" + gender);
+
+                if (forwho.equals("forme")) {
+                    personal_n2 = tools.functions.jsonget(job, "personal_n");
+                    System.out.println("2personal_n=" + personal_n2);
+
+                    namefirst2 = tools.functions.jsonget(job, "namefirst");
+                    System.out.println("namefirst2=" + namefirst2);
+
+                    namelast2 = tools.functions.jsonget(job, "namelast");
+                    System.out.println("namelast2=" + namelast2);
+
+                    namefirstlat2 = tools.functions.jsonget(job, "namefirstlat");
+                    System.out.println("namefirstlat2=" + namefirstlat2);
+
+                    namelastlat2 = tools.functions.jsonget(job, "namelastlat");
+                    System.out.println("namelastlat2=" + namelastlat2);
+
+                    birthdayp2 = tools.functions.jsonget(job, "birthday2");
+                    System.out.println("birthdayp2=" + birthdayp2);
+
+                    citizenship_code2 = tools.functions.jsonget(job, "citizenship_code");
+                    System.out.println("citizenship_code2=" + citizenship_code2);
+
+                    gender2 = tools.functions.jsonget(job, "gender");
+                    System.out.println("gender2=" + gender);
+
+                }
 
 //   product parameters
                 String carnumber = tools.functions.jsonget(job, "carnumber");
@@ -1102,6 +1138,33 @@ public class mainService extends HttpServlet {
                 String gender2 = tools.functions.jsonget(job, "2gender");
                 System.out.println("gender2=" + gender);
 
+                if (forwho.equals("forme")) {
+                    personal_n2 = tools.functions.jsonget(job, "personal_n");
+                    System.out.println("2personal_n=" + personal_n2);
+
+                    namefirst2 = tools.functions.jsonget(job, "namefirst");
+                    System.out.println("namefirst2=" + namefirst2);
+
+                    namelast2 = tools.functions.jsonget(job, "namelast");
+                    System.out.println("namelast2=" + namelast2);
+
+                    namefirstlat2 = tools.functions.jsonget(job, "namefirstlat");
+                    System.out.println("namefirstlat2=" + namefirstlat2);
+
+                    namelastlat2 = tools.functions.jsonget(job, "namelastlat");
+                    System.out.println("namelastlat2=" + namelastlat2);
+
+                    birthdayp2 = tools.functions.jsonget(job, "birthday2");
+                    System.out.println("birthdayp2=" + birthdayp2);
+
+                    citizenship_code2 = tools.functions.jsonget(job, "citizenship_code");
+                    System.out.println("citizenship_code2=" + citizenship_code2);
+
+                    gender2 = tools.functions.jsonget(job, "gender");
+                    System.out.println("gender2=" + gender);
+
+                }
+
 //   product parameters
                 String checkboxrule = tools.functions.jsonget(job, "checkboxrule");
                 System.out.println("checkboxrule=" + checkboxrule);
@@ -1224,8 +1287,8 @@ public class mainService extends HttpServlet {
                             + "<tr><td><b>სადაზღვევო პერიოდი</b></td><td>" + datestart + "-" + dateend + "</td></tr>\\n"
                             + "<tr><td><b>სადაზღვევო თანხა</b> </td><td>" + insurancelimit + " " + currency + "</td></tr>\\n"
                             + "<tr><td><b>ბარგის დაზღვევა</b></td><td>" + baggageinsurance + "</td></tr>\\n"
-                            + "<tr><td><b>რეისის დაზღვევა</b></td><td>" + reisinsurance + "</td></tr>\\n" 
-    //                   + "<tr><td><b>ჯამური თანხა</b></td><td>14 ლარი</td></tr>\\n"
+                            + "<tr><td><b>რეისის დაზღვევა</b></td><td>" + reisinsurance + "</td></tr>\\n"
+                            //                   + "<tr><td><b>ჯამური თანხა</b></td><td>14 ლარი</td></tr>\\n"
 
                             + "</table>\\n";
 
@@ -1512,9 +1575,34 @@ public class mainService extends HttpServlet {
                 String gender2 = tools.functions.jsonget(job, "2gender");
                 System.out.println("gender2=" + gender);
 
- // product parameters
-                
-                
+                if (forwho.equals("forme")) {
+                    personal_n2 = tools.functions.jsonget(job, "personal_n");
+                    System.out.println("2personal_n=" + personal_n2);
+
+                    namefirst2 = tools.functions.jsonget(job, "namefirst");
+                    System.out.println("namefirst2=" + namefirst2);
+
+                    namelast2 = tools.functions.jsonget(job, "namelast");
+                    System.out.println("namelast2=" + namelast2);
+
+                    namefirstlat2 = tools.functions.jsonget(job, "namefirstlat");
+                    System.out.println("namefirstlat2=" + namefirstlat2);
+
+                    namelastlat2 = tools.functions.jsonget(job, "namelastlat");
+                    System.out.println("namelastlat2=" + namelastlat2);
+
+                    birthdayp2 = tools.functions.jsonget(job, "birthday2");
+                    System.out.println("birthdayp2=" + birthdayp2);
+
+                    citizenship_code2 = tools.functions.jsonget(job, "citizenship_code");
+                    System.out.println("citizenship_code2=" + citizenship_code2);
+
+                    gender2 = tools.functions.jsonget(job, "gender");
+                    System.out.println("gender2=" + gender);
+
+                }
+
+                // product parameters
                 String insurancelimit = tools.functions.jsonget(job, "homeinsurancelimit");
                 System.out.println("insurancelimit=" + insurancelimit);
 
@@ -1523,18 +1611,14 @@ public class mainService extends HttpServlet {
 
                 String paymentschedule = tools.functions.jsonget(job, "paymentschedule");
                 System.out.println("paymentschedule=" + paymentschedule);
-                  String checkboxrule = tools.functions.jsonget(job, "checkboxrule");
+                String checkboxrule = tools.functions.jsonget(job, "checkboxrule");
                 System.out.println("checkboxrule=" + checkboxrule);
-
-
 
                 String datestart = tools.functions.jsonget(job, "date12");
                 System.out.println("date12=" + datestart);
 
                 String dateend = tools.functions.jsonget(job, "date22");
                 System.out.println("dateend=" + dateend);
-              
-                
 
                 int curr = 12;
 
@@ -1547,7 +1631,7 @@ public class mainService extends HttpServlet {
                 }
 /// insert into
                 String qwr = "select provider_id,provider.name,amount_limit,amount_price,p.id,add_html,franchise from health_params p,provider \n"
-                        + "where provider_id=provider.id  and exchange_rate_id='" + curr + "'";;
+                        + "where provider_id=provider.id  and exchange_rate_id='" + curr + "'";
 
                 System.out.println("qwr=    " + qwr);
 
@@ -1583,10 +1667,7 @@ public class mainService extends HttpServlet {
                             + "<tr><td><b>გვარი ლათინურად</b></td><td>" + namelastlat2 + "</td></tr>\\n"
                             + "<tr><td><b>მოქალაქეობა</b></td><td>" + citizenship_code2 + "</td></tr>\\n"
                             + "<tr><td style='background-color: #dddddd' ><b>დაზღვევის დეტალები</b></td><td style='background-color: #dddddd'><a href='#' onclick='myshowtab(1)' >პარამეტრების ცვლილება</a></td></tr>\\n"
-                            
-
                             + "<tr><td><b>სადაზღვევო პერიოდი</b></td><td>" + datestart + "-" + dateend + "</td></tr>\\n"
- 
                             //                   + "<tr><td><b>ჯამური თანხა</b></td><td>14 ლარი</td></tr>\\n"
 
                             + "</table>\\n";
