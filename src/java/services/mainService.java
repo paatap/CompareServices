@@ -1375,14 +1375,23 @@ public class mainService extends HttpServlet {
                 String personal_n = tools.functions.jsonget(job, "personal_n");
                 System.out.println("personal_n=" + personal_n);
 
-                String birthday = tools.functions.jsonget(job, "birthday");
-                System.out.println("birthday=" + birthday);
+                String birthday = tools.functions.jsonget(job, "birthday2");
+                System.out.println("birthday=++" + birthday);
 
                 String namefirst = tools.functions.jsonget(job, "namefirst");
                 System.out.println("namefirst=" + namefirst);
 
                 String namelast = tools.functions.jsonget(job, "namelast");
                 System.out.println("namelast=" + namelast);
+
+                String namefirstlat = tools.functions.jsonget(job, "namefirstlat");
+                System.out.println("namefirstlat=" + namefirstlat);
+
+                String namelastlat = tools.functions.jsonget(job, "namelastlat");
+                System.out.println("namelastlat=" + namelastlat);
+
+                String citizenship_code = tools.functions.jsonget(job, "citizenship_code");
+                System.out.println("citizenship_code=" + citizenship_code);
 
                 String gender = tools.functions.jsonget(job, "gender");
                 System.out.println("gender=" + gender);
@@ -1393,22 +1402,65 @@ public class mainService extends HttpServlet {
                 String email = tools.functions.jsonget(job, "email");
                 System.out.println("email=" + email);
 
+                String birthday2 = tools.functions.jsonget(job, "birthday2");
+                System.out.println("birthday2=" + birthday2);
+
+                String country_code = tools.functions.jsonget(job, "country_code");
+                System.out.println("country_code=" + country_code);
+
 // editional person
                 String personal_n2 = tools.functions.jsonget(job, "2personal_n");
                 System.out.println("2personal_n=" + personal_n2);
 
+                String namefirst2 = tools.functions.jsonget(job, "2namefirst");
+                System.out.println("namefirst2=" + namefirst2);
+
                 String namelast2 = tools.functions.jsonget(job, "2namelast");
                 System.out.println("namelast2=" + namelast2);
 
-                String namefirst2 = tools.functions.jsonget(job, "2namefirstlat");
-                System.out.println("namelast2=" + namefirst2);
+                String namefirstlat2 = tools.functions.jsonget(job, "2namefirstlat");
+                System.out.println("namefirstlat2=" + namefirstlat2);
 
-                String birthday2 = tools.functions.jsonget(job, "2birthday");
-                System.out.println("birthday2=" + birthday2);
+                String namelastlat2 = tools.functions.jsonget(job, "2namelastlat");
+                System.out.println("namelastlat2=" + namelastlat2);
+
+                String birthdayp2 = tools.functions.jsonget(job, "2birthday2");
+                System.out.println("birthdayp2=" + birthdayp2);
+
+                String citizenship_code2 = tools.functions.jsonget(job, "2citizenship_code");
+                System.out.println("citizenship_code2=" + citizenship_code2);
 
                 String gender2 = tools.functions.jsonget(job, "2gender");
                 System.out.println("gender2=" + gender);
-// product parameters
+
+                if (forwho.equals("forme")) {
+                    personal_n2 = tools.functions.jsonget(job, "personal_n");
+                    System.out.println("2personal_n=" + personal_n2);
+
+                    namefirst2 = tools.functions.jsonget(job, "namefirst");
+                    System.out.println("namefirst2=" + namefirst2);
+
+                    namelast2 = tools.functions.jsonget(job, "namelast");
+                    System.out.println("namelast2=" + namelast2);
+
+                    namefirstlat2 = tools.functions.jsonget(job, "namefirstlat");
+                    System.out.println("namefirstlat2=" + namefirstlat2);
+
+                    namelastlat2 = tools.functions.jsonget(job, "namelastlat");
+                    System.out.println("namelastlat2=" + namelastlat2);
+
+                    birthdayp2 = tools.functions.jsonget(job, "birthday2");
+                    System.out.println("birthdayp2=" + birthdayp2);
+
+                    citizenship_code2 = tools.functions.jsonget(job, "citizenship_code");
+                    System.out.println("citizenship_code2=" + citizenship_code2);
+
+                    gender2 = tools.functions.jsonget(job, "gender");
+                    System.out.println("gender2=" + gender);
+
+                }
+
+                // product parameters
                 String insurancelimit = tools.functions.jsonget(job, "homeinsurancelimit");
                 System.out.println("homeinsurancelimit=" + insurancelimit);
 
@@ -1417,6 +1469,19 @@ public class mainService extends HttpServlet {
 
                 String paymentschedule = tools.functions.jsonget(job, "paymentschedule");
                 System.out.println("paymentschedule=" + paymentschedule);
+                String checkboxrule = tools.functions.jsonget(job, "checkboxrule");
+                System.out.println("checkboxrule=" + checkboxrule);
+
+                String datestart = tools.functions.jsonget(job, "date12");
+                System.out.println("date12=" + datestart);
+
+                String dateend = tools.functions.jsonget(job, "date22");
+                System.out.println("dateend=" + dateend);
+                
+                String area = tools.functions.jsonget(job, "totalarea");
+                System.out.println("totalarea=" + area);
+                Double aread=functions.str2double0(area);
+// product parameters
 
                 int curr = 0;
 
@@ -1428,9 +1493,9 @@ public class mainService extends HttpServlet {
                     curr = 37;
                 }
 /// insert into
-                String qwr = "select provider_id,provider.name,amount_limit,amount_price ,p.id,add_html,franchise from property_params p,provider \n"
-                        + "where provider_id=provider.id and p.amount_limit='" + insurancelimit + "' and exchange_rate_id='" + curr + "'";
-
+                String qwr = "select provider_id,provider.name,amount_limit,area_price*"+aread+"+neighbor_price,p.id,add_html,franchise_txt from property_params p,provider \n"
+                        + "where provider_id=provider.id ";
+                //                      + "where provider_id=provider.id and p.amount_limit='" + insurancelimit + "' and exchange_rate_id='" + curr + "'";
                 System.out.println("qwr=    " + qwr);
 
                 ArrayList<String[]> provider = tools.functions.getResult(qwr, tools.functions.isnewcompare);
@@ -1440,8 +1505,72 @@ public class mainService extends HttpServlet {
                     ss = "{\n\"command\":\"getproperty\",\n"
                             + "\"result\":\"noproposals\"\n}";
                 } else {
-                    ss = "{\n\"command\":\"gettravel\",\n"
+                    ptable = "<style>\\n"
+                            + "table.pparameters {font-size: 14px;font-family: arial, sans-serif;border-collapse: collapse;width: 100%;}\\n"
+                            + "table.pparameters td, th {border: 1px solid #dddddd;text-align: left;padding: 8px}\\n"
+                            + "</style>\\n"
+                            + "<table class='pparameters'>\\n"
+                            + "<tr><td style='background-color: #dddddd'><b>დამზღვევის მონაცემები </b></td> <td style='background-color: #dddddd'><a href='#' onclick='myshowtab(0)' >პარამეტრების ცვლილება</a></td></tr>\\n"
+                            + "<tr><td><b>პირადი N</b></td><td>" + personal_n + "</td></tr>\\n"
+                            + "<tr><td><b>დაბადების თარიღი</b></td><td>" + birthday + "</td></tr>\\n"
+                            + "<tr><td><b>სახელი</b></td><td>" + namefirst + "</td></tr>\\n"
+                            + "<tr><td><b>გვარი</b></td><td>" + namelast + "</td></tr>\\n"
+                            + "<tr><td><b>სახელი ლათინურად</b></td><td>" + namefirstlat + "</td></tr>\\n"
+                            + "<tr><td><b>გვარი ლათინურად</b></td><td>" + namelastlat + "</td></tr>\\n"
+                            + "<tr><td><b>მოქალაქეობა</b></td><td>" + citizenship_code + "</td></tr>\\n"
+                            + "<tr><td><b>სქესი</b></td><td>" + gender + "</td></tr>\\n"
+                            + "<tr><td><b>ტელეფონი</b></td><td>" + phone + "</td></tr>\\n"
+                            + "<tr><td><b>eMail</b></td><td>" + email + "</td></tr>\\n"
+                            + "<tr><td style='background-color: #dddddd' ><b>დაზღვეულის მონაცემები</b></td><td style='background-color: #dddddd'><a href='#' onclick='myshowtab(0)' >პარამეტრების ცვლილება</a></td></tr>\\n"
+                            + "<tr><td><b>პირადი N</b></td><td>" + personal_n2 + "</td></tr>\\n"
+                            + "<tr><td><b>დაბადების თარიღი</b></td><td>" + birthdayp2 + "</td></tr>\\n"
+                            + "<tr><td><b>სახელი</b></td><td>" + namefirst2 + "</td></tr>\\n"
+                            + "<tr><td><b>გვარი</b></td><td>" + namelast2 + "</td></tr>\\n"
+                            + "<tr><td><b>სახელი ლათინურად</b></td><td>" + namefirstlat2 + "</td></tr>\\n"
+                            + "<tr><td><b>გვარი ლათინურად</b></td><td>" + namelastlat2 + "</td></tr>\\n"
+                            + "<tr><td><b>მოქალაქეობა</b></td><td>" + citizenship_code2 + "</td></tr>\\n"
+                            + "<tr><td style='background-color: #dddddd' ><b>დაზღვევის დეტალები</b></td><td style='background-color: #dddddd'><a href='#' onclick='myshowtab(1)' >პარამეტრების ცვლილება</a></td></tr>\\n"
+                            + "<tr><td><b>სადაზღვევო პერიოდი</b></td><td>" + datestart + "-" + dateend + "</td></tr>\\n"
+                            //                   + "<tr><td><b>ჯამური თანხა</b></td><td>14 ლარი</td></tr>\\n"
+
+                            + "</table>\\n";
+                    buytable = "<style>\\n"
+                            + "table.pparameters {font-size: 14px;font-family: arial, sans-serif;border-collapse: collapse;width: 100%;}\\n"
+                            + "table.pparameters td, th {border: 1px solid #dddddd;text-align: left;padding: 8px}\\n"
+                            + "</style>\\n"
+                            + "<table class='pparameters'>\\n"
+                            + "<tr><td style='background-color: #dddddd' colspan='2'> <b>დამზღვევის მონაცემები </b></td> </tr>\\n"
+                            + "<tr><td><b>პირადი N</b></td><td>" + personal_n + "</td></tr>\\n"
+                            + "<tr><td><b>დაბადების თარიღი</b></td><td>" + birthday + "</td></tr>\\n"
+                            + "<tr><td><b>სახელი</b></td><td>" + namefirst + "</td></tr>\\n"
+                            + "<tr><td><b>გვარი</b></td><td>" + namelast + "</td></tr>\\n"
+                            + "<tr><td><b>სახელი ლათინურად</b></td><td>" + namefirstlat + "</td></tr>\\n"
+                            + "<tr><td><b>გვარი ლათინურად</b></td><td>" + namelastlat + "</td></tr>\\n"
+                            + "<tr><td><b>მოქალაქეობა</b></td><td>" + citizenship_code + "</td></tr>\\n"
+                            + "<tr><td><b>სქესი</b></td><td>" + gender + "</td></tr>\\n"
+                            + "<tr><td><b>ტელეფონი</b></td><td>" + phone + "</td></tr>\\n"
+                            + "<tr><td><b>eMail</b></td><td>" + email + "</td></tr>\\n"
+                            + "<tr><td style='background-color: #dddddd' colspan='2'><b>დაზღვეულის მონაცემები</b></tr>\\n"
+                            + "<tr><td><b>პირადი N</b></td><td>" + personal_n2 + "</td></tr>\\n"
+                            + "<tr><td><b>დაბადების თარიღი</b></td><td>" + birthdayp2 + "</td></tr>\\n"
+                            + "<tr><td><b>სახელი</b></td><td>" + namefirst2 + "</td></tr>\\n"
+                            + "<tr><td><b>გვარი</b></td><td>" + namelast2 + "</td></tr>\\n"
+                            + "<tr><td><b>სახელი ლათინურად</b></td><td>" + namefirstlat2 + "</td></tr>\\n"
+                            + "<tr><td><b>გვარი ლათინურად</b></td><td>" + namelastlat2 + "</td></tr>\\n"
+                            + "<tr><td><b>მოქალაქეობა</b></td><td>" + citizenship_code2 + "</td></tr>\\n"
+                            + "<tr><td><b>სქესი</b></td><td>" + gender2 + "</td></tr>\\n"
+                            + "<tr><td style='background-color: #dddddd' colspan='2' ><b>მოგზაურობის დეტალები</b></td></tr>\\n"
+                            + "<tr><td><b>რომელ ქვეყანაში მოგზაურობთ</b></td><td>" + country_code + "</td></tr>\\n"
+                            + "<tr><td><b>სადაზღვევო პერიოდი</b></td><td>" + datestart + "-" + dateend + "</td></tr>\\n"
+
+                            //                   + "<tr><td><b>ჯამური თანხა</b></td><td>14 ლარი</td></tr>\\n"
+
+                            + "</table>\\n";
+
+                    ss = "{\n\"command\":\"getproperty\",\n"
                             + "\"result\":\"ok\",\n"
+                            + "\"addtable\":\"" + ptable + "\",\n"
+                            + "\"addtable2\":\"" + ptable + "\",\n"
                             + "\"userid\":\"" + userid + "\",\n"
                             + "\"proposals\":[";
                     for (int i = 0; i < provider.size(); i++) {
@@ -1485,8 +1614,8 @@ public class mainService extends HttpServlet {
                         String proposal = "{\n\"providerid\":\"" + provider.get(i)[0] + "\",\n"
                                 + "\"providername\":\"" + provider.get(i)[1] + "\",\n"
                                 + "\"productid\":\"" + provider.get(i)[4] + "\",\n"
-                                + "\"limit\":\"" + insurancelimit + "\",\n"
-                                + "\"franchise\":\"" + provider.get(i)[6] + "\",\n"
+                                + "\"limit\":\"" + provider.get(i)[2] + "\",\n"
+                                + "\"franchise\":\"" + provider.get(i)[6] + "%\",\n"
                                 + "\"benefits\":[" + benefits + "],\n"
                                 + "\"addhtml\":\"" + addhtml + "\",\n"
                                 + "\"detals\":[" + details + "],\n"
