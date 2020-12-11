@@ -1466,9 +1466,12 @@ public class mainService extends HttpServlet {
 
                 String currency = tools.functions.jsonget(job, "currency");
                 System.out.println("currency=" + currency);
+                
+       //         inmounth inkvart inkvart inyear2  inonce
 
                 String paymentschedule = tools.functions.jsonget(job, "paymentschedule");
                 System.out.println("paymentschedule=" + paymentschedule);
+                
                 String checkboxrule = tools.functions.jsonget(job, "checkboxrule");
                 System.out.println("checkboxrule=" + checkboxrule);
 
@@ -1480,7 +1483,37 @@ public class mainService extends HttpServlet {
                 
                 String area = tools.functions.jsonget(job, "totalarea");
                 System.out.println("totalarea=" + area);
+ 
+                String cadastrcode = tools.functions.jsonget(job, "cadastrcode");
+                System.out.println("cadastrcode=" + cadastrcode);
+                
+                String propertyused = tools.functions.jsonget(job, "propertyused");
+                System.out.println("propertyused=" + propertyused);
+                
+                String town = tools.functions.jsonget(job, "own");
+                System.out.println("town=" + town);      
+                
+                String address=tools.functions.jsonget(job, "address")+" "+town;
+                System.out.println("address=" + address); 
+                
+                String floor=tools.functions.jsonget(job, "floor")+" სართული";
+                System.out.println("floor=" + floor);
+   
+                String makeyear=" შენობის ასაკი "+tools.functions.jsonget(job, "makeyear");
+                System.out.println("makeyear=" + makeyear);
+                
+                String areatxt=" ფართი მკვ "+area;
+                
+                String fulldetail=floor+makeyear+areatxt;
+                
+                String neighborinsurance = tools.functions.jsonget(job, "neighborinsurance");
+                System.out.println("neighborinsurance=" + neighborinsurance);
+                
+  
+                
+                
                 Double aread=functions.str2double0(area);
+                System.out.println("aread=" + aread); 
 // product parameters
 
                 int curr = 0;
@@ -1530,12 +1563,12 @@ public class mainService extends HttpServlet {
                             + "<tr><td><b>გვარი ლათინურად</b></td><td>" + namelastlat2 + "</td></tr>\\n"
                             + "<tr><td><b>მოქალაქეობა</b></td><td>" + citizenship_code2 + "</td></tr>\\n"
                             + "<tr><td style='background-color: #dddddd' ><b>დაზღვევის დეტალები</b></td><td style='background-color: #dddddd'><a href='#' onclick='myshowtab(1)' >პარამეტრების ცვლილება</a></td></tr>\\n"
-                            + "<tr><td><b>რა მიზნით გამოიყენება ქონება</b></td><td>" + citizenship_code2 + "</td></tr>\\n"
-                            + "<tr><td><b>საკადასტრო კოდი</b></td><td>" + citizenship_code2 + "</td></tr>\\n"
-                            + "<tr><td><b>მისამართი</b></td><td>" + citizenship_code2 + "</td></tr>\\n"
-                            + "<tr><td><b>დეტალური ინფორმაცია</b></td><td>" + citizenship_code2 + "</td></tr>\\n"
-                            + "<tr><td><b>გსურს მეზობლის მიმართ პასუხისმგებლობის დაზღვევა</b></td><td>" + citizenship_code2 + "</td></tr>\\n"
-                            + "<tr><td><b>გადახდის გრაფიკი</b></td><td>" + citizenship_code2 + "</td></tr>\\n"
+                            + "<tr><td><b>რა მიზნით გამოიყენება ქონება</b></td><td>" + propertyused + "</td></tr>\\n"
+                            + "<tr><td><b>საკადასტრო კოდი</b></td><td>" + cadastrcode + "</td></tr>\\n"
+                            + "<tr><td><b>მისამართი</b></td><td>" + address + "</td></tr>\\n"
+                            + "<tr><td><b>დეტალური ინფორმაცია</b></td><td>" + fulldetail + "</td></tr>\\n"
+                            + "<tr><td><b>გსურს მეზობლის მიმართ პასუხისმგებლობის დაზღვევა</b></td><td>" + neighborinsurance + "</td></tr>\\n"
+                            + "<tr><td><b>გადახდის გრაფიკი</b></td><td>" + paymentschedule + "</td></tr>\\n"
                             + "<tr><td><b>სადაზღვევო პერიოდი</b></td><td>" + datestart + "-" + dateend + "</td></tr>\\n"
                             
                             
