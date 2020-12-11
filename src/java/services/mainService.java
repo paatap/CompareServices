@@ -1530,7 +1530,15 @@ public class mainService extends HttpServlet {
                             + "<tr><td><b>გვარი ლათინურად</b></td><td>" + namelastlat2 + "</td></tr>\\n"
                             + "<tr><td><b>მოქალაქეობა</b></td><td>" + citizenship_code2 + "</td></tr>\\n"
                             + "<tr><td style='background-color: #dddddd' ><b>დაზღვევის დეტალები</b></td><td style='background-color: #dddddd'><a href='#' onclick='myshowtab(1)' >პარამეტრების ცვლილება</a></td></tr>\\n"
+                            + "<tr><td><b>რა მიზნით გამოიყენება ქონება</b></td><td>" + citizenship_code2 + "</td></tr>\\n"
+                            + "<tr><td><b>საკადასტრო კოდი</b></td><td>" + citizenship_code2 + "</td></tr>\\n"
+                            + "<tr><td><b>მისამართი</b></td><td>" + citizenship_code2 + "</td></tr>\\n"
+                            + "<tr><td><b>დეტალური ინფორმაცია</b></td><td>" + citizenship_code2 + "</td></tr>\\n"
+                            + "<tr><td><b>გსურს მეზობლის მიმართ პასუხისმგებლობის დაზღვევა</b></td><td>" + citizenship_code2 + "</td></tr>\\n"
+                            + "<tr><td><b>გადახდის გრაფიკი</b></td><td>" + citizenship_code2 + "</td></tr>\\n"
                             + "<tr><td><b>სადაზღვევო პერიოდი</b></td><td>" + datestart + "-" + dateend + "</td></tr>\\n"
+                            
+                            
                             //                   + "<tr><td><b>ჯამური თანხა</b></td><td>14 ლარი</td></tr>\\n"
 
                             + "</table>\\n";
