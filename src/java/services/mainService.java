@@ -1048,7 +1048,7 @@ public class mainService extends HttpServlet {
                         String proposal = "{\n\"providerid\":\"" + provider.get(i)[0] + "\",\n"
                                 + "\"providername\":\"" + provider.get(i)[1] + "\",\n"
                                 + "\"productid\":\"" + provider.get(i)[4] + "\",\n"
-                                + "\"limit\":\"" + liabilitylimit + "\",\n"
+                                + "\"limit\":\"" + liabilitylimit + "\",\n"      
                                 + "\"franchise\":\"" + provider.get(i)[6] + "\",\n"
                                 + "\"benefits\":[" + benefits + "],\n"
                                 + "\"addhtml\":\"" + addhtml + "\",\n"
@@ -1526,7 +1526,7 @@ public class mainService extends HttpServlet {
                     curr = 37;
                 }
 /// insert into
-                String qwr = "select provider_id,provider.name,amount_limit,area_price*"+aread+"+neighbor_price,p.id,add_html,franchise_txt from property_params p,provider \n"
+                String qwr = "select provider_id,provider.name,amount_limit*"+aread+",area_price*"+aread+"+neighbor_price,p.id,add_html,franchise_txt from property_params p,provider \n"
                         + "where provider_id=provider.id ";
                 //                      + "where provider_id=provider.id and p.amount_limit='" + insurancelimit + "' and exchange_rate_id='" + curr + "'";
                 System.out.println("qwr=    " + qwr);
@@ -1642,6 +1642,7 @@ public class mainService extends HttpServlet {
                             price = functions.str2double0(provider.get(i)[3]);
                         }
                         System.out.println("price=" + provider.get(i)[3] + "=" + functions.str2int0(provider.get(i)[3]) + "=" + price);
+                        
                         details = "\"limit;" + provider.get(i)[2] + " " + currency + "\",\"price;" + provider.get(i)[3] + " " + currency + "\",\"" + paymentschedule + ";" + String.format("%.2f", price) + " " + currency + "\"";
                         String mypdf = command + provider.get(i)[1];
                         //              + "\"pdf\":\"pdf/" + mypdf + ".pdf\",\n"
