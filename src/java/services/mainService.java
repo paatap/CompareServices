@@ -87,130 +87,121 @@ public class mainService extends HttpServlet {
 // getpolicelist
                 String userid = tools.functions.jsonget(job, "userid");
                 System.out.println("userid=" + userid);
-
+             
                 String lang = tools.functions.jsonget(job, "namefirst");
                 System.out.println("lang=" + lang);
 
                 //               String qwr = "select u.id,name_first,name_last from users u left join crm_contact cc on u.id=cc.userid where username='" + user + "'  and password='" + pass + "'";
-                String qwr = "select now()";
+    //            String qwr = "select now()";
+                String qwr = "select policyholder,policyowner,creation_date,id from order_params";
                 ArrayList<String[]> s2 = tools.functions.getResult(qwr, tools.functions.isnewcompare);
 
-                String ss;
+                String ss= "{\n\"command\":\"getpolicelist\",\n"
+                            + "\"result\":\"ok\",\n"
+                            + "\"userid\":\"" + userid + "\",\n"
+                            + "\"policelist\":\"";
+                             ss+="<style>  table.orderlist td,th {border: 1px solid #dddddd;text-align: left;padding: 8px;width:50%}</style>\\n"
+                            + "<h2>გადახდილი პოლისები</h2>\\n";
 
                 if (s2.size() > 0) {
+                    
+                    for (String[] s22:s2){
+                        
+                       System.out.println("s9999999999999999999999999999999"+s22[3]);
+                    
+//  ********************************************
 //                    ss = "{\n\"command\":\"getpolicelist\",\n"
 //                            + "\"result\":\"ok\",\n"
 //                            + "\"userid\":\"" + userid + "\",\n"
 //                            + "\"policelist\":\"<style>  table.orderlist td,th {border: 1px solid #dddddd;text-align: left;padding: 8px;width:50%}</style>\\n"
 //                            + "<h2>გადახდილი პოლისები</h2>\\n"
-//                            +"<table class='orderlist' table style='cursor:hand;width:100%;margin-top: 20px' id='policelist1a' onclick=\\\"$('#policelist1a').css('display', 'none');$('#policelist1b').css('display', 'table');\\\">\\n"
-//                    //        +"<tr style='color:blue'> <td style='width:50%'>ავტო მპპდ</th><td><img style='margin: auto;' src='icons/aldagi.png'></td></tr>\\n"
-//                             +"<tr style='color:blue'> <td >ავტო მპპდ</th><td><img style='margin: auto;' src='icons/aldagi.png'></td></tr>\\n"
-//                            +"</table>\\n"
-//                            +"<table class='orderlist' id='policelist1b' style='display: none;width:100%;margin-top: 20px'>\\n"
-//                  
-//                            +"<tr onclick=\\\"$('#policelist1b').css('display', 'none');$('#policelist1a').css('display', 'table');\\\" style='color:blue;cursor:hand;'> <td  colspan='2' style='width:50%'>ავტო მპპდ</td></tr>\\n"
-//                            
-////                            +"<table class='orderlist' id='policelist1b' style='display: none;width:100%;margin-top: 20px' onclick=\\\"$('#policelist1b').css('display', 'none');$('#policelist1a').css('display', 'table');\\\">\\n"
-////                  
-////                            +"<tr style='color:blue;cursor:hand;'> <td  colspan='2' style='width:50%'>ავტო მპპდ</td></tr>\\n"
-//                            +"<tr> <td style='padding-left: 20px;'>პროვაიდერი</td> <td><img style='margin: auto;' src='icons/aldagi.png'></td> </tr>\\n"
-//                            +"<tr> <td style='padding-left: 20px;'>დაზღვეული</td> <td >კურდღელაშვილი ნაზიბროლა</td> </tr>\\n"
-//                            +"<tr> <td style='padding-left: 20px;'>შეძენისთარიღი</td> <td></td> </tr>\\n"
-//                            +"<tr> <td style='padding-left: 20px;'>მოქმედებისვადა</td> <td>პოლისის გააქტიურება</td> </tr>\\n"
-//                            +"<tr> <td style='padding-left: 20px;'>ღირებულება</td> <td></td> </tr>\\n"
-//                            +"<tr> <td style='padding-left: 20px;'>გადახდისგრაფიკი</td> <td>მიმდინარე გადასახადი 30 ლარი 15.04.2020</td> </tr>\\n"
-//                            +"<tr> <td style='padding-left: 20px;'>ფოტოსატვირთვა</td> <td>ფოტოებს არ საჭიროებს</td> </tr>\\n"
-//                            +"<tr> <td style='padding-left: 20px;'>პოლისი</td> <td>იხილეთ მიმაგრებული პოლისი</td></tr>\\n"
-//                            +"</table>\\n"
-//                            
-//             ///////////////////////////////////////
-//                     
-//                            +"<table class='orderlist' table style='cursor:hand;width:100%;margin-top: 20px' id='policelist2a' onclick=\\\"$('#policelist2a').css('display', 'none');$('#policelist2b').css('display', 'table');\\\">\\n"
-//                     
-//                            +"<tr style='color:blue'> <td style='width:50%'>კასკო</td>    <td><img style='margin: auto;' src='icons/imedil.png'></td></tr>\\n"
-//                            +"</table>\\n"
-//                     
-//                            +"<table class='orderlist' id='policelist2b' style='display: none;width:100%;margin-top: 20px' onclick=\\\"$('#policelist2b').css('display', 'none');$('#policelist2a').css('display', 'table');\\\">\\n"
-//                            
-//                            +"<tr style='color:blue;cursor:hand;'> <td  colspan='2' style='width:50%'>კასკო</td></tr>\\n"
-//                   //         +"<tr style='color:blue;cursor:hand;'><td style='width:50%'>პროდუქტი</td> <td style='width:50%'>კასკო</td></tr>\\n"
-//                            +"<tr> <td style='padding-left: 20px;'>პროვაიდერი</td> <td><img style='margin: auto;' src='icons/imedil.png'></td> </tr>\\n"
-//                            +"<tr> <td style='padding-left: 20px;'>დაზღვეული</td> <td>ტოპოლკაროევი კოლა</td> </tr>\\n"
-//                            +"<tr> <td style='padding-left: 20px;'>შეძენისთარიღი</td> <td></td> </tr>\\n"
-//                            +"<tr> <td style='padding-left: 20px;'>მოქმედებისვადა</td> <td></td> </tr>\\n"
-//                            +"<tr> <td style='padding-left: 20px;'>ღირებულება</td> <td></td> </tr>\\n"
-//                            +"<tr> <td style='padding-left: 20px;'>გადახდისგრაფიკი</td> <td></td> </tr>\\n"
-//                            +"<tr> <td style='padding-left: 20px;'>ფოტოსატვირთვა</td> <td></td> </tr>\\n"
-//                            +"<tr> <td style='padding-left: 20px;'>პოლისი</td> <td></td> </tr>\\n"
+//                            + "<table class='orderlist' table style='cursor:hand;width:100%;margin-top: 20px' id='policelist1a' onclick=\\\"$('#policelist1a').css('display', 'none');$('#policelist1b').css('display', 'table');\\\">\\n"
+//                            //        +"<tr style='color:blue'> <td style='width:50%'>ავტო მპპდ</th><td><img style='margin: auto;' src='icons/aldagi.png'></td></tr>\\n"
+//                            + "<tr style='color:blue'> <td >ავტო მპპდ</th><td><img style='margin: auto;' src='icons/aldagi.png'></td></tr>\\n"
+//                            + "</table>\\n"
+//                            + "<table class='orderlist' id='policelist1b' style='display: none;width:100%;margin-top: 20px'>\\n"
+//                            + "<tr onclick=\\\"$('#policelist1b').css('display', 'none');$('#policelist1a').css('display', 'table');\\\" style='color:blue;cursor:hand;'> <td  colspan='2' style='width:50%'>ავტო მპპდ</td></tr>\\n"
+//                            //                            +"<table class='orderlist' id='policelist1b' style='display: none;width:100%;margin-top: 20px' onclick=\\\"$('#policelist1b').css('display', 'none');$('#policelist1a').css('display', 'table');\\\">\\n"
+//                            //                  
+//                            //                            +"<tr style='color:blue;cursor:hand;'> <td  colspan='2' style='width:50%'>ავტო მპპდ</td></tr>\\n"
+//                            + "<tr> <td style='padding-left: 20px;'>პროვაიდერი</td> <td><img style='margin: auto;' src='icons/aldagi.png'></td> </tr>\\n"
+//                            + "<tr> <td style='padding-left: 20px;'>დაზღვეული</td> <td >კურდღელაშვილი ნაზიბროლა</td> </tr>\\n"
+//                            + "<tr> <td style='padding-left: 20px;'>შეძენისთარიღი</td> <td></td> </tr>\\n"
+//                            + "<tr> <td style='padding-left: 20px;'>მოქმედებისვადა</td> <td>პოლისის გააქტიურება</td> </tr>\\n"
+//                            + "<tr> <td style='padding-left: 20px;'>ღირებულება</td> <td></td> </tr>\\n"
+//                            + "<tr> <td style='padding-left: 20px;'>გადახდისგრაფიკი</td> <td>მიმდინარე გადასახადი 30 ლარი 15.04.2020</td> </tr>\\n"
+//                            + "<tr> <td style='padding-left: 20px;'>ფოტოსატვირთვა</td> <td>ფოტოებს არ საჭიროებს</td> </tr>\\n"
+//                            + "<tr> <td style='padding-left: 20px;'>პოლისი</td> <td>იხილეთ მიმაგრებული პოლისი</td></tr>\\n"
+//                            + "</table>\\n"
+//                            ///////////////////////////////////////
+//
+//                            + "<table class='orderlist' table style='cursor:hand;width:100%;margin-top: 20px' id='policelist2a' onclick=\\\"$('#policelist2a').css('display', 'none');$('#policelist2b').css('display', 'table');\\\">\\n"
+//                            + "<tr style='color:blue'> <td style='width:50%'>კასკო</td>    <td><img style='margin: auto;' src='icons/imedil.png'></td></tr>\\n"
+//                            + "</table>\\n"
+//                            + "<table class='orderlist' id='policelist2b' style='display: none;width:100%;margin-top: 20px' onclick=\\\"$('#policelist2b').css('display', 'none');$('#policelist2a').css('display', 'table');\\\">\\n"
+//                            + "<tr style='color:blue;cursor:hand;'> <td  colspan='2' style='width:50%'>კასკო</td></tr>\\n"
+//                            //         +"<tr style='color:blue;cursor:hand;'><td style='width:50%'>პროდუქტი</td> <td style='width:50%'>კასკო</td></tr>\\n"
+//                            + "<tr> <td style='padding-left: 20px;'>პროვაიდერი</td> <td><img style='margin: auto;' src='icons/imedil.png'></td> </tr>\\n"
+//                            + "<tr> <td style='padding-left: 20px;'>დაზღვეული</td> <td>ტოპოლკაროევი კოლა</td> </tr>\\n"
+//                            + "<tr> <td style='padding-left: 20px;'>შეძენისთარიღი</td> <td></td> </tr>\\n"
+//                            + "<tr> <td style='padding-left: 20px;'>მოქმედებისვადა</td> <td></td> </tr>\\n"
+//                            + "<tr> <td style='padding-left: 20px;'>ღირებულება</td> <td></td> </tr>\\n"
+//                            + "<tr> <td style='padding-left: 20px;'>გადახდისგრაფიკი</td> <td></td> </tr>\\n"
+//                            + "<tr> <td style='padding-left: 20px;'>ფოტოსატვირთვა</td> <td></td> </tr>\\n"
+//                            + "<tr> <td style='padding-left: 20px;'>პოლისი</td> <td></td> </tr>\\n"
+//                            + "</table>\\n"
+//                            /// ////////  NEw            
+//                            //         +"<table class='orderlist' table style='cursor:hand;width:100%;margin-top: 20px' id='policelist1a' onclick=\\\"$('#policelist1a').css('display', 'none');$('#policelist1b').css('display', 'table');\\\">\\n"
+//                            + "<table class='orderlist'  style='cursor:hand;width:100%;margin-top: 20px' id='policelist9991a'  onclick=\\\"$('#policelist9991a').css('display', 'none');$('#policelist9991b').css('display', 'table');\\\">\\n"
+//                            + "<tr style='color:blue'> <td >ავტო მპპდ</th><td><img style='margin: auto;' src='icons/aldagi.png'></td></tr>\\n"
+//                            + "</table>\\n"
+//                            //            +"<table class='orderlist' id='policelist1b' style='display: none;width:100%;margin-top: 20px'>\\n"
+//                            + "<table class='orderlist' id='policelist9991b' style='display: none;width:100%;margin-top: 20px'>\\n"
+//                            //         +"<tr onclick=\\\"$('#policelist1b').css('display', 'none');$('#policelist1a').css('display', 'table');\\\" style='color:blue;cursor:hand;'> <td  colspan='2' style='width:50%'>ავტო მპპდ</td></tr>\\n"
+//                            + "<tr onclick=\\\"$('#policelist9991b').css('display', 'none');$('#policelist9991a').css('display', 'table');\\\" style='color:blue;cursor:hand;'><td  colspan='2' style='width:50%'>ავტო მპპდ</td></tr>\\n"
+//                            //                          
+//                            + "<tr> <td style='padding-left: 20px;'>პროვაიდერი</td> <td><img style='margin: auto;' src='icons/aldagi.png'></td> </tr>\\n"
+//                            + "<tr> <td style='padding-left: 20px;'>დაზღვეული</td> <td >სერვერავა ეიჩპი</td> </tr>\\n"
+//                            + "<tr> <td style='padding-left: 20px;'>შეძენისთარიღი</td> <td></td> </tr>\\n"
+//                            + "<tr> <td style='padding-left: 20px;'>მოქმედებისვადა</td> <td>პოლისის გააქტიურება</td> </tr>\\n"
+//                            + "<tr> <td style='padding-left: 20px;'>ღირებულება</td> <td></td> </tr>\\n"
+//                            //                            +"<tr> <td style='padding-left: 20px;'>გადახდისგრაფიკი</td> <td>მიმდინარე გადასახადი 30 ლარი 15.04.2020</td> </tr>\\n"
+//                            //                            +"<tr> <td style='padding-left: 20px;'>ფოტოსატვირთვა</td> <td>ფოტოებს არ საჭიროებს</td> </tr>\\n"
+//                            //                            +"<tr> <td style='padding-left: 20px;'>პოლისი</td> <td>იხილეთ მიმაგრებული პოლისი</td></tr>\\n"
+//                            + "<tr> <td style='padding-left: 20px;cursor:hand;text-decoration: underline;' onclick=\\\"detalssubmitajax('123456','getmodalgraphic');\\\">გადახდისგრაფიკი</td> <td>მიმდინარე გადასახადი 30 ლარი</td> </tr>\\n"
+//                            + "<tr> <td style='padding-left: 20px;cursor:hand;text-decoration: underline;' onclick=\\\"detalssubmitajax('123456','getmodalphoto');\\\">ფოტოსატვირთვა</td> <td>ფოტოებს არ საჭიროებს</td> </tr>\\n"
+//                            + "<tr> <td style='padding-left: 20px;cursor:hand;text-decoration: underline;' onclick=\\\"showpdf('pdf/getliabilityunison.pdf')\\\">ხელშეკრულება</td> <td>იხილეთ მიმაგრებული ხელშეკრულება</td></tr>\\n"
+//                            + "<tr> <td style='padding-left: 20px;cursor:hand;text-decoration: underline;' onclick=\\\"showpdf('pdf/policy.pdf')\\\">პოლისი</td> <td>იხილეთ მიმაგრებული პოლისი</td></tr>\\n"
 //                            + "</table>\\n"
 //                            + "\"}";
-//  ********************************************
-                    ss = "{\n\"command\":\"getpolicelist\",\n"
-                            + "\"result\":\"ok\",\n"
-                            + "\"userid\":\"" + userid + "\",\n"
-                            + "\"policelist\":\"<style>  table.orderlist td,th {border: 1px solid #dddddd;text-align: left;padding: 8px;width:50%}</style>\\n"
-                            + "<h2>გადახდილი პოლისები</h2>\\n"
-                            + "<table class='orderlist' table style='cursor:hand;width:100%;margin-top: 20px' id='policelist1a' onclick=\\\"$('#policelist1a').css('display', 'none');$('#policelist1b').css('display', 'table');\\\">\\n"
-                            //        +"<tr style='color:blue'> <td style='width:50%'>ავტო მპპდ</th><td><img style='margin: auto;' src='icons/aldagi.png'></td></tr>\\n"
-                            + "<tr style='color:blue'> <td >ავტო მპპდ</th><td><img style='margin: auto;' src='icons/aldagi.png'></td></tr>\\n"
-                            + "</table>\\n"
-                            + "<table class='orderlist' id='policelist1b' style='display: none;width:100%;margin-top: 20px'>\\n"
-                            + "<tr onclick=\\\"$('#policelist1b').css('display', 'none');$('#policelist1a').css('display', 'table');\\\" style='color:blue;cursor:hand;'> <td  colspan='2' style='width:50%'>ავტო მპპდ</td></tr>\\n"
-                            //                            +"<table class='orderlist' id='policelist1b' style='display: none;width:100%;margin-top: 20px' onclick=\\\"$('#policelist1b').css('display', 'none');$('#policelist1a').css('display', 'table');\\\">\\n"
-                            //                  
-                            //                            +"<tr style='color:blue;cursor:hand;'> <td  colspan='2' style='width:50%'>ავტო მპპდ</td></tr>\\n"
-                            + "<tr> <td style='padding-left: 20px;'>პროვაიდერი</td> <td><img style='margin: auto;' src='icons/aldagi.png'></td> </tr>\\n"
-                            + "<tr> <td style='padding-left: 20px;'>დაზღვეული</td> <td >კურდღელაშვილი ნაზიბროლა</td> </tr>\\n"
-                            + "<tr> <td style='padding-left: 20px;'>შეძენისთარიღი</td> <td></td> </tr>\\n"
-                            + "<tr> <td style='padding-left: 20px;'>მოქმედებისვადა</td> <td>პოლისის გააქტიურება</td> </tr>\\n"
-                            + "<tr> <td style='padding-left: 20px;'>ღირებულება</td> <td></td> </tr>\\n"
-                            + "<tr> <td style='padding-left: 20px;'>გადახდისგრაფიკი</td> <td>მიმდინარე გადასახადი 30 ლარი 15.04.2020</td> </tr>\\n"
-                            + "<tr> <td style='padding-left: 20px;'>ფოტოსატვირთვა</td> <td>ფოტოებს არ საჭიროებს</td> </tr>\\n"
-                            + "<tr> <td style='padding-left: 20px;'>პოლისი</td> <td>იხილეთ მიმაგრებული პოლისი</td></tr>\\n"
-                            + "</table>\\n"
-                            ///////////////////////////////////////
 
-                            + "<table class='orderlist' table style='cursor:hand;width:100%;margin-top: 20px' id='policelist2a' onclick=\\\"$('#policelist2a').css('display', 'none');$('#policelist2b').css('display', 'table');\\\">\\n"
-                            + "<tr style='color:blue'> <td style='width:50%'>კასკო</td>    <td><img style='margin: auto;' src='icons/imedil.png'></td></tr>\\n"
-                            + "</table>\\n"
-                            + "<table class='orderlist' id='policelist2b' style='display: none;width:100%;margin-top: 20px' onclick=\\\"$('#policelist2b').css('display', 'none');$('#policelist2a').css('display', 'table');\\\">\\n"
-                            + "<tr style='color:blue;cursor:hand;'> <td  colspan='2' style='width:50%'>კასკო</td></tr>\\n"
-                            //         +"<tr style='color:blue;cursor:hand;'><td style='width:50%'>პროდუქტი</td> <td style='width:50%'>კასკო</td></tr>\\n"
-                            + "<tr> <td style='padding-left: 20px;'>პროვაიდერი</td> <td><img style='margin: auto;' src='icons/imedil.png'></td> </tr>\\n"
-                            + "<tr> <td style='padding-left: 20px;'>დაზღვეული</td> <td>ტოპოლკაროევი კოლა</td> </tr>\\n"
-                            + "<tr> <td style='padding-left: 20px;'>შეძენისთარიღი</td> <td></td> </tr>\\n"
-                            + "<tr> <td style='padding-left: 20px;'>მოქმედებისვადა</td> <td></td> </tr>\\n"
-                            + "<tr> <td style='padding-left: 20px;'>ღირებულება</td> <td></td> </tr>\\n"
-                            + "<tr> <td style='padding-left: 20px;'>გადახდისგრაფიკი</td> <td></td> </tr>\\n"
-                            + "<tr> <td style='padding-left: 20px;'>ფოტოსატვირთვა</td> <td></td> </tr>\\n"
-                            + "<tr> <td style='padding-left: 20px;'>პოლისი</td> <td></td> </tr>\\n"
-                            + "</table>\\n"
+                            
                             /// ////////  NEw            
                             //         +"<table class='orderlist' table style='cursor:hand;width:100%;margin-top: 20px' id='policelist1a' onclick=\\\"$('#policelist1a').css('display', 'none');$('#policelist1b').css('display', 'table');\\\">\\n"
-                            + "<table class='orderlist'  style='cursor:hand;width:100%;margin-top: 20px' id='policelist9991a'  onclick=\\\"$('#policelist9991a').css('display', 'none');$('#policelist9991b').css('display', 'table');\\\">\\n"
+                       ss+= "<table class='orderlist'  style='cursor:hand;width:100%;margin-top: 20px' id='policelist"+s22[3]+"a'onclick=\\\"$('#policelist"+s22[3]+"a').css('display', 'none');$('#policelist"+s22[3]+"b').css('display', 'table');\\\">\\n"
                             + "<tr style='color:blue'> <td >ავტო მპპდ</th><td><img style='margin: auto;' src='icons/aldagi.png'></td></tr>\\n"
                             + "</table>\\n"
                             //            +"<table class='orderlist' id='policelist1b' style='display: none;width:100%;margin-top: 20px'>\\n"
-                            + "<table class='orderlist' id='policelist9991b' style='display: none;width:100%;margin-top: 20px'>\\n"
-                            //         +"<tr onclick=\\\"$('#policelist1b').css('display', 'none');$('#policelist1a').css('display', 'table');\\\" style='color:blue;cursor:hand;'> <td  colspan='2' style='width:50%'>ავტო მპპდ</td></tr>\\n"
-                            + "<tr onclick=\\\"$('#policelist9991b').css('display', 'none');$('#policelist9991a').css('display', 'table');\\\" style='color:blue;cursor:hand;'><td  colspan='2' style='width:50%'>ავტო მპპდ</td></tr>\\n"
+                            + "<table class='orderlist' id='policelist"+s22[3]+"b' style='display: none;width:100%;margin-top: 20px'>\\n"
+                            
+                            + "<tr onclick=\\\"$('#policelist"+s22[3]+"b').css('display', 'none');$('#policelist"+s22[3]+"a').css('display', 'table');\\\" style='color:blue;cursor:hand;'><td  colspan='2' style='width:50%'>ავტო მპპდ</td></tr>\\n"
                             //                          
                             + "<tr> <td style='padding-left: 20px;'>პროვაიდერი</td> <td><img style='margin: auto;' src='icons/aldagi.png'></td> </tr>\\n"
-                            + "<tr> <td style='padding-left: 20px;'>დაზღვეული</td> <td >სერვერავა ეიჩპი</td> </tr>\\n"
+                            + "<tr> <td style='padding-left: 20px;'>დაზღვეული</td> <td >'"+s22[1]+"'</td> </tr>\\n"
                             + "<tr> <td style='padding-left: 20px;'>შეძენისთარიღი</td> <td></td> </tr>\\n"
                             + "<tr> <td style='padding-left: 20px;'>მოქმედებისვადა</td> <td>პოლისის გააქტიურება</td> </tr>\\n"
                             + "<tr> <td style='padding-left: 20px;'>ღირებულება</td> <td></td> </tr>\\n"
-                            //                            +"<tr> <td style='padding-left: 20px;'>გადახდისგრაფიკი</td> <td>მიმდინარე გადასახადი 30 ლარი 15.04.2020</td> </tr>\\n"
-                            //                            +"<tr> <td style='padding-left: 20px;'>ფოტოსატვირთვა</td> <td>ფოტოებს არ საჭიროებს</td> </tr>\\n"
-                            //                            +"<tr> <td style='padding-left: 20px;'>პოლისი</td> <td>იხილეთ მიმაგრებული პოლისი</td></tr>\\n"
+                            
                             + "<tr> <td style='padding-left: 20px;cursor:hand;text-decoration: underline;' onclick=\\\"detalssubmitajax('123456','getmodalgraphic');\\\">გადახდისგრაფიკი</td> <td>მიმდინარე გადასახადი 30 ლარი</td> </tr>\\n"
                             + "<tr> <td style='padding-left: 20px;cursor:hand;text-decoration: underline;' onclick=\\\"detalssubmitajax('123456','getmodalphoto');\\\">ფოტოსატვირთვა</td> <td>ფოტოებს არ საჭიროებს</td> </tr>\\n"
                             + "<tr> <td style='padding-left: 20px;cursor:hand;text-decoration: underline;' onclick=\\\"showpdf('pdf/getliabilityunison.pdf')\\\">ხელშეკრულება</td> <td>იხილეთ მიმაგრებული ხელშეკრულება</td></tr>\\n"
                             + "<tr> <td style='padding-left: 20px;cursor:hand;text-decoration: underline;' onclick=\\\"showpdf('pdf/policy.pdf')\\\">პოლისი</td> <td>იხილეთ მიმაგრებული პოლისი</td></tr>\\n"
-                            + "</table>\\n"
-                            + "\"}";
+                            + "</table>\\n";
+                          
+                    
+                    }
 
+                    ss+=   "\"}";
                     //                + "\"result\":\"passworderror\"\n}";
                 } else {
                     ss = "{\n\"command\":\"getpolicelist\",\\n"
@@ -641,6 +632,74 @@ public class mainService extends HttpServlet {
                 }
                 System.out.println(ss);
                 response.getWriter().write(ss);
+            } else if (command.equals("debugpay")) {
+
+//  make payments                
+//                String userid = tools.functions.jsonget(job, "userid");
+//                System.out.println("userid=" + userid);
+
+        //        String userid = "94";
+                String userid = tools.functions.jsonget(job, "userid");
+                System.out.println("userid=" + userid);
+                
+                String productid = tools.functions.jsonget(job, "productid");
+                System.out.println("productid=" + productid);
+
+                String type = tools.functions.jsonget(job, "type");
+                System.out.println("type=" + type);
+                
+                String namefirst = tools.functions.jsonget(job, "namefirst");
+                System.out.println("namefirst=" + namefirst);
+                
+                 String namelast = tools.functions.jsonget(job, "namelast");
+                System.out.println("namelast=" + namelast);
+                
+                String policyowner=namefirst+" "+namelast;
+
+                String namefirst_2 = tools.functions.jsonget(job, "2namefirst");
+                System.out.println("2namefirst=" + namefirst_2);
+                
+                 String namelast_2 = tools.functions.jsonget(job, "2namelast");
+                System.out.println("2namelast=" + namelast_2);                
+                
+                String policyholder=namefirst_2+" "+namelast_2;
+                
+                //2namefirst
+
+                String price0 = tools.functions.jsonget(job, "price0");
+                System.out.println("price0=" + price0);
+
+                String price1 = tools.functions.jsonget(job, "price1");
+                System.out.println("price1=" + price1);
+                
+                String paymentschedule = tools.functions.jsonget(job, "paymentschedule");
+                System.out.println("paymentschedule=" + paymentschedule);
+
+                String tablename=type.substring(3);
+
+                String qwr = "insert into order_params (user_id,product_id,product_name,payment_schedule,policyholder,policyowner)"
+                        + " values (" +userid+","+productid+",'"+tablename+"','"+paymentschedule+"','"+policyowner+"','"+policyholder+ "')  returning id; ";;
+
+                System.out.println(qwr);
+
+                ArrayList<String[]> s1 = tools.functions.getResult(qwr, tools.functions.isnewcompare);
+                System.out.println("2 s1=     " + s1.get(0)[0]);
+
+                System.out.println(qwr);
+
+                String ss;
+                if (s1.size() > 0) {
+                    ss = "{\n\"command\":\"debugpay\",\n"
+                            + "\"result\":\"ok\"\n}";
+
+                } else {
+                    ss = "{\n\"command\":\"debugpay\",\n"
+                            + "\"result\":\"false\"\n}";
+                }
+
+                System.out.println(ss);
+                response.getWriter().write(ss);
+
             } else if (command.equals("getcars")) {
 // get car models
 
