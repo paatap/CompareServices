@@ -52,7 +52,7 @@ public class mainService extends HttpServlet {
                 System.out.println(line);
                 result += line + "\n";
             }
-
+//
             System.out.println("111111111" + result);
             JsonElement el = new JsonParser().parse(result);
             System.out.println("22222");
@@ -87,28 +87,28 @@ public class mainService extends HttpServlet {
 // getpolicelist
                 String userid = tools.functions.jsonget(job, "userid");
                 System.out.println("userid=" + userid);
-             
+
                 String lang = tools.functions.jsonget(job, "namefirst");
                 System.out.println("lang=" + lang);
 
                 //               String qwr = "select u.id,name_first,name_last from users u left join crm_contact cc on u.id=cc.userid where username='" + user + "'  and password='" + pass + "'";
-    //            String qwr = "select now()";
-                String qwr = "select policyholder,policyowner,creation_date,id from order_params";
+                //            String qwr = "select now()";
+                String qwr = "select policyholder,policyowner,creation_date,id,product_name,company_name from order_params";
                 ArrayList<String[]> s2 = tools.functions.getResult(qwr, tools.functions.isnewcompare);
 
-                String ss= "{\n\"command\":\"getpolicelist\",\n"
-                            + "\"result\":\"ok\",\n"
-                            + "\"userid\":\"" + userid + "\",\n"
-                            + "\"policelist\":\"";
-                             ss+="<style>  table.orderlist td,th {border: 1px solid #dddddd;text-align: left;padding: 8px;width:50%}</style>\\n"
-                            + "<h2>გადახდილი პოლისები</h2>\\n";
+                String ss = "{\n\"command\":\"getpolicelist\",\n"
+                        + "\"result\":\"ok\",\n"
+                        + "\"userid\":\"" + userid + "\",\n"
+                        + "\"policelist\":\"";
+                ss += "<style>  table.orderlist td,th {border: 1px solid #dddddd;text-align: left;padding: 8px;width:50%}</style>\\n"
+                        + "<h2>გადახდილი პოლისები</h2>\\n";
 
                 if (s2.size() > 0) {
-                    
-                    for (String[] s22:s2){
-                        
-                       System.out.println("s9999999999999999999999999999999"+s22[3]);
-                    
+
+                    for (String[] s22 : s2) {
+
+                        System.out.println("s9999999999999999999999999999999" + s22[3]);
+
 //  ********************************************
 //                    ss = "{\n\"command\":\"getpolicelist\",\n"
 //                            + "\"result\":\"ok\",\n"
@@ -174,34 +174,29 @@ public class mainService extends HttpServlet {
 //                            + "<tr> <td style='padding-left: 20px;cursor:hand;text-decoration: underline;' onclick=\\\"showpdf('pdf/policy.pdf')\\\">პოლისი</td> <td>იხილეთ მიმაგრებული პოლისი</td></tr>\\n"
 //                            + "</table>\\n"
 //                            + "\"}";
+                        /// ////////  NEw            
+                        //         +"<table class='orderlist' table style='cursor:hand;width:100%;margin-top: 20px' id='policelist1a' onclick=\\\"$('#policelist1a').css('display', 'none');$('#policelist1b').css('display', 'table');\\\">\\n"
+                        ss += "<table class='orderlist'  style='cursor:hand;width:100%;margin-top: 20px' id='policelist" + s22[3] + "a'onclick=\\\"$('#policelist" + s22[3] + "a').css('display', 'none');$('#policelist" + s22[3] + "b').css('display', 'table');\\\">\\n"
+                                + "<tr style='color:blue'> <td >?_" + s22[4] + "?</th><td><img style='margin: auto;' src='icons/" + s22[5] + ".png'></td></tr>\\n"
+                                + "</table>\\n"
+                                //            +"<table class='orderlist' id='policelist1b' style='display: none;width:100%;margin-top: 20px'>\\n"
+                                + "<table class='orderlist' id='policelist" + s22[3] + "b' style='display: none;width:100%;margin-top: 20px'>\\n"
+                                + "<tr onclick=\\\"$('#policelist" + s22[3] + "b').css('display', 'none');$('#policelist" + s22[3] + "a').css('display', 'table');\\\" style='color:blue;cursor:hand;'><td  colspan='2' style='width:50%'>_" + s22[4] + "</td></tr>\\n"
+                                //                          
+                                + "<tr> <td style='padding-left: 20px;'>პროვაიდერი</td> <td><img style='margin: auto;' src='icons/" + s22[5] + ".png'></td> </tr>\\n"
+                                + "<tr> <td style='padding-left: 20px;'>დაზღვეული</td> <td >'" + s22[1] + "'</td> </tr>\\n"
+                                + "<tr> <td style='padding-left: 20px;'>შეძენისთარიღი</td> <td></td> </tr>\\n"
+                                + "<tr> <td style='padding-left: 20px;'>მოქმედებისვადა</td> <td>პოლისის გააქტიურება</td> </tr>\\n"
+                                + "<tr> <td style='padding-left: 20px;'>ღირებულება</td> <td></td> </tr>\\n"
+                                + "<tr> <td style='padding-left: 20px;cursor:hand;text-decoration: underline;' onclick=\\\"detalssubmitajax('123456','getmodalgraphic');\\\">გადახდისგრაფიკი</td> <td>მიმდინარე გადასახადი 30 ლარი</td> </tr>\\n"
+                                + "<tr> <td style='padding-left: 20px;cursor:hand;text-decoration: underline;' onclick=\\\"detalssubmitajax('123456','getmodalphoto');\\\">ფოტოსატვირთვა</td> <td>ფოტოებს არ საჭიროებს</td> </tr>\\n"
+                                + "<tr> <td style='padding-left: 20px;cursor:hand;text-decoration: underline;' onclick=\\\"showpdf('pdf/getliability" + s22[5] + ".pdf')\\\">ხელშეკრულება</td> <td>იხილეთ მიმაგრებული ხელშეკრულება</td></tr>\\n"
+                                + "<tr> <td style='padding-left: 20px;cursor:hand;text-decoration: underline;' onclick=\\\"showpdf('pdf/policy.pdf')\\\">პოლისი</td> <td>იხილეთ მიმაგრებული პოლისი</td></tr>\\n"
+                                + "</table>\\n";
 
-                            
-                            /// ////////  NEw            
-                            //         +"<table class='orderlist' table style='cursor:hand;width:100%;margin-top: 20px' id='policelist1a' onclick=\\\"$('#policelist1a').css('display', 'none');$('#policelist1b').css('display', 'table');\\\">\\n"
-                       ss+= "<table class='orderlist'  style='cursor:hand;width:100%;margin-top: 20px' id='policelist"+s22[3]+"a'onclick=\\\"$('#policelist"+s22[3]+"a').css('display', 'none');$('#policelist"+s22[3]+"b').css('display', 'table');\\\">\\n"
-                            + "<tr style='color:blue'> <td >ავტო მპპდ</th><td><img style='margin: auto;' src='icons/aldagi.png'></td></tr>\\n"
-                            + "</table>\\n"
-                            //            +"<table class='orderlist' id='policelist1b' style='display: none;width:100%;margin-top: 20px'>\\n"
-                            + "<table class='orderlist' id='policelist"+s22[3]+"b' style='display: none;width:100%;margin-top: 20px'>\\n"
-                            
-                            + "<tr onclick=\\\"$('#policelist"+s22[3]+"b').css('display', 'none');$('#policelist"+s22[3]+"a').css('display', 'table');\\\" style='color:blue;cursor:hand;'><td  colspan='2' style='width:50%'>ავტო მპპდ</td></tr>\\n"
-                            //                          
-                            + "<tr> <td style='padding-left: 20px;'>პროვაიდერი</td> <td><img style='margin: auto;' src='icons/aldagi.png'></td> </tr>\\n"
-                            + "<tr> <td style='padding-left: 20px;'>დაზღვეული</td> <td >'"+s22[1]+"'</td> </tr>\\n"
-                            + "<tr> <td style='padding-left: 20px;'>შეძენისთარიღი</td> <td></td> </tr>\\n"
-                            + "<tr> <td style='padding-left: 20px;'>მოქმედებისვადა</td> <td>პოლისის გააქტიურება</td> </tr>\\n"
-                            + "<tr> <td style='padding-left: 20px;'>ღირებულება</td> <td></td> </tr>\\n"
-                            
-                            + "<tr> <td style='padding-left: 20px;cursor:hand;text-decoration: underline;' onclick=\\\"detalssubmitajax('123456','getmodalgraphic');\\\">გადახდისგრაფიკი</td> <td>მიმდინარე გადასახადი 30 ლარი</td> </tr>\\n"
-                            + "<tr> <td style='padding-left: 20px;cursor:hand;text-decoration: underline;' onclick=\\\"detalssubmitajax('123456','getmodalphoto');\\\">ფოტოსატვირთვა</td> <td>ფოტოებს არ საჭიროებს</td> </tr>\\n"
-                            + "<tr> <td style='padding-left: 20px;cursor:hand;text-decoration: underline;' onclick=\\\"showpdf('pdf/getliabilityunison.pdf')\\\">ხელშეკრულება</td> <td>იხილეთ მიმაგრებული ხელშეკრულება</td></tr>\\n"
-                            + "<tr> <td style='padding-left: 20px;cursor:hand;text-decoration: underline;' onclick=\\\"showpdf('pdf/policy.pdf')\\\">პოლისი</td> <td>იხილეთ მიმაგრებული პოლისი</td></tr>\\n"
-                            + "</table>\\n";
-                          
-                    
                     }
 
-                    ss+=   "\"}";
+                    ss += "\"}";
                     //                + "\"result\":\"passworderror\"\n}";
                 } else {
                     ss = "{\n\"command\":\"getpolicelist\",\\n"
@@ -637,48 +632,59 @@ public class mainService extends HttpServlet {
 //  make payments                
 //                String userid = tools.functions.jsonget(job, "userid");
 //                System.out.println("userid=" + userid);
-
-        //        String userid = "94";
+                //        String userid = "94";
                 String userid = tools.functions.jsonget(job, "userid");
                 System.out.println("userid=" + userid);
-                
+
                 String productid = tools.functions.jsonget(job, "productid");
                 System.out.println("productid=" + productid);
 
                 String type = tools.functions.jsonget(job, "type");
                 System.out.println("type=" + type);
-                
+
                 String namefirst = tools.functions.jsonget(job, "namefirst");
                 System.out.println("namefirst=" + namefirst);
-                
-                 String namelast = tools.functions.jsonget(job, "namelast");
+
+                String namelast = tools.functions.jsonget(job, "namelast");
                 System.out.println("namelast=" + namelast);
-                
-                String policyowner=namefirst+" "+namelast;
+
+                String policyowner = namefirst + " " + namelast;
 
                 String namefirst_2 = tools.functions.jsonget(job, "2namefirst");
                 System.out.println("2namefirst=" + namefirst_2);
-                
-                 String namelast_2 = tools.functions.jsonget(job, "2namelast");
-                System.out.println("2namelast=" + namelast_2);                
-                
-                String policyholder=namefirst_2+" "+namelast_2;
-                
-                //2namefirst
+                if (namefirst_2.equals("")) {
+                    namefirst_2 = namefirst;
+                }
 
+                String namelast_2 = tools.functions.jsonget(job, "2namelast");
+                System.out.println("2namelast=" + namelast_2);
+                if (namelast_2.equals("")) {
+                    namelast_2 = namelast;
+                }
+
+                String policyholder = namefirst_2 + " " + namelast_2;
+
+                //2namefirst
                 String price0 = tools.functions.jsonget(job, "price0");
                 System.out.println("price0=" + price0);
 
                 String price1 = tools.functions.jsonget(job, "price1");
                 System.out.println("price1=" + price1);
-                
+
                 String paymentschedule = tools.functions.jsonget(job, "paymentschedule");
                 System.out.println("paymentschedule=" + paymentschedule);
 
-                String tablename=type.substring(3);
+                String tablename = type.substring(3);
+                if (tablename.equals("liability")) {
+                    tablename = "ma_mtpl";
+                }
 
-                String qwr = "insert into order_params (user_id,product_id,product_name,payment_schedule,policyholder,policyowner)"
-                        + " values (" +userid+","+productid+",'"+tablename+"','"+paymentschedule+"','"+policyowner+"','"+policyholder+ "')  returning id; ";;
+                String pqwr = "select p.name from " + tablename + "_params pp left join provider p on pp.provider_id=p.id where pp.id=" + productid;
+
+                ArrayList<String[]> spqwr = tools.functions.getResult(pqwr, tools.functions.isnewcompare);
+
+                String qwr = "insert into order_params (user_id,product_id,product_name,payment_schedule,policyholder,policyowner,company_name)"
+                        + " values (" + userid + "," + productid + ",'" + tablename + "','" + paymentschedule + "','" + policyowner + "','" + policyholder + "','" + spqwr.get(0)[0] + "')  returning id; ";;
 
                 System.out.println(qwr);
 
@@ -1107,13 +1113,14 @@ public class mainService extends HttpServlet {
                         String proposal = "{\n\"providerid\":\"" + provider.get(i)[0] + "\",\n"
                                 + "\"providername\":\"" + provider.get(i)[1] + "\",\n"
                                 + "\"productid\":\"" + provider.get(i)[4] + "\",\n"
-                                + "\"limit\":\"" + liabilitylimit + "\",\n"      
+                                + "\"limit\":\"" + liabilitylimit + "\",\n"
                                 + "\"franchise\":\"" + provider.get(i)[6] + "\",\n"
                                 + "\"benefits\":[" + benefits + "],\n"
                                 + "\"addhtml\":\"" + addhtml + "\",\n"
                                 + "\"detals\":[" + details + "],\n"
                                 + "\"pdf\":\"pdf/" + mypdf + ".pdf\",\n"
-                                + "\"price\":\"" + provider.get(i)[3] + " " + currency + "\"\n}";
+                                + "\"price\":\"" + provider.get(i)[3] + " " + currency + "\",\n"
+                                + "\"payprice\":\"" + String.format("%.2f", price) + " " + currency + "\"\n}";
                         if (i == 0) {
                             ss += proposal;
                         } else {
@@ -1406,7 +1413,8 @@ public class mainService extends HttpServlet {
                                 + "\"addhtml\":\"" + addhtml + "\",\n"
                                 + "\"detals\":[" + details + "],\n"
                                 + "\"pdf\":\"pdf/" + mypdf + ".pdf\",\n"
-                                + "\"price\":\"" + provider.get(i)[3] + " " + currency + "\"\n}";
+                                + "\"price\":\"" + provider.get(i)[3] + " " + currency + "\",\n"
+                                + "\"payprice\":\"" + provider.get(i)[3] + " " + currency + "\"\n}";
                         if (i == 0) {
                             ss += proposal;
                         } else {
@@ -1525,12 +1533,11 @@ public class mainService extends HttpServlet {
 
                 String currency = tools.functions.jsonget(job, "currency");
                 System.out.println("currency=" + currency);
-                
-       //         inmounth inkvart inkvart inyear2  inonce
 
+                //         inmounth inkvart inkvart inyear2  inonce
                 String paymentschedule = tools.functions.jsonget(job, "paymentschedule");
                 System.out.println("paymentschedule=" + paymentschedule);
-                
+
                 String checkboxrule = tools.functions.jsonget(job, "checkboxrule");
                 System.out.println("checkboxrule=" + checkboxrule);
 
@@ -1539,40 +1546,37 @@ public class mainService extends HttpServlet {
 
                 String dateend = tools.functions.jsonget(job, "date22");
                 System.out.println("dateend=" + dateend);
-                
+
                 String area = tools.functions.jsonget(job, "totalarea");
                 System.out.println("totalarea=" + area);
- 
+
                 String cadastrcode = tools.functions.jsonget(job, "cadastrcode");
                 System.out.println("cadastrcode=" + cadastrcode);
-                
+
                 String propertyused = tools.functions.jsonget(job, "propertyused");
                 System.out.println("propertyused=" + propertyused);
-                
+
                 String town = tools.functions.jsonget(job, "own");
-                System.out.println("town=" + town);      
-                
-                String address=tools.functions.jsonget(job, "address")+" "+town;
-                System.out.println("address=" + address); 
-                
-                String floor=tools.functions.jsonget(job, "floor")+" სართული";
+                System.out.println("town=" + town);
+
+                String address = tools.functions.jsonget(job, "address") + " " + town;
+                System.out.println("address=" + address);
+
+                String floor = tools.functions.jsonget(job, "floor") + " სართული";
                 System.out.println("floor=" + floor);
-   
-                String makeyear=" შენობის ასაკი "+tools.functions.jsonget(job, "makeyear");
+
+                String makeyear = " შენობის ასაკი " + tools.functions.jsonget(job, "makeyear");
                 System.out.println("makeyear=" + makeyear);
-                
-                String areatxt=" ფართი მკვ "+area;
-                
-                String fulldetail=floor+makeyear+areatxt;
-                
+
+                String areatxt = " ფართი მკვ " + area;
+
+                String fulldetail = floor + makeyear + areatxt;
+
                 String neighborinsurance = tools.functions.jsonget(job, "neighborinsurance");
                 System.out.println("neighborinsurance=" + neighborinsurance);
-                
-  
-                
-                
-                Double aread=functions.str2double0(area);
-                System.out.println("aread=" + aread); 
+
+                Double aread = functions.str2double0(area);
+                System.out.println("aread=" + aread);
 // product parameters
 
                 int curr = 0;
@@ -1585,7 +1589,7 @@ public class mainService extends HttpServlet {
                     curr = 37;
                 }
 /// insert into
-                String qwr = "select provider_id,provider.name,amount_limit*"+aread+",area_price*"+aread+"+neighbor_price,p.id,add_html,franchise_txt from property_params p,provider \n"
+                String qwr = "select provider_id,provider.name,amount_limit*" + aread + ",area_price*" + aread + "+neighbor_price,p.id,add_html,franchise_txt from property_params p,provider \n"
                         + "where provider_id=provider.id ";
                 //                      + "where provider_id=provider.id and p.amount_limit='" + insurancelimit + "' and exchange_rate_id='" + curr + "'";
                 System.out.println("qwr=    " + qwr);
@@ -1629,8 +1633,6 @@ public class mainService extends HttpServlet {
                             + "<tr><td><b>გსურს მეზობლის მიმართ პასუხისმგებლობის დაზღვევა</b></td><td>" + neighborinsurance + "</td></tr>\\n"
                             + "<tr><td><b>გადახდის გრაფიკი</b></td><td>" + paymentschedule + "</td></tr>\\n"
                             + "<tr><td><b>სადაზღვევო პერიოდი</b></td><td>" + datestart + "-" + dateend + "</td></tr>\\n"
-                            
-                            
                             //                   + "<tr><td><b>ჯამური თანხა</b></td><td>14 ლარი</td></tr>\\n"
 
                             + "</table>\\n";
@@ -1662,7 +1664,6 @@ public class mainService extends HttpServlet {
                             + "<tr><td style='background-color: #dddddd' colspan='2' ><b>მოგზაურობის დეტალები</b></td></tr>\\n"
                             + "<tr><td><b>რომელ ქვეყანაში მოგზაურობთ</b></td><td>" + country_code + "</td></tr>\\n"
                             + "<tr><td><b>სადაზღვევო პერიოდი</b></td><td>" + datestart + "-" + dateend + "</td></tr>\\n"
-
                             //                   + "<tr><td><b>ჯამური თანხა</b></td><td>14 ლარი</td></tr>\\n"
 
                             + "</table>\\n";
@@ -1701,7 +1702,7 @@ public class mainService extends HttpServlet {
                             price = functions.str2double0(provider.get(i)[3]);
                         }
                         System.out.println("price=" + provider.get(i)[3] + "=" + functions.str2int0(provider.get(i)[3]) + "=" + price);
-                        
+
                         details = "\"limit;" + provider.get(i)[2] + " " + currency + "\",\"price;" + provider.get(i)[3] + " " + currency + "\",\"" + paymentschedule + ";" + String.format("%.2f", price) + " " + currency + "\"";
                         String mypdf = command + provider.get(i)[1];
                         //              + "\"pdf\":\"pdf/" + mypdf + ".pdf\",\n"
@@ -1721,7 +1722,9 @@ public class mainService extends HttpServlet {
                                 + "\"addhtml\":\"" + addhtml + "\",\n"
                                 + "\"detals\":[" + details + "],\n"
                                 + "\"pdf\":\"pdf/" + mypdf + ".pdf\",\n"
-                                + "\"price\":\"" + provider.get(i)[3] + " " + currency + "\"\n}";
+                                //              + "\"price\":\"" + provider.get(i)[3] + " " + currency + "\"\n}";
+                                + "\"price\":\"" + provider.get(i)[3] + " " + currency + "\",\n"
+                                + "\"payprice\":\"" + String.format("%.2f", price) + " " + currency + "\"\n}";
                         if (i == 0) {
                             ss += proposal;
                         } else {
@@ -1954,7 +1957,9 @@ public class mainService extends HttpServlet {
                                 + "\"addhtml\":\"" + addhtml + "\",\n"
                                 + "\"detals\":[" + details + "],\n"
                                 + "\"pdf\":\"pdf/" + mypdf + ".pdf\",\n"
-                                + "\"price\":\"" + provider.get(i)[3] + " " + currency + "\"\n}";
+                                //              + "\"price\":\"" + provider.get(i)[3] + " " + currency + "\"\n}";
+                                + "\"price\":\"" + provider.get(i)[3] + " " + currency + "\",\n"
+                                + "\"payprice\":\"" + String.format("%.2f", price) + " " + currency + "\"\n}";
                         if (i == 0) {
                             ss += proposal;
                         } else {
