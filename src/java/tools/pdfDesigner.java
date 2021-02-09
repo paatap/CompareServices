@@ -36,7 +36,7 @@ public class pdfDesigner {
     
     public static String invoice(String pheadergeo,String pheader,String insurer,String insured,String pnumberinsurer,String pnumberinsuded,String cityzenshipinsurer,
     String sexinsurer,String sexinsured,String phoneinsurer,String phoneinsured,String mailinsurer, String mailinsured,String addressinsurer,String addressinsured,
-     String countriesvalue,String coveragelimitvalue,String datefrom , String dateto,String pushasedatevalue,String providervalue
+     String countriesvalue,String coveragelimitvalue,String datefrom , String dateto,String pushasedatevalue,String providervalue,String providermailvalue,String providerphonevalue
     )
     {
         return "";
