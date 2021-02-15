@@ -693,8 +693,13 @@ public class mainService extends HttpServlet {
                 String pqwr = "select p.name from " + tablename + "_params pp left join provider p on pp.provider_id=p.id where pp.id=" + productid;
 
                 ArrayList<String[]> spqwr = tools.functions.getResult(pqwr, tools.functions.isnewcompare);
-                String filename=tools.pdfDesigner.invoice(tablename);
-
+    // make police    begin        
+                String insurer=namefirst+" "+namelast;
+                String insured=namefirst_2+" "+namelast_2;;
+                
+               
+                String filename=tools.pdfDesigner.makepolice(tablename,userid,insurer,insured);
+    // make police end
                 String qwr = "insert into order_params (user_id,product_id,product_name,payment_schedule,policyholder,policyowner,company_name,filename)"
                         + " values (" + userid + "," + productid + ",'" + tablename + "','" + paymentschedule + "','" + policyowner + "','" 
                         + policyholder + "','" + spqwr.get(0)[0] + "','"+filename +"')  returning id; ";;

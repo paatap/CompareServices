@@ -40,6 +40,9 @@ public class pdfDesigner {
     public static final String image = "/home/paatap/JAVA/apache-tomcat-8.5.30/webapps/ROOT/src/aldagi.png";
     public static final String stamp = "/home/paatap/JAVA/apache-tomcat-8.5.30/webapps/ROOT/src/stamp.png";
 
+//    String insurer = "დამზღვევი / Policy Holder : ჯამჭურჭელაშვილი ნიკიფორე";
+//    String insured = "დაზღვეული /Insured person : კოჭლამაზაშვილი მარგარიტა";
+
     public static String ma_mtplinvoice(String pheadergeo, String pheader, String insurer, String insured, String pnumberinsurer, String pnumberinsuded, String cityzenshipinsurer,
             String sexinsurer, String sexinsured, String phoneinsurer, String phoneinsured, String mailinsurer, String mailinsured, String addressinsurer, String addressinsured,
             String countriesvalue, String coveragelimitvalue, String datefrom, String dateto, String pushasedatevalue, String providervalue, String providermailvalue, String providerphonevalue
@@ -76,17 +79,24 @@ public class pdfDesigner {
     }
 
     //   public static String invoice(String[] args) throws Exception, NullPointerException{
-    public static String invoice(String invoice_type) throws Exception, NullPointerException {
+    public static String makepolice(String invoice_type,String userid, String insurer, String insured) throws Exception, NullPointerException {
 
-        System.out.println("lalala");
+        System.out.println("insurer="+insurer);
+        System.out.println("insured="+insured);
+        
         System.out.println("font=" + FONT);
         PdfFont gefont = PdfFontFactory.createFont(FONT, "Identity-H");
         //   PdfFont gefont = PdfFontFactory.createFont(FONT, PdfEncodings.IDENTITY_H);
 
-        //      PdfFont mfontFont=PdfFontFactory.createFont(font, font)
-        String filename = dest + invoice_type ;
-        System.out.println("dest=" + dest+ ".pdf");
-        String filenameweb= invoice_type ;
+        //      PdfFont mfontFont=PdfFontFactory.createFont(font, font)  System.out.println(java.time.LocalDateTime.now()); 
+        System.out.println("userid==========================="+userid);
+        String filenameweb = invoice_type+ userid + java.time.LocalDateTime.now().toString();
+        System.out.println("filenameweb================filenameweb="+filenameweb);
+        String filename = dest +filenameweb + ".pdf";
+        System.out.println("dest======================" + dest);
+        System.out.println("filename======================" + filename);
+        
+       
         PdfWriter writer = new PdfWriter(filename);
 
         PdfDocument pdf = new PdfDocument(writer);
@@ -105,8 +115,6 @@ public class pdfDesigner {
             //data for head table
             String pheadergeo = "სერთიფიკატი, დამზღვევის ელექტრონულად მოწოდებული ინფორმაცია და დეპონირებული დაზღვევის პირობები წარმოადგენს ერთიან სადაზღვევი პოლისს მზღვეველი - სს \"რისკების\"\nმართვისა და სადაზღვევო კომპანია გლობალ ბენეფიტს ჯორჯია\"(ს / ნ: 404526777), მისამართი: ქ.თბილისი, მთაწმინდის რ-ნი, ჭანტურიას ქ.5, ტელ.: +995 322 50 00 01; +995 557 50 00 02";
             String pheader = "This Certificate, electronically sent information and deposited Insurance Terms and conditions is a single insurance agreement of JSC. Risk Management and Insurance Company\nGlobal Benefits Georgia(ID 404526777), address: G.Chanturia street N5, Tbilisi, Tel.: +995 322 50 00 01; +995 557 50 00 02";
-            String insurer = "დამზღვევი / Policy Holder : ჯამჭურჭელაშვილი ნიკიფორე";
-            String insured = "დაზღვეული /Insured person : კოჭლამაზაშვილი მარგარიტა";
 
             //data for body table
             String pnumberinsurer = "პირადი ნომერი/Personal Number : ##########";
@@ -264,8 +272,8 @@ public class pdfDesigner {
             //data for head table
             String pheadergeo = "სერთიფიკატი, დამზღვევის ელექტრონულად მოწოდებული ინფორმაცია და დეპონირებული დაზღვევის პირობები წარმოადგენს ერთიან სადაზღვევი პოლისს მზღვეველი - სს \"რისკების\"\nმართვისა და სადაზღვევო კომპანია გლობალ ბენეფიტს ჯორჯია\"(ს / ნ: 404526777), მისამართი: ქ.თბილისი, მთაწმინდის რ-ნი, ჭანტურიას ქ.5, ტელ.: +995 322 50 00 01; +995 557 50 00 02";
             String pheader = "This Certificate, electronically sent information and deposited Insurance Terms and conditions is a single insurance agreement of JSC. Risk Management and Insurance Company\nGlobal Benefits Georgia(ID 404526777), address: G.Chanturia street N5, Tbilisi, Tel.: +995 322 50 00 01; +995 557 50 00 02";
-            String insurer = "დამზღვევი / Policy Holder : ჯამჭურჭელაშვილი ნიკიფორე";
-            String insured = "დაზღვეული /Insured person : კოჭლამაზაშვილი მარგარიტა";
+//            String insurer = "დამზღვევი / Policy Holder : ჯამჭურჭელაშვილი ნიკიფორე";
+//            String insured = "დაზღვეული /Insured person : კოჭლამაზაშვილი მარგარიტა";
 
             //data for body table
             String pnumberinsurer = "პირადი ნომერი/Personal Number : ##########";
@@ -555,8 +563,8 @@ public class pdfDesigner {
             //data for head table
             String pheadergeo = "სერთიფიკატი, დამზღვევის ელექტრონულად მოწოდებული ინფორმაცია და დეპონირებული დაზღვევის პირობები წარმოადგენს ერთიან სადაზღვევი პოლისს მზღვეველი - სს \"რისკების\"\nმართვისა და სადაზღვევო კომპანია გლობალ ბენეფიტს ჯორჯია\"(ს / ნ: 404526777), მისამართი: ქ.თბილისი, მთაწმინდის რ-ნი, ჭანტურიას ქ.5, ტელ.: +995 322 50 00 01; +995 557 50 00 02";
             String pheader = "This Certificate, electronically sent information and deposited Insurance Terms and conditions is a single insurance agreement of JSC. Risk Management and Insurance Company\nGlobal Benefits Georgia(ID 404526777), address: G.Chanturia street N5, Tbilisi, Tel.: +995 322 50 00 01; +995 557 50 00 02";
-            String insurer = "დამზღვევი / Policy Holder : ჯამჭურჭელაშვილი ნიკიფორე";
-            String insured = "დაზღვეული /Insured person : კოჭლამაზაშვილი მარგარიტა";
+//            String insurer = "დამზღვევი / Policy Holder : ჯამჭურჭელაშვილი ნიკიფორე";
+//            String insured = "დაზღვეული /Insured person : კოჭლამაზაშვილი მარგარიტა";
 
             //data for body table
             String pnumberinsurer = "პირადი ნომერი/Personal Number : ##########";
@@ -793,8 +801,8 @@ public class pdfDesigner {
             //data for head table
             String pheadergeo = "სერთიფიკატი, დამზღვევის ელექტრონულად მოწოდებული ინფორმაცია და დეპონირებული დაზღვევის პირობები წარმოადგენს ერთიან სადაზღვევი პოლისს მზღვეველი - სს \"რისკების\"\nმართვისა და სადაზღვევო კომპანია გლობალ ბენეფიტს ჯორჯია\"(ს / ნ: 404526777), მისამართი: ქ.თბილისი, მთაწმინდის რ-ნი, ჭანტურიას ქ.5, ტელ.: +995 322 50 00 01; +995 557 50 00 02";
             String pheader = "This Certificate, electronically sent information and deposited Insurance Terms and conditions is a single insurance agreement of JSC. Risk Management and Insurance Company\nGlobal Benefits Georgia(ID 404526777), address: G.Chanturia street N5, Tbilisi, Tel.: +995 322 50 00 01; +995 557 50 00 02";
-            String insurer = "დამზღვევი / Policy Holder : ჯამჭურჭელაშვილი ნიკიფორე";
-            String insured = "დაზღვეული / Insured person : კოჭლამაზაშვილი მარგარიტა";
+//            String insurer = "დამზღვევი / Policy Holder : ჯამჭურჭელაშვილი ნიკიფორე";
+//            String insured = "დაზღვეული / Insured person : კოჭლამაზაშვილი მარგარიტა";
 
             //data for body table
             String pnumberinsurer = "პირადი ნომერი/Personal Number : ##########";
@@ -1078,12 +1086,15 @@ public class pdfDesigner {
             System.out.println("Table created successfully..");
 
         } else if (invoice_type.equals("property")) {
+            
+            
+            System.out.println("I Am here Property");
 
             //data for head table
             String pheadergeo = "სერთიფიკატი, დამზღვევის ელექტრონულად მოწოდებული ინფორმაცია და დეპონირებული დაზღვევის პირობები წარმოადგენს ერთიან სადაზღვევი პოლისს მზღვეველი - სს \"რისკების\"\nმართვისა და სადაზღვევო კომპანია გლობალ ბენეფიტს ჯორჯია\"(ს / ნ: 404526777), მისამართი: ქ.თბილისი, მთაწმინდის რ-ნი, ჭანტურიას ქ.5, ტელ.: +995 322 50 00 01; +995 557 50 00 02";
             String pheader = "This Certificate, electronically sent information and deposited Insurance Terms and conditions is a single insurance agreement of JSC. Risk Management and Insurance Company\nGlobal Benefits Georgia(ID 404526777), address: G.Chanturia street N5, Tbilisi, Tel.: +995 322 50 00 01; +995 557 50 00 02";
-            String insurer = "დამზღვევი / Policy Holder : ჯამჭურჭელაშვილი ნიკიფორე";
-            String insured = "დაზღვეული / Insured person : კოჭლამაზაშვილი მარგარიტა";
+//            String insurer = "დამზღვევი / Policy Holder : ჯამჭურჭელაშვილი ნიკიფორე";
+//            String insured = "დაზღვეული / Insured person : კოჭლამაზაშვილი მარგარიტა";
 
             //data for body table
             String pnumberinsurer = "პირადი ნომერი/Personal Number : ##########";
