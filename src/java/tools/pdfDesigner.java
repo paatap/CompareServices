@@ -1,6 +1,10 @@
 package tools;
 
+import com.itextpdf.io.font.PdfEncodings;
 import com.itextpdf.io.image.ImageDataFactory;
+//com.itextpdf.io.font.FontRegisterProvider
+
+//import com.itextpdf.kernel.font.PdfFontFactory;
 import com.itextpdf.kernel.colors.ColorConstants;
 import com.itextpdf.kernel.colors.DeviceGray;
 import com.itextpdf.kernel.font.PdfFont;
@@ -18,43 +22,85 @@ import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.property.HorizontalAlignment;
 import com.itextpdf.layout.property.TextAlignment;
 
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 import static com.itextpdf.kernel.pdf.PdfName.List;
 
-
 public class pdfDesigner {
 
     //declaring resources
-    public static final String FONT = "/Users/ketikakhniauri/IdeaProjects/paata/src/ttf/sylfaen.ttf";
-    public static final String dest = "result/addingTable.pdf";
-    public static final String image = "/Users/ketikakhniauri/IdeaProjects/paata/src/ttf/aldagi.png";
-    public static final String stamp = "/Users/ketikakhniauri/IdeaProjects/paata/src/ttf/stamp.png";
-    
-    public static String invoice(String pheadergeo,String pheader,String insurer,String insured,String pnumberinsurer,String pnumberinsuded,String cityzenshipinsurer,
-    String sexinsurer,String sexinsured,String phoneinsurer,String phoneinsured,String mailinsurer, String mailinsured,String addressinsurer,String addressinsured,
-     String countriesvalue,String coveragelimitvalue,String datefrom , String dateto,String pushasedatevalue,String providervalue,String providermailvalue,String providerphonevalue
-    )
-    {
+    public static final String FONT = "/home/paatap/JAVA/apache-tomcat-8.5.30/webapps/ROOT/src/sylfaen.ttf";
+    //  public static final String FONT = "/src/sylfaen.ttf";
+
+    // /home/paatap/JAVA/apache-tomcat-8.5.30/webapps/ROOT/pdf
+    //   public static final String dest = "/pdf/addingTable.pdf";
+    public static final String dest = "/home/paatap/JAVA/apache-tomcat-8.5.30/webapps/ROOT/pdf/";
+    public static final String image = "/home/paatap/JAVA/apache-tomcat-8.5.30/webapps/ROOT/src/aldagi.png";
+    public static final String stamp = "/home/paatap/JAVA/apache-tomcat-8.5.30/webapps/ROOT/src/stamp.png";
+
+    public static String ma_mtplinvoice(String pheadergeo, String pheader, String insurer, String insured, String pnumberinsurer, String pnumberinsuded, String cityzenshipinsurer,
+            String sexinsurer, String sexinsured, String phoneinsurer, String phoneinsured, String mailinsurer, String mailinsured, String addressinsurer, String addressinsured,
+            String countriesvalue, String coveragelimitvalue, String datefrom, String dateto, String pushasedatevalue, String providervalue, String providermailvalue, String providerphonevalue
+    ) {
         return "";
     }
 
-    public static void main(String[] args) throws Exception, NullPointerException{
+    public static String travelinvoice(String pheadergeo, String pheader, String insurer, String insured, String pnumberinsurer, String pnumberinsuded, String cityzenshipinsurer,
+            String sexinsurer, String sexinsured, String phoneinsurer, String phoneinsured, String mailinsurer, String mailinsured, String addressinsurer, String addressinsured,
+            String countriesvalue, String coveragelimitvalue, String datefrom, String dateto, String pushasedatevalue, String providervalue, String providermailvalue, String providerphonevalue
+    ) {
+        return "";
+    }
 
+    public static String propertyinvoice(String pheadergeo, String pheader, String insurer, String insured, String pnumberinsurer, String pnumberinsuded, String cityzenshipinsurer,
+            String sexinsurer, String sexinsured, String phoneinsurer, String phoneinsured, String mailinsurer, String mailinsured, String addressinsurer, String addressinsured,
+            String countriesvalue, String coveragelimitvalue, String datefrom, String dateto, String pushasedatevalue, String providervalue, String providermailvalue, String providerphonevalue
+    ) {
+        return "";
+    }
+
+    public static String greencardinvoice(String pheadergeo, String pheader, String insurer, String insured, String pnumberinsurer, String pnumberinsuded, String cityzenshipinsurer,
+            String sexinsurer, String sexinsured, String phoneinsurer, String phoneinsured, String mailinsurer, String mailinsured, String addressinsurer, String addressinsured,
+            String countriesvalue, String coveragelimitvalue, String datefrom, String dateto, String pushasedatevalue, String providervalue, String providermailvalue, String providerphonevalue
+    ) {
+        return "";
+    }
+
+    public static String cascolinvoice(String pheadergeo, String pheader, String insurer, String insured, String pnumberinsurer, String pnumberinsuded, String cityzenshipinsurer,
+            String sexinsurer, String sexinsured, String phoneinsurer, String phoneinsured, String mailinsurer, String mailinsured, String addressinsurer, String addressinsured,
+            String countriesvalue, String coveragelimitvalue, String datefrom, String dateto, String pushasedatevalue, String providervalue, String providermailvalue, String providerphonevalue
+    ) {
+        return "";
+    }
+
+    //   public static String invoice(String[] args) throws Exception, NullPointerException{
+    public static String invoice(String invoice_type) throws Exception, NullPointerException {
+
+        System.out.println("lalala");
+        System.out.println("font=" + FONT);
         PdfFont gefont = PdfFontFactory.createFont(FONT, "Identity-H");
-        PdfWriter writer = new PdfWriter(dest);
+        //   PdfFont gefont = PdfFontFactory.createFont(FONT, PdfEncodings.IDENTITY_H);
+
+        //      PdfFont mfontFont=PdfFontFactory.createFont(font, font)
+        String filename = dest + invoice_type ;
+        System.out.println("dest=" + dest+ ".pdf");
+        String filenameweb= invoice_type ;
+        PdfWriter writer = new PdfWriter(filename);
+
         PdfDocument pdf = new PdfDocument(writer);
+
         Document doc = new Document(pdf, PageSize.A4);
+
         Image img = new Image(ImageDataFactory.create(image));
+
+        System.out.println("lalala=get5");
         Image stmp = new Image(ImageDataFactory.create(stamp));
-        Scanner sc = new Scanner(System.in);
 
         System.out.println("which service would you like ? ");
-        String response = sc.next();
-        if (response.equals("Travel")){
+        //      String invoice_type =args[0];
+        if (invoice_type.equals("travel")) {
 
             //data for head table
             String pheadergeo = "სერთიფიკატი, დამზღვევის ელექტრონულად მოწოდებული ინფორმაცია და დეპონირებული დაზღვევის პირობები წარმოადგენს ერთიან სადაზღვევი პოლისს მზღვეველი - სს \"რისკების\"\nმართვისა და სადაზღვევო კომპანია გლობალ ბენეფიტს ჯორჯია\"(ს / ნ: 404526777), მისამართი: ქ.თბილისი, მთაწმინდის რ-ნი, ჭანტურიას ქ.5, ტელ.: +995 322 50 00 01; +995 557 50 00 02";
@@ -111,7 +157,7 @@ public class pdfDesigner {
             Table info = new Table(2, true);
             Table cperiod = new Table(2, true);
             Table addservices = new Table(2, true);
-            Table footertable = new Table(2,true);
+            Table footertable = new Table(2, true);
 
             //setting fonts
             head.setFont(gefont);
@@ -132,11 +178,11 @@ public class pdfDesigner {
             footertable.setFontSize(8.0F);
 
             // creating paragraphs for head table
-            Cell policeheadC= new Cell();
+            Cell policeheadC = new Cell();
             Paragraph p;
-            p = new Paragraph( "სამოგზაურო დაზღვევის პოლისი").setTextAlignment(TextAlignment.CENTER).setBold();
+            p = new Paragraph("სამოგზაურო დაზღვევის პოლისი").setTextAlignment(TextAlignment.CENTER).setBold();
             policeheadC.add(p);
-            p = new Paragraph( "Travel Insurance Policy").setTextAlignment(TextAlignment.CENTER).setBold();
+            p = new Paragraph("Travel Insurance Policy").setTextAlignment(TextAlignment.CENTER).setBold();
             policeheadC.add(p);
 
             // adding cells to head table
@@ -211,7 +257,9 @@ public class pdfDesigner {
             doc.close();
             System.out.println("Table created successfully..");
 
-        } else if (response.equals("MTPL")){
+        } else if (invoice_type.equals("ma_mtpl")) {
+
+            System.out.println("I am here ma");
 
             //data for head table
             String pheadergeo = "სერთიფიკატი, დამზღვევის ელექტრონულად მოწოდებული ინფორმაცია და დეპონირებული დაზღვევის პირობები წარმოადგენს ერთიან სადაზღვევი პოლისს მზღვეველი - სს \"რისკების\"\nმართვისა და სადაზღვევო კომპანია გლობალ ბენეფიტს ჯორჯია\"(ს / ნ: 404526777), მისამართი: ქ.თბილისი, მთაწმინდის რ-ნი, ჭანტურიას ქ.5, ტელ.: +995 322 50 00 01; +995 557 50 00 02";
@@ -239,42 +287,42 @@ public class pdfDesigner {
             String coverage0 = "დაფარვა / Coverage ";
             String limit0 = "ლიმიტი / Limit";
             String cosponsor0 = "თანადაფინანსება  / Cosponsor";
-            String coverage1= "coverage1";
-            String limit1= "limit1";
-            String cosponsor1= "cosponsor1";
-            String coverage2= "coverage2";
-            String limit2= "limit2";
-            String cosponsor2= "cosponsor2";
-            String coverage3= "coverage3";
-            String limit3= "limit3";
-            String cosponsor3= "cosponsor3";
-            String coverage4= "coverage4";
-            String limit4= "limit4";
-            String cosponsor4= "cosponsor4";
-            String coverage5= "coverage5";
-            String limit5= "limit5";
-            String cosponsor5= "cosponsor5";
-            String coverage6= "coverage6";
-            String limit6= "limit6";
-            String cosponsor6= "cosponsor6";
-            String coverage7= "coverage7";
-            String limit7= "limit7";
-            String cosponsor7= "cosponsor7";
-            String coverage8= "coverage8";
-            String limit8= "limit8";
-            String cosponsor8= "cosponsor8";
-            String coverage9= "coverage9";
-            String limit9= "limit9";
-            String cosponsor9= "cosponsor9";
-            String coverage10= "coverage10";
-            String limit10= "limit10";
-            String cosponsor10= "cosponsor10";
-            String coverage11= "coverage11";
-            String limit11= "limit11";
-            String cosponsor11= "cosponsor11";
-            String coverage12= "coverage12";
-            String limit12= "limit12";
-            String cosponsor12= "cosponsor12";
+            String coverage1 = "coverage1";
+            String limit1 = "limit1";
+            String cosponsor1 = "cosponsor1";
+            String coverage2 = "coverage2";
+            String limit2 = "limit2";
+            String cosponsor2 = "cosponsor2";
+            String coverage3 = "coverage3";
+            String limit3 = "limit3";
+            String cosponsor3 = "cosponsor3";
+            String coverage4 = "coverage4";
+            String limit4 = "limit4";
+            String cosponsor4 = "cosponsor4";
+            String coverage5 = "coverage5";
+            String limit5 = "limit5";
+            String cosponsor5 = "cosponsor5";
+            String coverage6 = "coverage6";
+            String limit6 = "limit6";
+            String cosponsor6 = "cosponsor6";
+            String coverage7 = "coverage7";
+            String limit7 = "limit7";
+            String cosponsor7 = "cosponsor7";
+            String coverage8 = "coverage8";
+            String limit8 = "limit8";
+            String cosponsor8 = "cosponsor8";
+            String coverage9 = "coverage9";
+            String limit9 = "limit9";
+            String cosponsor9 = "cosponsor9";
+            String coverage10 = "coverage10";
+            String limit10 = "limit10";
+            String cosponsor10 = "cosponsor10";
+            String coverage11 = "coverage11";
+            String limit11 = "limit11";
+            String cosponsor11 = "cosponsor11";
+            String coverage12 = "coverage12";
+            String limit12 = "limit12";
+            String cosponsor12 = "cosponsor12";
 
             // data for info table
             String responsibility = "პასუხისმგებლობის დეტალები / Responsibility Details ";
@@ -284,7 +332,7 @@ public class pdfDesigner {
             String vincode = "ვინკოდი / VIN code";
             String vincodeValue = "112234";
             String carMark = "მარკა/ Mark ";
-            String carMarkValue ="alfa romeo";
+            String carMarkValue = "alfa romeo";
             String carModel = "მოდელი / Model";
             String carModelValue = "13";
             String releaseYear = " წელი / Year";
@@ -296,7 +344,6 @@ public class pdfDesigner {
             String amountValue = "5000 ლარი / GEL";
             String monthlyAmount = "ყოველთვიური თანხა / Monthly bill";
             String monthlyAmountValue = "4.17 ლარი / GEL";
-
 
             //data for money table
             String InsuranceBill = "სადაზღვევო თანხა / Insurance Bill";
@@ -318,11 +365,11 @@ public class pdfDesigner {
             Table head = new Table(2).useAllAvailableWidth();
             Table headerstrings = new Table(1, true);
             Table body = new Table(2, true);
-            Table coverage = new Table(3,true);
+            Table coverage = new Table(3, true);
             Table info = new Table(2, true);
             Table cperiod = new Table(2, true);
             Table addservices = new Table(2, true);
-            Table footertable = new Table(2,true);
+            Table footertable = new Table(2, true);
             Table money = new Table(2, true);
 
             //setting fonts
@@ -348,11 +395,11 @@ public class pdfDesigner {
             footertable.setFontSize(6.0F);
 
             // creating paragraphs for head table
-            Cell policeheadC= new Cell();
+            Cell policeheadC = new Cell();
             Paragraph p;
-            p = new Paragraph( "ავტომფლობელთა მესამე პირისადმი პასუხისმგებლობა").setTextAlignment(TextAlignment.CENTER).setFontSize(9F);
+            p = new Paragraph("ავტომფლობელთა მესამე პირისადმი პასუხისმგებლობა").setTextAlignment(TextAlignment.CENTER).setFontSize(9F);
             policeheadC.add(p);
-            p = new Paragraph( "MTPL").setTextAlignment(TextAlignment.CENTER).setFontSize(9F);
+            p = new Paragraph("MTPL").setTextAlignment(TextAlignment.CENTER).setFontSize(9F);
             policeheadC.add(p);
 
             // adding cells to head table
@@ -439,7 +486,6 @@ public class pdfDesigner {
             info.addCell(releaseYear);
             info.addCell(releaseYearValue);
 
-
             //adding cells to money table
             money.addCell(period);
             cperiod.addCell(datefrom);
@@ -455,15 +501,15 @@ public class pdfDesigner {
             money.addCell(SumAmountValue).setBorder(null);
 
             //rule table
-            Table rulesHead = new Table(1,true);
+            Table rulesHead = new Table(1, true);
             rulesHead.setFontSize(6.0F);
             rulesHead.setFont(gefont);
             rulesHead.addCell(new Paragraph(rule).setTextAlignment(TextAlignment.CENTER));
             Table rulesVal = new Table(6, true);
             rulesVal.setFontSize(6.0F);
             rulesVal.setFont(gefont);
-            for(int i = 0; i<12; i++){
-                rulesVal.addCell("2018."+String.valueOf(01+i)+".01 - 70 ლარი");
+            for (int i = 0; i < 12; i++) {
+                rulesVal.addCell("2018." + String.valueOf(01 + i) + ".01 - 70 ლარი");
             }
 
             //adding cells to footertable
@@ -504,7 +550,7 @@ public class pdfDesigner {
             footertable.complete();
             doc.close();
             System.out.println("Table created successfully..");
-        } else if(response.equals("Health")) {
+        } else if (invoice_type.equals("health")) {
 
             //data for head table
             String pheadergeo = "სერთიფიკატი, დამზღვევის ელექტრონულად მოწოდებული ინფორმაცია და დეპონირებული დაზღვევის პირობები წარმოადგენს ერთიან სადაზღვევი პოლისს მზღვეველი - სს \"რისკების\"\nმართვისა და სადაზღვევო კომპანია გლობალ ბენეფიტს ჯორჯია\"(ს / ნ: 404526777), მისამართი: ქ.თბილისი, მთაწმინდის რ-ნი, ჭანტურიას ქ.5, ტელ.: +995 322 50 00 01; +995 557 50 00 02";
@@ -558,8 +604,6 @@ public class pdfDesigner {
             String datefrom = "##.##.## დან";
             String dateto = "##.##.## მდე/ჩათვლით";
 
-
-
             //data for money table
             String InsuranceLimit = "დაზღვევის ლიმიტი / Insurance Limit";
             String InsuranceLimitValue = "5000 ლარი / GEL";
@@ -585,12 +629,11 @@ public class pdfDesigner {
             Table info = new Table(3, true);
             Table cperiod = new Table(2, true);
             Table addservices = new Table(2, true);
-            Table footertable = new Table(2,true);
+            Table footertable = new Table(2, true);
             Table money = new Table(2, true);
 
             //Width for info table
             //info.setWidth(float.valueOf(2.0f),float.valueOf(1.0f),float.valueOf(1.0f));
-
             //setting fonts
             head.setFont(gefont);
             headerstrings.setFont(gefont);
@@ -612,11 +655,11 @@ public class pdfDesigner {
             footertable.setFontSize(6.0F);
 
             // creating paragraphs for head table
-            Cell policeheadC= new Cell();
+            Cell policeheadC = new Cell();
             Paragraph p;
-            p = new Paragraph( "ჯანმრთელობის დაზღვევა").setTextAlignment(TextAlignment.CENTER).setBold();
+            p = new Paragraph("ჯანმრთელობის დაზღვევა").setTextAlignment(TextAlignment.CENTER).setBold();
             policeheadC.add(p);
-            p = new Paragraph( "Health Insurance").setTextAlignment(TextAlignment.CENTER).setBold();
+            p = new Paragraph("Health Insurance").setTextAlignment(TextAlignment.CENTER).setBold();
             policeheadC.add(p);
 
             // adding cells to head table
@@ -688,7 +731,6 @@ public class pdfDesigner {
             info.addCell(satelofonoValue);
             info.addCell(cosatelofono);
 
-
             //adding cells to money table
             money.addCell(period);
             cperiod.addCell(datefrom);
@@ -702,15 +744,15 @@ public class pdfDesigner {
             money.addCell(mounthlyValue);
 
             //rule table
-            Table rulesHead = new Table(1,true);
+            Table rulesHead = new Table(1, true);
             rulesHead.setFontSize(6.0F);
             rulesHead.setFont(gefont);
             rulesHead.addCell(new Paragraph(rule).setTextAlignment(TextAlignment.CENTER));
             Table rulesVal = new Table(6, true);
             rulesVal.setFontSize(6.0F);
             rulesVal.setFont(gefont);
-            for(int i = 0; i<12; i++){
-                rulesVal.addCell("2018."+String.valueOf(01+i)+".01 - 70 ლარი");
+            for (int i = 0; i < 12; i++) {
+                rulesVal.addCell("2018." + String.valueOf(01 + i) + ".01 - 70 ლარი");
             }
 
             //adding cells to footertable
@@ -747,7 +789,7 @@ public class pdfDesigner {
             footertable.complete();
             doc.close();
             System.out.println("Table created successfully..");
-        } else if(response.equals("Casco")){
+        } else if (invoice_type.equals("casco")) {
             //data for head table
             String pheadergeo = "სერთიფიკატი, დამზღვევის ელექტრონულად მოწოდებული ინფორმაცია და დეპონირებული დაზღვევის პირობები წარმოადგენს ერთიან სადაზღვევი პოლისს მზღვეველი - სს \"რისკების\"\nმართვისა და სადაზღვევო კომპანია გლობალ ბენეფიტს ჯორჯია\"(ს / ნ: 404526777), მისამართი: ქ.თბილისი, მთაწმინდის რ-ნი, ჭანტურიას ქ.5, ტელ.: +995 322 50 00 01; +995 557 50 00 02";
             String pheader = "This Certificate, electronically sent information and deposited Insurance Terms and conditions is a single insurance agreement of JSC. Risk Management and Insurance Company\nGlobal Benefits Georgia(ID 404526777), address: G.Chanturia street N5, Tbilisi, Tel.: +995 322 50 00 01; +995 557 50 00 02";
@@ -774,42 +816,42 @@ public class pdfDesigner {
             String coverage0 = "დაფარვა / Coverage ";
             String limit0 = "ლიმიტი / Limit";
             String cosponsor0 = "თანადაფინანსება  / Cosponsor";
-            String coverage1= "coverage1";
-            String limit1= "limit1";
-            String cosponsor1= "cosponsor1";
-            String coverage2= "coverage2";
-            String limit2= "limit2";
-            String cosponsor2= "cosponsor2";
-            String coverage3= "coverage3";
-            String limit3= "limit3";
-            String cosponsor3= "cosponsor3";
-            String coverage4= "coverage4";
-            String limit4= "limit4";
-            String cosponsor4= "cosponsor4";
-            String coverage5= "coverage5";
-            String limit5= "limit5";
-            String cosponsor5= "cosponsor5";
-            String coverage6= "coverage6";
-            String limit6= "limit6";
-            String cosponsor6= "cosponsor6";
-            String coverage7= "coverage7";
-            String limit7= "limit7";
-            String cosponsor7= "cosponsor7";
-            String coverage8= "coverage8";
-            String limit8= "limit8";
-            String cosponsor8= "cosponsor8";
-            String coverage9= "coverage9";
-            String limit9= "limit9";
-            String cosponsor9= "cosponsor9";
-            String coverage10= "coverage10";
-            String limit10= "limit10";
-            String cosponsor10= "cosponsor10";
-            String coverage11= "coverage11";
-            String limit11= "limit11";
-            String cosponsor11= "cosponsor11";
-            String coverage12= "coverage12";
-            String limit12= "limit12";
-            String cosponsor12= "cosponsor12";
+            String coverage1 = "coverage1";
+            String limit1 = "limit1";
+            String cosponsor1 = "cosponsor1";
+            String coverage2 = "coverage2";
+            String limit2 = "limit2";
+            String cosponsor2 = "cosponsor2";
+            String coverage3 = "coverage3";
+            String limit3 = "limit3";
+            String cosponsor3 = "cosponsor3";
+            String coverage4 = "coverage4";
+            String limit4 = "limit4";
+            String cosponsor4 = "cosponsor4";
+            String coverage5 = "coverage5";
+            String limit5 = "limit5";
+            String cosponsor5 = "cosponsor5";
+            String coverage6 = "coverage6";
+            String limit6 = "limit6";
+            String cosponsor6 = "cosponsor6";
+            String coverage7 = "coverage7";
+            String limit7 = "limit7";
+            String cosponsor7 = "cosponsor7";
+            String coverage8 = "coverage8";
+            String limit8 = "limit8";
+            String cosponsor8 = "cosponsor8";
+            String coverage9 = "coverage9";
+            String limit9 = "limit9";
+            String cosponsor9 = "cosponsor9";
+            String coverage10 = "coverage10";
+            String limit10 = "limit10";
+            String cosponsor10 = "cosponsor10";
+            String coverage11 = "coverage11";
+            String limit11 = "limit11";
+            String cosponsor11 = "cosponsor11";
+            String coverage12 = "coverage12";
+            String limit12 = "limit12";
+            String cosponsor12 = "cosponsor12";
 
             // data for info table
             String responsibility = "დაზღვევის დეტალები / Insurance Details ";
@@ -819,7 +861,7 @@ public class pdfDesigner {
             String vincode = "ვინკოდი / VIN code";
             String vincodeValue = "112234";
             String carMark = "მარკა/ Mark ";
-            String carMarkValue ="alfa romeo";
+            String carMarkValue = "alfa romeo";
             String carModel = "მოდელი / Model";
             String carModelValue = "13";
             String releaseYear = " წელი / Year";
@@ -833,13 +875,11 @@ public class pdfDesigner {
             String monthlyAmountValue = "4.17 ლარი / GEL";
             String rule = "სადაზღვეო პრემიის გადახდის წესი / Terms of Payment";
 
-
             //data for money table
             String InsuranceBill = "სადაზღვევო თანხა / Insurance Bill";
             String InsuranceBillValue = "5000 ლარი / GEL";
             String SumAmount = "ჯამური ფასი / Total cost ";
             String SumAmountValue = "50 ლარი / GEL ";
-
 
             //data for footertable
             String signature = "ელექტრონული ხელმოწერა / Signature";
@@ -851,14 +891,14 @@ public class pdfDesigner {
             String provideraddressvalue = "######### ########## # ## ## ## ### #### ###";
 
             // declaring tables
-            Table head = new Table(2,true);
+            Table head = new Table(2, true);
             Table headerstrings = new Table(1, true);
             Table body = new Table(2, true);
-            Table coverage = new Table(3,true);
+            Table coverage = new Table(3, true);
             Table info = new Table(2, true);
             Table cperiod = new Table(2, true);
             Table addservices = new Table(2, true);
-            Table footertable = new Table(2,true);
+            Table footertable = new Table(2, true);
             Table money = new Table(2, true);
 
             //setting fonts
@@ -884,9 +924,9 @@ public class pdfDesigner {
             footertable.setFontSize(6.0F);
 
             // creating paragraphs for head table
-            Cell policeheadC= new Cell();
+            Cell policeheadC = new Cell();
             Paragraph p;
-            p = new Paragraph( "Casco").setTextAlignment(TextAlignment.CENTER);
+            p = new Paragraph("Casco").setTextAlignment(TextAlignment.CENTER);
             policeheadC.add(p);
 
             // adding cells to head table
@@ -988,15 +1028,15 @@ public class pdfDesigner {
             money.addCell(SumAmountValue).setBorder(null);
 
             //rule table
-            Table rulesHead = new Table(1,true);
+            Table rulesHead = new Table(1, true);
             rulesHead.setFontSize(6.0F);
             rulesHead.setFont(gefont);
             rulesHead.addCell(new Paragraph(rule).setTextAlignment(TextAlignment.CENTER));
             Table rulesVal = new Table(6, true);
             rulesVal.setFontSize(6.0F);
             rulesVal.setFont(gefont);
-            for(int i = 0; i<12; i++){
-                rulesVal.addCell("2018."+String.valueOf(01+i)+".01 - 70 ლარი");
+            for (int i = 0; i < 12; i++) {
+                rulesVal.addCell("2018." + String.valueOf(01 + i) + ".01 - 70 ლარი");
             }
 
             //adding cells to footertable
@@ -1037,7 +1077,7 @@ public class pdfDesigner {
             doc.close();
             System.out.println("Table created successfully..");
 
-        } else if(response.equals("Property")){
+        } else if (invoice_type.equals("property")) {
 
             //data for head table
             String pheadergeo = "სერთიფიკატი, დამზღვევის ელექტრონულად მოწოდებული ინფორმაცია და დეპონირებული დაზღვევის პირობები წარმოადგენს ერთიან სადაზღვევი პოლისს მზღვეველი - სს \"რისკების\"\nმართვისა და სადაზღვევო კომპანია გლობალ ბენეფიტს ჯორჯია\"(ს / ნ: 404526777), მისამართი: ქ.თბილისი, მთაწმინდის რ-ნი, ჭანტურიას ქ.5, ტელ.: +995 322 50 00 01; +995 557 50 00 02";
@@ -1065,60 +1105,60 @@ public class pdfDesigner {
             String coverage0 = "დაფარვა / Coverage ";
             String limit0 = "ლიმიტი / Limit";
             String cosponsor0 = "თანადაფინანსება  / Cosponsor";
-            String coverage1= "coverage1";
-            String limit1= "limit1";
-            String cosponsor1= "cosponsor1";
-            String coverage2= "coverage2";
-            String limit2= "limit2";
-            String cosponsor2= "cosponsor2";
-            String coverage3= "coverage3";
-            String limit3= "limit3";
-            String cosponsor3= "cosponsor3";
-            String coverage4= "coverage4";
-            String limit4= "limit4";
-            String cosponsor4= "cosponsor4";
-            String coverage5= "coverage5";
-            String limit5= "limit5";
-            String cosponsor5= "cosponsor5";
-            String coverage6= "coverage6";
-            String limit6= "limit6";
-            String cosponsor6= "cosponsor6";
-            String coverage7= "coverage7";
-            String limit7= "limit7";
-            String cosponsor7= "cosponsor7";
-            String coverage8= "coverage8";
-            String limit8= "limit8";
-            String cosponsor8= "cosponsor8";
-            String coverage9= "coverage9";
-            String limit9= "limit9";
-            String cosponsor9= "cosponsor9";
-            String coverage10= "coverage10";
-            String limit10= "limit10";
-            String cosponsor10= "cosponsor10";
-            String coverage11= "coverage11";
-            String limit11= "limit11";
-            String cosponsor11= "cosponsor11";
-            String coverage12= "coverage12";
-            String limit12= "limit12";
-            String cosponsor12= "cosponsor12";
+            String coverage1 = "coverage1";
+            String limit1 = "limit1";
+            String cosponsor1 = "cosponsor1";
+            String coverage2 = "coverage2";
+            String limit2 = "limit2";
+            String cosponsor2 = "cosponsor2";
+            String coverage3 = "coverage3";
+            String limit3 = "limit3";
+            String cosponsor3 = "cosponsor3";
+            String coverage4 = "coverage4";
+            String limit4 = "limit4";
+            String cosponsor4 = "cosponsor4";
+            String coverage5 = "coverage5";
+            String limit5 = "limit5";
+            String cosponsor5 = "cosponsor5";
+            String coverage6 = "coverage6";
+            String limit6 = "limit6";
+            String cosponsor6 = "cosponsor6";
+            String coverage7 = "coverage7";
+            String limit7 = "limit7";
+            String cosponsor7 = "cosponsor7";
+            String coverage8 = "coverage8";
+            String limit8 = "limit8";
+            String cosponsor8 = "cosponsor8";
+            String coverage9 = "coverage9";
+            String limit9 = "limit9";
+            String cosponsor9 = "cosponsor9";
+            String coverage10 = "coverage10";
+            String limit10 = "limit10";
+            String cosponsor10 = "cosponsor10";
+            String coverage11 = "coverage11";
+            String limit11 = "limit11";
+            String cosponsor11 = "cosponsor11";
+            String coverage12 = "coverage12";
+            String limit12 = "limit12";
+            String cosponsor12 = "cosponsor12";
 
             // data for info table
-            String header="დაზღვევის დეტალები / Insurance Details";
+            String header = "დაზღვევის დეტალები / Insurance Details";
             String risks = "სადაზღვეო რისკები / Risks Insured ";
             com.itextpdf.layout.element.List riskval = new List();
             riskval.setFontSize(6.0F);
-            riskval.add("       "+"ხანძარი, მეხის დაცემა, აფეთქება, საჰაერო ხომალდის ან მათი ნაწილების დაცემა.");
+            riskval.add("       " + "ხანძარი, მეხის დაცემა, აფეთქება, საჰაერო ხომალდის ან მათი ნაწილების დაცემა.");
             riskval.add("შტორმი, გრიგალი, ქარიშხალი, წყალდიდობა, სეტყვა, გრუნტის დაჯდომა, მეწყერი, ზვავი, თოვლის ჩამოშლა.");
             riskval.add("წყლით დაზიანება;დატბორვა");
             riskval.add("სხვადასხვა საგნების დაცემა");
             riskval.add("მესამე პირთა მართლსაწინააღმდეგო ქმედება, ვანდალიზმი");
-            Paragraph risksValue = new Paragraph("* დაზღვევის სხვა დეტალური პირობები წარმოდგენილია, მხარეთა მიერ ხელმოწერებით " +
-                    "დადასტურებული დანართი #1-ის სახით და წარმოადგენს შესაბამისი ხელშეკრულების და წინამდებარე ქონების დაზღვევის " +
-                    "პოლისის განუყოფელ ნაწილს.").setItalic().setFontSize(6.0F);
+            Paragraph risksValue = new Paragraph("* დაზღვევის სხვა დეტალური პირობები წარმოდგენილია, მხარეთა მიერ ხელმოწერებით "
+                    + "დადასტურებული დანართი #1-ის სახით და წარმოადგენს შესაბამისი ხელშეკრულების და წინამდებარე ქონების დაზღვევის "
+                    + "პოლისის განუყოფელ ნაწილს.").setItalic().setFontSize(6.0F);
             String address = "დაზღვეული ქონების მისამართი / Insured Property Address";
             String addressValue = "მაღაზია MOD - 29, 99 და M9 - 1, სავაჭრო ცენტრი ლილო მოლი, მის. კახეთის გზატკელიცილი N 112";
             String type = "დაზღვეული ქონების ტიპი / Insured Property Type";
-            String typeValue ="სასაქონლო-მატერიალური მარაგები, უძრავი ქონება";
+            String typeValue = "სასაქონლო-მატერიალური მარაგები, უძრავი ქონება";
             String object = "დაზღვეული ქონების ობიექტი / Insured Property object";
             String objectValue = "";
             String insmon = "სადაზღვეო თანხა / Total Sum Insured";
@@ -1140,7 +1180,6 @@ public class pdfDesigner {
             String SumAmount = "ჯამური ფასი / Total cost ";
             String SumAmountValue = "50 ლარი / GEL ";
 
-
             //data for footertable
             String policyDate = "გაცემის თარიღი / Date of Policy Issue";
             String policyDateValue = "12 თებერვალი / 12th of February";
@@ -1156,11 +1195,11 @@ public class pdfDesigner {
             Table head = new Table(2).useAllAvailableWidth();
             Table headerstrings = new Table(1, true);
             Table body = new Table(2, true);
-            Table coverage = new Table(3,true);
+            Table coverage = new Table(3, true);
             Table info = new Table(2, true);
             Table cperiod = new Table(2, true);
             Table addservices = new Table(2, true);
-            Table footertable = new Table(2,true);
+            Table footertable = new Table(2, true);
             Table money = new Table(2, true);
 
             //setting fonts
@@ -1174,7 +1213,6 @@ public class pdfDesigner {
             footertable.setFont(gefont);
             addservices.setFont(gefont);
 
-
             //setting font sizes
             headerstrings.setFontSize(4.0F);
             body.setFontSize(6.0F);
@@ -1186,14 +1224,14 @@ public class pdfDesigner {
             footertable.setFontSize(6.0F);
 
             //Creating parameter for Coverage Table
-            String par= null;
+            String par = null;
 
             // creating paragraphs for head table
-            Cell policeheadC= new Cell();
+            Cell policeheadC = new Cell();
             Paragraph p;
-            p = new Paragraph( "ქონების დაზღვევის პოლისი").setTextAlignment(TextAlignment.CENTER).setFontSize(9.0F);
+            p = new Paragraph("ქონების დაზღვევის პოლისი").setTextAlignment(TextAlignment.CENTER).setFontSize(9.0F);
             policeheadC.add(p);
-            p = new Paragraph( "Property Insurance").setTextAlignment(TextAlignment.CENTER).setFontSize(9.0F);
+            p = new Paragraph("Property Insurance").setTextAlignment(TextAlignment.CENTER).setFontSize(9.0F);
             policeheadC.add(p);
 
             // adding cells to head table
@@ -1298,15 +1336,15 @@ public class pdfDesigner {
             money.addCell(SumAmountValue).setBorder(null);
 
             //rule table
-            Table rulesHead = new Table(1,true);
+            Table rulesHead = new Table(1, true);
             rulesHead.setFontSize(6.0F);
             rulesHead.setFont(gefont);
             rulesHead.addCell(new Paragraph(rule).setTextAlignment(TextAlignment.CENTER));
             Table rulesVal = new Table(6, true);
             rulesVal.setFontSize(6.0F);
             rulesVal.setFont(gefont);
-            for(int i = 0; i<12; i++){
-                rulesVal.addCell("2018."+String.valueOf(01+i)+".01 - 70 ლარი");
+            for (int i = 0; i < 12; i++) {
+                rulesVal.addCell("2018." + String.valueOf(01 + i) + ".01 - 70 ლარი");
             }
 
             //adding cells to footertable
@@ -1329,11 +1367,11 @@ public class pdfDesigner {
             body.setMarginTop(13f);
             doc.add(body);
             body.complete();
-            if(!par.equals("null")){
-            //setting gap between body and coverage
-            coverage.setMarginTop(13f);
-            doc.add(coverage);
-            coverage.complete();
+            if (!par.equals("null")) {
+                //setting gap between body and coverage
+                coverage.setMarginTop(13f);
+                doc.add(coverage);
+                coverage.complete();
             }
             //setting gap between coverage and info
             info.setMarginTop(13f);
@@ -1352,8 +1390,8 @@ public class pdfDesigner {
             System.out.println("Table created successfully..");
 
         } else {
-            System.out.println(" Enter a valid response ");
-          }
+            System.out.println(" Enter a valid invoice_type ");
         }
+        return filenameweb;
     }
-
+}

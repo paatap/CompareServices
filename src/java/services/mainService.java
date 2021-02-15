@@ -22,6 +22,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import tools.functions;
+import tools.pdfDesigner;
 
 /**
  *
@@ -38,6 +39,7 @@ public class mainService extends HttpServlet {
         ResultSet resultSet = null;
         String ptable = "";
         String buytable = "";
+        String[] invoice_params;
 
 //response.getWriter().write(tools.SendEmailTLS.SendEmailTLS());
         try {
@@ -93,7 +95,7 @@ public class mainService extends HttpServlet {
 
                 //               String qwr = "select u.id,name_first,name_last from users u left join crm_contact cc on u.id=cc.userid where username='" + user + "'  and password='" + pass + "'";
                 //            String qwr = "select now()";
-                String qwr = "select policyholder,policyowner,creation_date,id,product_name,company_name from order_params";
+                String qwr = "select policyholder,policyowner,creation_date,id,product_name,company_name,filename from order_params";
                 ArrayList<String[]> s2 = tools.functions.getResult(qwr, tools.functions.isnewcompare);
 
                 String ss = "{\n\"command\":\"getpolicelist\",\n"
@@ -191,7 +193,7 @@ public class mainService extends HttpServlet {
                                 + "<tr> <td style='padding-left: 20px;cursor:hand;text-decoration: underline;' onclick=\\\"detalssubmitajax('123456','getmodalgraphic');\\\">გადახდისგრაფიკი</td> <td>მიმდინარე გადასახადი 30 ლარი</td> </tr>\\n"
                                 + "<tr> <td style='padding-left: 20px;cursor:hand;text-decoration: underline;' onclick=\\\"detalssubmitajax('123456','getmodalphoto');\\\">ფოტოსატვირთვა</td> <td>ფოტოებს არ საჭიროებს</td> </tr>\\n"
                                 + "<tr> <td style='padding-left: 20px;cursor:hand;text-decoration: underline;' onclick=\\\"showpdf('pdf/getliability" + s22[5] + ".pdf')\\\">ხელშეკრულება</td> <td>იხილეთ მიმაგრებული ხელშეკრულება</td></tr>\\n"
-                                + "<tr> <td style='padding-left: 20px;cursor:hand;text-decoration: underline;' onclick=\\\"showpdf('pdf/policy.pdf')\\\">პოლისი</td> <td>იხილეთ მიმაგრებული პოლისი</td></tr>\\n"
+                                + "<tr> <td style='padding-left: 20px;cursor:hand;text-decoration: underline;' onclick=\\\"showpdf('pdf/"+s22[6]+".pdf')\\\">პოლისი</td> <td>იხილეთ მიმაგრებული პოლისი</td></tr>\\n"
                                 + "</table>\\n";
 
                     }
@@ -677,14 +679,25 @@ public class mainService extends HttpServlet {
                 String tablename = type.substring(3);
                 if (tablename.equals("liability")) {
                     tablename = "ma_mtpl";
+                }else if (tablename.equals("casco")) {
+                    tablename = "casco";
+                }else if (tablename.equals("property")) {
+                    tablename = "property";
+                }else if (tablename.equals("health")) {
+                    tablename = "health";
+                }
+                else if (tablename.equals("travel")) {
+                    tablename = "travel";
                 }
 
                 String pqwr = "select p.name from " + tablename + "_params pp left join provider p on pp.provider_id=p.id where pp.id=" + productid;
 
                 ArrayList<String[]> spqwr = tools.functions.getResult(pqwr, tools.functions.isnewcompare);
+                String filename=tools.pdfDesigner.invoice(tablename);
 
-                String qwr = "insert into order_params (user_id,product_id,product_name,payment_schedule,policyholder,policyowner,company_name)"
-                        + " values (" + userid + "," + productid + ",'" + tablename + "','" + paymentschedule + "','" + policyowner + "','" + policyholder + "','" + spqwr.get(0)[0] + "')  returning id; ";;
+                String qwr = "insert into order_params (user_id,product_id,product_name,payment_schedule,policyholder,policyowner,company_name,filename)"
+                        + " values (" + userid + "," + productid + ",'" + tablename + "','" + paymentschedule + "','" + policyowner + "','" 
+                        + policyholder + "','" + spqwr.get(0)[0] + "','"+filename +"')  returning id; ";;
 
                 System.out.println(qwr);
 
@@ -705,6 +718,10 @@ public class mainService extends HttpServlet {
 
                 System.out.println(ss);
                 response.getWriter().write(ss);
+                //          invoice_params [0]="kuku";
+                System.out.println("this is entry");
+                
+              //  pdfDesigner.invoice(tablename);
 
             } else if (command.equals("getcars")) {
 // get car models
