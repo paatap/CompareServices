@@ -37,66 +37,68 @@ public class pdfDesigner {
     // /home/paatap/JAVA/apache-tomcat-8.5.30/webapps/ROOT/pdf
     //   public static final String dest = "/pdf/addingTable.pdf";
     public static final String dest = "/home/paatap/JAVA/apache-tomcat-8.5.30/webapps/ROOT/pdf/";
-    public static final String image = "/home/paatap/JAVA/apache-tomcat-8.5.30/webapps/ROOT/src/aldagi.png";
-    public static final String stamp = "/home/paatap/JAVA/apache-tomcat-8.5.30/webapps/ROOT/src/stamp.png";
-
-//    String insurer = "დამზღვევი / Policy Holder : ჯამჭურჭელაშვილი ნიკიფორე";
-//    String insured = "დაზღვეული /Insured person : კოჭლამაზაშვილი მარგარიტა";
-
-    public static String ma_mtplinvoice(String pheadergeo, String pheader, String insurer, String insured, String pnumberinsurer, String pnumberinsuded, String cityzenshipinsurer,
-            String sexinsurer, String sexinsured, String phoneinsurer, String phoneinsured, String mailinsurer, String mailinsured, String addressinsurer, String addressinsured,
-            String countriesvalue, String coveragelimitvalue, String datefrom, String dateto, String pushasedatevalue, String providervalue, String providermailvalue, String providerphonevalue
-    ) {
-        return "";
-    }
-
-    public static String travelinvoice(String pheadergeo, String pheader, String insurer, String insured, String pnumberinsurer, String pnumberinsuded, String cityzenshipinsurer,
-            String sexinsurer, String sexinsured, String phoneinsurer, String phoneinsured, String mailinsurer, String mailinsured, String addressinsurer, String addressinsured,
-            String countriesvalue, String coveragelimitvalue, String datefrom, String dateto, String pushasedatevalue, String providervalue, String providermailvalue, String providerphonevalue
-    ) {
-        return "";
-    }
-
-    public static String propertyinvoice(String pheadergeo, String pheader, String insurer, String insured, String pnumberinsurer, String pnumberinsuded, String cityzenshipinsurer,
-            String sexinsurer, String sexinsured, String phoneinsurer, String phoneinsured, String mailinsurer, String mailinsured, String addressinsurer, String addressinsured,
-            String countriesvalue, String coveragelimitvalue, String datefrom, String dateto, String pushasedatevalue, String providervalue, String providermailvalue, String providerphonevalue
-    ) {
-        return "";
-    }
-
-    public static String greencardinvoice(String pheadergeo, String pheader, String insurer, String insured, String pnumberinsurer, String pnumberinsuded, String cityzenshipinsurer,
-            String sexinsurer, String sexinsured, String phoneinsurer, String phoneinsured, String mailinsurer, String mailinsured, String addressinsurer, String addressinsured,
-            String countriesvalue, String coveragelimitvalue, String datefrom, String dateto, String pushasedatevalue, String providervalue, String providermailvalue, String providerphonevalue
-    ) {
-        return "";
-    }
-
-    public static String cascolinvoice(String pheadergeo, String pheader, String insurer, String insured, String pnumberinsurer, String pnumberinsuded, String cityzenshipinsurer,
-            String sexinsurer, String sexinsured, String phoneinsurer, String phoneinsured, String mailinsurer, String mailinsured, String addressinsurer, String addressinsured,
-            String countriesvalue, String coveragelimitvalue, String datefrom, String dateto, String pushasedatevalue, String providervalue, String providermailvalue, String providerphonevalue
-    ) {
-        return "";
-    }
 
     //   public static String invoice(String[] args) throws Exception, NullPointerException{
-    public static String makepolice(String invoice_type,String userid, String insurer, String insured) throws Exception, NullPointerException {
+    public static String makepolice(String invoice_type,
+            String userid,
+            String insurer,
+            String insured,
+            String providervalue,
+            String pheadergeo,
+            String pheadereng,
+            String provideraddressvalue,
+            String providerphonevalue,
+            String providermailvalue,
+            String coveragelimitvalue,
+            String pnumberinsurer,
+            String pnumberinsured, String bithdayinsurer, String bithdayinsured, String sexinsurer, String sexinsured,
+            String cityzenshipinsurer, String cityzenshipinsured, String phoneinsurer, String mailinsurer, String addressinsurer, String vincodeValue, String releaseYearValue
+    )
+            throws Exception, NullPointerException {
+        String image = "/home/paatap/JAVA/apache-tomcat-8.5.30/webapps/ROOT/src/" + providervalue + ".png";
+        String stamp = "/home/paatap/JAVA/apache-tomcat-8.5.30/webapps/ROOT/src/" + providervalue + "stamp.png";
+        System.out.println("image=" + image);
+        System.out.println("stamp=" + stamp);
+        System.out.println("insurer=" + insurer);
+        System.out.println("insured=" + insured);
+        coveragelimitvalue = coveragelimitvalue + "EURO";
 
-        System.out.println("insurer="+insurer);
-        System.out.println("insured="+insured);
-        
+        insurer = "დამზღვევი / Policy Holder :" + insurer;
+        insurer = "დაზღვეულუი / Policy Owner :" + insured;
+        pnumberinsurer = "პირადი ნომერი/Personal Number : " + pnumberinsurer;
+        pnumberinsured = "პირადი ნომერი/Personal Number : " + pnumberinsured;
+        bithdayinsurer = "დაბადების თარიღი / Birthday : " + bithdayinsurer;
+        bithdayinsured = "დაბადების თარიღი / Birthday : " + bithdayinsured;
+        phoneinsurer = "ტელეფონი / Phone : " + phoneinsurer;
+        String phoneinsured = "ტელეფონი / Phone : ";
+        sexinsurer = "სქესი / Gender : " + sexinsurer;
+        sexinsured = "სქესი / Gender : " + sexinsured;
+
+        cityzenshipinsurer = "მოქალაქეობა/Citizenship : " + cityzenshipinsurer;
+        cityzenshipinsured = "მოქალაქეობა/Citizenship : " + cityzenshipinsured;
+
+        mailinsurer = "მეილი / Email :" + mailinsurer;
+        String mailinsured = "მეილი / Email : ";
+        addressinsurer = "მისამართი / Address : ######### ########## # ## ## ## ### #### ###";
+        String addressinsured = "მისამართი / Address : ასეთიო ველი არ გვქონია";
+        String releaseYear = " წელი / Year";
+      
+
+        String vincode = "ვინკოდი / VIN code";
+        //     String vincodeValue = "112234";
+
         System.out.println("font=" + FONT);
         PdfFont gefont = PdfFontFactory.createFont(FONT, "Identity-H");
         //   PdfFont gefont = PdfFontFactory.createFont(FONT, PdfEncodings.IDENTITY_H);
 
         //      PdfFont mfontFont=PdfFontFactory.createFont(font, font)  System.out.println(java.time.LocalDateTime.now()); 
-        System.out.println("userid==========================="+userid);
-        String filenameweb = invoice_type+ userid + java.time.LocalDateTime.now().toString();
-        System.out.println("filenameweb================filenameweb="+filenameweb);
-        String filename = dest +filenameweb + ".pdf";
+        System.out.println("userid===========================" + userid);
+        String filenameweb = invoice_type + userid + java.time.LocalDateTime.now().toString();
+        System.out.println("filenameweb================filenameweb=" + filenameweb);
+        String filename = dest + filenameweb + ".pdf";
         System.out.println("dest======================" + dest);
         System.out.println("filename======================" + filename);
-        
-       
+
         PdfWriter writer = new PdfWriter(filename);
 
         PdfDocument pdf = new PdfDocument(writer);
@@ -113,31 +115,12 @@ public class pdfDesigner {
         if (invoice_type.equals("travel")) {
 
             //data for head table
-            String pheadergeo = "სერთიფიკატი, დამზღვევის ელექტრონულად მოწოდებული ინფორმაცია და დეპონირებული დაზღვევის პირობები წარმოადგენს ერთიან სადაზღვევი პოლისს მზღვეველი - სს \"რისკების\"\nმართვისა და სადაზღვევო კომპანია გლობალ ბენეფიტს ჯორჯია\"(ს / ნ: 404526777), მისამართი: ქ.თბილისი, მთაწმინდის რ-ნი, ჭანტურიას ქ.5, ტელ.: +995 322 50 00 01; +995 557 50 00 02";
-            String pheader = "This Certificate, electronically sent information and deposited Insurance Terms and conditions is a single insurance agreement of JSC. Risk Management and Insurance Company\nGlobal Benefits Georgia(ID 404526777), address: G.Chanturia street N5, Tbilisi, Tel.: +995 322 50 00 01; +995 557 50 00 02";
-
-            //data for body table
-            String pnumberinsurer = "პირადი ნომერი/Personal Number : ##########";
-            String pnumberinsuded = "პირადი ნომერი/Personal Number : ##########";
-            String cityzenshipinsurer = "მოქალაქეობა/Citizenship :  Belorusia";
-            String cityzenshipinsured = "მოქალაქეობა/Citizenship :  Ukraina";
-            String sexinsurer = "სქესი / Gender : Male ";
-            String sexinsured = "სქესი / Gender : Female ";
-            String bithdayinsurer = "დაბადების თარიღი / Birthday : ##.##.##";
-            String bithdayinsured = "დაბადების თარიღი / Birthday : ##.##.##";
-            String phoneinsurer = "ტელეფონი / Phone : #########";
-            String phoneinsured = "ტელეფონი / Phone : #########";
-            String mailinsurer = "მეილი / Email : ####################@##########";
-            String mailinsured = "მეილი / Email : ####################@##########";
-            String addressinsurer = "მისამართი / Address : ######### ########## # ## ## ## ### #### ###";
-            String addressinsured = "მისამართი / Address : ######### ########## # ## ## ## ### #### ###";
-
             // data for info table
             String policyinfoheader = "ინფორმაცია პოლისის შესახებ/Police Info ";
             String countries = "ქვეყნები / Countries";
             String countriesvalue = "ევროკავშირი, თურქეთი, ზანზიბარი";
             String coveragelimit = "დაზღვევის ლიმიტი / Coverage limit";
-            String coveragelimitvalue = "5000 EURO";
+//            String coveragelimitvalue = "5000 EURO";
             String period = "სადაზღვევო პერიოდი / Insurance period";
             String datefrom = "##.##.## დან";
             String dateto = "##.##.## მდე/ჩათვლით";
@@ -147,16 +130,16 @@ public class pdfDesigner {
             String pushasedate = "შეძენის თარიღი / Purchase date";
             String pushasedatevalue = "##.##.##";
             String provider = "დამზღვევი / Insurer";
-            String providervalue = "Company Name-Benefit";
+            //           String providervalue = "Company Name-Benefit";
 
             //data for footertable
             String signature = "ელექტრონული ხელმოწერა / Signature";
             String providermail = "მეილი / Contact email";
-            String providermailvaluer = "####################@##########";
+            //           String providermailvalue = "####################@##########";
             String providerphone = "საკონტაქტო ტელეფონის ნომერი /Contact phone numbers";
-            String providerphonevalue = "##########";
+            //          String providerphonevalue = "##########";
             String provideraddress = "მისამართი/Address";
-            String provideraddressvalue = "######### ########## # ## ## ## ### #### ###";
+            //           String provideraddressvalue = "######### ########## # ## ## ## ### #### ###";
 
             // declaring tables
             Table head = new Table(2).useAllAvailableWidth();
@@ -197,14 +180,14 @@ public class pdfDesigner {
             head.addCell(img.scale(0.2F, 0.2F).setHorizontalAlignment(HorizontalAlignment.CENTER));
             head.addCell(policeheadC);
 
-            headerstrings.addCell(pheader);
+            headerstrings.addCell(pheadereng);
             headerstrings.addCell(pheadergeo);
 
             //adding cells to body table
             body.addCell(insurer);
             body.addCell(insured);
             body.addCell(pnumberinsurer);
-            body.addCell(pnumberinsuded);
+            body.addCell(pnumberinsured);
             body.addCell(cityzenshipinsurer);
             body.addCell(cityzenshipinsured);
             body.addCell(sexinsurer);
@@ -240,7 +223,7 @@ public class pdfDesigner {
             footertable.addCell(signature).setHorizontalAlignment(HorizontalAlignment.CENTER);
             footertable.addCell(stmp.scale(0.08F, 0.08F).setHorizontalAlignment(HorizontalAlignment.CENTER));
             footertable.addCell(providermail);
-            footertable.addCell(providermailvaluer);
+            footertable.addCell(providermailvalue);
             footertable.addCell(providerphone);
             footertable.addCell(providerphonevalue);
             footertable.addCell(provideraddress);
@@ -269,28 +252,7 @@ public class pdfDesigner {
 
             System.out.println("I am here ma");
 
-            //data for head table
-            String pheadergeo = "სერთიფიკატი, დამზღვევის ელექტრონულად მოწოდებული ინფორმაცია და დეპონირებული დაზღვევის პირობები წარმოადგენს ერთიან სადაზღვევი პოლისს მზღვეველი - სს \"რისკების\"\nმართვისა და სადაზღვევო კომპანია გლობალ ბენეფიტს ჯორჯია\"(ს / ნ: 404526777), მისამართი: ქ.თბილისი, მთაწმინდის რ-ნი, ჭანტურიას ქ.5, ტელ.: +995 322 50 00 01; +995 557 50 00 02";
-            String pheader = "This Certificate, electronically sent information and deposited Insurance Terms and conditions is a single insurance agreement of JSC. Risk Management and Insurance Company\nGlobal Benefits Georgia(ID 404526777), address: G.Chanturia street N5, Tbilisi, Tel.: +995 322 50 00 01; +995 557 50 00 02";
-//            String insurer = "დამზღვევი / Policy Holder : ჯამჭურჭელაშვილი ნიკიფორე";
-//            String insured = "დაზღვეული /Insured person : კოჭლამაზაშვილი მარგარიტა";
-
             //data for body table
-            String pnumberinsurer = "პირადი ნომერი/Personal Number : ##########";
-            String pnumberinsuded = "პირადი ნომერი/Personal Number : ##########";
-            String cityzenshipinsurer = "მოქალაქეობა/Citizenship :  Belorusia";
-            String cityzenshipinsured = "მოქალაქეობა/Citizenship :  Ukraina";
-            String sexinsurer = "სქესი / Gender : Male ";
-            String sexinsured = "სქესი / Gender : Female ";
-            String bithdayinsurer = "დაბადების თარიღი / Birthday : ##.##.##";
-            String bithdayinsured = "დაბადების თარიღი / Birthday : ##.##.##";
-            String phoneinsurer = "ტელეფონი / Phone : #########";
-            String phoneinsured = "ტელეფონი / Phone : #########";
-            String mailinsurer = "მეილი / Email : ####################@##########";
-            String mailinsured = "მეილი / Email : ####################@##########";
-            String addressinsurer = "მისამართი / Address : ######### ########## # ## ## ## ### #### ###";
-            String addressinsured = "მისამართი / Address : ######### ########## # ## ## ## ### #### ###";
-
             // data for coverage table
             String coverage0 = "დაფარვა / Coverage ";
             String limit0 = "ლიმიტი / Limit";
@@ -337,14 +299,12 @@ public class pdfDesigner {
             String parameters = "პარამეტრების ცვლილება / Change Parameters";
             String countrynum = "სახელმწიფო ნომერი / Country code";
             String countrynumValue = "ad112ha";
-            String vincode = "ვინკოდი / VIN code";
-            String vincodeValue = "112234";
+
             String carMark = "მარკა/ Mark ";
             String carMarkValue = "alfa romeo";
             String carModel = "მოდელი / Model";
             String carModelValue = "13";
-            String releaseYear = " წელი / Year";
-            String releaseYearValue = " 2002";
+
             String period = "სადაზღვევო პერიოდი / Insurance period";
             String datefrom = "##.##.## დან";
             String dateto = "##.##.## მდე/ჩათვლით";
@@ -363,11 +323,11 @@ public class pdfDesigner {
             //data for footertable
             String signature = "ელექტრონული ხელმოწერა / Signature";
             String providermail = "მეილი / Contact email";
-            String providermailvaluer = "####################@##########";
+            //           String providermailvaluer = "####################@##########";
             String providerphone = "საკონტაქტო ტელეფონის ნომერი /Contact phone numbers";
-            String providerphonevalue = "##########";
+//            String providerphonevalue = "##########";
             String provideraddress = "მისამართი/Address";
-            String provideraddressvalue = "######### ########## # ## ## ## ### #### ###";
+//            String provideraddressvalue = "######### ########## # ## ## ## ### #### ###";
 
             // declaring tables
             Table head = new Table(2).useAllAvailableWidth();
@@ -414,14 +374,14 @@ public class pdfDesigner {
             head.addCell(img.scale(0.15F, 0.15F).setHorizontalAlignment(HorizontalAlignment.CENTER));
             head.addCell(policeheadC);
 
-            headerstrings.addCell(pheader);
+            headerstrings.addCell(pheadereng);
             headerstrings.addCell(pheadergeo);
 
             //adding cells to body table
             body.addCell(insurer);
             body.addCell(insured);
             body.addCell(pnumberinsurer);
-            body.addCell(pnumberinsuded);
+            body.addCell(pnumberinsured);
             body.addCell(cityzenshipinsurer);
             body.addCell(cityzenshipinsured);
             body.addCell(sexinsurer);
@@ -524,7 +484,7 @@ public class pdfDesigner {
             footertable.addCell(signature).setHorizontalAlignment(HorizontalAlignment.CENTER);
             footertable.addCell(stmp.scale(0.08F, 0.08F).setHorizontalAlignment(HorizontalAlignment.CENTER));
             footertable.addCell(providermail);
-            footertable.addCell(providermailvaluer);
+            footertable.addCell(providermailvalue);
             footertable.addCell(providerphone);
             footertable.addCell(providerphonevalue);
             footertable.addCell(provideraddress);
@@ -561,27 +521,11 @@ public class pdfDesigner {
         } else if (invoice_type.equals("health")) {
 
             //data for head table
-            String pheadergeo = "სერთიფიკატი, დამზღვევის ელექტრონულად მოწოდებული ინფორმაცია და დეპონირებული დაზღვევის პირობები წარმოადგენს ერთიან სადაზღვევი პოლისს მზღვეველი - სს \"რისკების\"\nმართვისა და სადაზღვევო კომპანია გლობალ ბენეფიტს ჯორჯია\"(ს / ნ: 404526777), მისამართი: ქ.თბილისი, მთაწმინდის რ-ნი, ჭანტურიას ქ.5, ტელ.: +995 322 50 00 01; +995 557 50 00 02";
-            String pheader = "This Certificate, electronically sent information and deposited Insurance Terms and conditions is a single insurance agreement of JSC. Risk Management and Insurance Company\nGlobal Benefits Georgia(ID 404526777), address: G.Chanturia street N5, Tbilisi, Tel.: +995 322 50 00 01; +995 557 50 00 02";
+//            String pheadergeo = "სერთიფიკატი, დამზღვევის ელექტრონულად მოწოდებული ინფორმაცია და დეპონირებული დაზღვევის პირობები წარმოადგენს ერთიან სადაზღვევი პოლისს მზღვეველი - სს \"რისკების\"\nმართვისა და სადაზღვევო კომპანია გლობალ ბენეფიტს ჯორჯია\"(ს / ნ: 404526777), მისამართი: ქ.თბილისი, მთაწმინდის რ-ნი, ჭანტურიას ქ.5, ტელ.: +995 322 50 00 01; +995 557 50 00 02";
+//            String pheader = "This Certificate, electronically sent information and deposited Insurance Terms and conditions is a single insurance agreement of JSC. Risk Management and Insurance Company\nGlobal Benefits Georgia(ID 404526777), address: G.Chanturia street N5, Tbilisi, Tel.: +995 322 50 00 01; +995 557 50 00 02";
 //            String insurer = "დამზღვევი / Policy Holder : ჯამჭურჭელაშვილი ნიკიფორე";
 //            String insured = "დაზღვეული /Insured person : კოჭლამაზაშვილი მარგარიტა";
-
             //data for body table
-            String pnumberinsurer = "პირადი ნომერი/Personal Number : ##########";
-            String pnumberinsuded = "პირადი ნომერი/Personal Number : ##########";
-            String cityzenshipinsurer = "მოქალაქეობა/Citizenship :  Belorusia";
-            String cityzenshipinsured = "მოქალაქეობა/Citizenship :  Ukraina";
-            String sexinsurer = "სქესი / Gender : Male ";
-            String sexinsured = "სქესი / Gender : Female ";
-            String bithdayinsurer = "დაბადების თარიღი / Birthday : ##.##.##";
-            String bithdayinsured = "დაბადების თარიღი / Birthday : ##.##.##";
-            String phoneinsurer = "ტელეფონი / Phone : #########";
-            String phoneinsured = "ტელეფონი / Phone : #########";
-            String mailinsurer = "მეილი / Email : ####################@##########";
-            String mailinsured = "მეილი / Email : ####################@##########";
-            String addressinsurer = "მისამართი / Address : ######### ########## # ## ## ## ### #### ###";
-            String addressinsured = "მისამართი / Address : ######### ########## # ## ## ## ### #### ###";
-
             // data for info table
             String coverage = "დაფარვა / Coverage ";
             String limit = "ლიმიტი / Limit";
@@ -624,11 +568,11 @@ public class pdfDesigner {
             //data for footertable
             String signature = "ელექტრონული ხელმოწერა / Signature";
             String providermail = "მეილი / Contact email";
-            String providermailvaluer = "####################@##########";
+            //          String providermailvaluer = "####################@##########";
             String providerphone = "საკონტაქტო ტელეფონის ნომერი / Contact phone numbers";
-            String providerphonevalue = "##########";
+//            String providerphonevalue = "##########";
             String provideraddress = "მისამართი / Address";
-            String provideraddressvalue = "######### ########## # ## ## ## ### #### ###";
+//            String provideraddressvalue = "######### ########## # ## ## ## ### #### ###";
 
             // declaring tables
             Table head = new Table(2).useAllAvailableWidth();
@@ -674,14 +618,14 @@ public class pdfDesigner {
             head.addCell(img.scale(0.2F, 0.2F).setHorizontalAlignment(HorizontalAlignment.CENTER));
             head.addCell(policeheadC);
 
-            headerstrings.addCell(pheader);
+            headerstrings.addCell(pheadereng);
             headerstrings.addCell(pheadergeo);
 
             //adding cells to body table
             body.addCell(insurer);
             body.addCell(insured);
             body.addCell(pnumberinsurer);
-            body.addCell(pnumberinsuded);
+            body.addCell(pnumberinsured);
             body.addCell(cityzenshipinsurer);
             body.addCell(cityzenshipinsured);
             body.addCell(sexinsurer);
@@ -767,7 +711,7 @@ public class pdfDesigner {
             footertable.addCell(signature).setHorizontalAlignment(HorizontalAlignment.CENTER);
             footertable.addCell(stmp.scale(0.08F, 0.08F).setHorizontalAlignment(HorizontalAlignment.CENTER));
             footertable.addCell(providermail);
-            footertable.addCell(providermailvaluer);
+            footertable.addCell(providermailvalue);
             footertable.addCell(providerphone);
             footertable.addCell(providerphonevalue);
             footertable.addCell(provideraddress);
@@ -799,27 +743,12 @@ public class pdfDesigner {
             System.out.println("Table created successfully..");
         } else if (invoice_type.equals("casco")) {
             //data for head table
-            String pheadergeo = "სერთიფიკატი, დამზღვევის ელექტრონულად მოწოდებული ინფორმაცია და დეპონირებული დაზღვევის პირობები წარმოადგენს ერთიან სადაზღვევი პოლისს მზღვეველი - სს \"რისკების\"\nმართვისა და სადაზღვევო კომპანია გლობალ ბენეფიტს ჯორჯია\"(ს / ნ: 404526777), მისამართი: ქ.თბილისი, მთაწმინდის რ-ნი, ჭანტურიას ქ.5, ტელ.: +995 322 50 00 01; +995 557 50 00 02";
-            String pheader = "This Certificate, electronically sent information and deposited Insurance Terms and conditions is a single insurance agreement of JSC. Risk Management and Insurance Company\nGlobal Benefits Georgia(ID 404526777), address: G.Chanturia street N5, Tbilisi, Tel.: +995 322 50 00 01; +995 557 50 00 02";
+//            String pheadergeo = "სერთიფიკატი, დამზღვევის ელექტრონულად მოწოდებული ინფორმაცია და დეპონირებული დაზღვევის პირობები წარმოადგენს ერთიან სადაზღვევი პოლისს მზღვეველი - სს \"რისკების\"\nმართვისა და სადაზღვევო კომპანია გლობალ ბენეფიტს ჯორჯია\"(ს / ნ: 404526777), მისამართი: ქ.თბილისი, მთაწმინდის რ-ნი, ჭანტურიას ქ.5, ტელ.: +995 322 50 00 01; +995 557 50 00 02";
+//            String pheader = "This Certificate, electronically sent information and deposited Insurance Terms and conditions is a single insurance agreement of JSC. Risk Management and Insurance Company\nGlobal Benefits Georgia(ID 404526777), address: G.Chanturia street N5, Tbilisi, Tel.: +995 322 50 00 01; +995 557 50 00 02";
 //            String insurer = "დამზღვევი / Policy Holder : ჯამჭურჭელაშვილი ნიკიფორე";
 //            String insured = "დაზღვეული / Insured person : კოჭლამაზაშვილი მარგარიტა";
 
             //data for body table
-            String pnumberinsurer = "პირადი ნომერი/Personal Number : ##########";
-            String pnumberinsuded = "პირადი ნომერი/Personal Number : ##########";
-            String cityzenshipinsurer = "მოქალაქეობა/Citizenship :  Belorusia";
-            String cityzenshipinsured = "მოქალაქეობა/Citizenship :  Ukraina";
-            String sexinsurer = "სქესი / Gender : Male ";
-            String sexinsured = "სქესი / Gender : Female ";
-            String bithdayinsurer = "დაბადების თარიღი / Birthday : ##.##.##";
-            String bithdayinsured = "დაბადების თარიღი / Birthday : ##.##.##";
-            String phoneinsurer = "ტელეფონი / Phone : #########";
-            String phoneinsured = "ტელეფონი / Phone : #########";
-            String mailinsurer = "მეილი / Email : ####################@##########";
-            String mailinsured = "მეილი / Email : ####################@##########";
-            String addressinsurer = "მისამართი / Address : ######### ########## # ## ## ## ### #### ###";
-            String addressinsured = "მისამართი / Address : ######### ########## # ## ## ## ### #### ###";
-
             // data for coverage table
             String coverage0 = "დაფარვა / Coverage ";
             String limit0 = "ლიმიტი / Limit";
@@ -866,14 +795,13 @@ public class pdfDesigner {
             String parameters = "";
             String countrynum = "სახელმწიფო ნომერი / Country code";
             String countrynumValue = "ad112ha";
-            String vincode = "ვინკოდი / VIN code";
-            String vincodeValue = "112234";
+
             String carMark = "მარკა/ Mark ";
             String carMarkValue = "alfa romeo";
             String carModel = "მოდელი / Model";
             String carModelValue = "13";
-            String releaseYear = " წელი / Year";
-            String releaseYearValue = " 2002";
+//            String releaseYear = " წელი / Year";
+//            String releaseYearValue = " 2002";
             String period = "სადაზღვევო პერიოდი / Insurance period";
             String datefrom = "##.##.## დან";
             String dateto = "##.##.## მდე/ჩათვლით";
@@ -892,11 +820,11 @@ public class pdfDesigner {
             //data for footertable
             String signature = "ელექტრონული ხელმოწერა / Signature";
             String providermail = "მეილი / Contact email";
-            String providermailvaluer = "####################@##########";
+            //           String providermailvaluer = "####################@##########";
             String providerphone = "საკონტაქტო ტელეფონის ნომერი /Contact phone numbers";
-            String providerphonevalue = "##########";
+//            String providerphonevalue = "##########";
             String provideraddress = "მისამართი/Address";
-            String provideraddressvalue = "######### ########## # ## ## ## ### #### ###";
+//            String provideraddressvalue = "######### ########## # ## ## ## ### #### ###";
 
             // declaring tables
             Table head = new Table(2, true);
@@ -941,14 +869,14 @@ public class pdfDesigner {
             head.addCell(img.scale(0.16F, 0.16F).setHorizontalAlignment(HorizontalAlignment.CENTER));
             head.addCell(policeheadC);
 
-            headerstrings.addCell(pheader);
+            headerstrings.addCell(pheadereng);
             headerstrings.addCell(pheadergeo);
 
             //adding cells to body table
             body.addCell(insurer);
             body.addCell(insured);
             body.addCell(pnumberinsurer);
-            body.addCell(pnumberinsuded);
+            body.addCell(pnumberinsured);
             body.addCell(cityzenshipinsurer);
             body.addCell(cityzenshipinsured);
             body.addCell(sexinsurer);
@@ -1051,7 +979,7 @@ public class pdfDesigner {
             footertable.addCell(signature).setHorizontalAlignment(HorizontalAlignment.CENTER);
             footertable.addCell(stmp.scale(0.08F, 0.08F).setHorizontalAlignment(HorizontalAlignment.CENTER));
             footertable.addCell(providermail);
-            footertable.addCell(providermailvaluer);
+            footertable.addCell(providermailvalue);
             footertable.addCell(providerphone);
             footertable.addCell(providerphonevalue);
             footertable.addCell(provideraddress);
@@ -1086,32 +1014,15 @@ public class pdfDesigner {
             System.out.println("Table created successfully..");
 
         } else if (invoice_type.equals("property")) {
-            
-            
+
             System.out.println("I Am here Property");
 
             //data for head table
-            String pheadergeo = "სერთიფიკატი, დამზღვევის ელექტრონულად მოწოდებული ინფორმაცია და დეპონირებული დაზღვევის პირობები წარმოადგენს ერთიან სადაზღვევი პოლისს მზღვეველი - სს \"რისკების\"\nმართვისა და სადაზღვევო კომპანია გლობალ ბენეფიტს ჯორჯია\"(ს / ნ: 404526777), მისამართი: ქ.თბილისი, მთაწმინდის რ-ნი, ჭანტურიას ქ.5, ტელ.: +995 322 50 00 01; +995 557 50 00 02";
-            String pheader = "This Certificate, electronically sent information and deposited Insurance Terms and conditions is a single insurance agreement of JSC. Risk Management and Insurance Company\nGlobal Benefits Georgia(ID 404526777), address: G.Chanturia street N5, Tbilisi, Tel.: +995 322 50 00 01; +995 557 50 00 02";
+//            String pheadergeo = "სერთიფიკატი, დამზღვევის ელექტრონულად მოწოდებული ინფორმაცია და დეპონირებული დაზღვევის პირობები წარმოადგენს ერთიან სადაზღვევი პოლისს მზღვეველი - სს \"რისკების\"\nმართვისა და სადაზღვევო კომპანია გლობალ ბენეფიტს ჯორჯია\"(ს / ნ: 404526777), მისამართი: ქ.თბილისი, მთაწმინდის რ-ნი, ჭანტურიას ქ.5, ტელ.: +995 322 50 00 01; +995 557 50 00 02";
+            //           String pheader = "This Certificate, electronically sent information and deposited Insurance Terms and conditions is a single insurance agreement of JSC. Risk Management and Insurance Company\nGlobal Benefits Georgia(ID 404526777), address: G.Chanturia street N5, Tbilisi, Tel.: +995 322 50 00 01; +995 557 50 00 02";
 //            String insurer = "დამზღვევი / Policy Holder : ჯამჭურჭელაშვილი ნიკიფორე";
 //            String insured = "დაზღვეული / Insured person : კოჭლამაზაშვილი მარგარიტა";
-
             //data for body table
-            String pnumberinsurer = "პირადი ნომერი/Personal Number : ##########";
-            String pnumberinsuded = "პირადი ნომერი/Personal Number : ##########";
-            String cityzenshipinsurer = "მოქალაქეობა/Citizenship :  Belorusia";
-            String cityzenshipinsured = "მოქალაქეობა/Citizenship :  Ukraina";
-            String sexinsurer = "სქესი / Gender : Male ";
-            String sexinsured = "სქესი / Gender : Female ";
-            String bithdayinsurer = "დაბადების თარიღი / Birthday : ##.##.##";
-            String bithdayinsured = "დაბადების თარიღი / Birthday : ##.##.##";
-            String phoneinsurer = "ტელეფონი / Phone : #########";
-            String phoneinsured = "ტელეფონი / Phone : #########";
-            String mailinsurer = "მეილი / Email : ####################@##########";
-            String mailinsured = "მეილი / Email : ####################@##########";
-            String addressinsurer = "მისამართი / Address : ######### ########## # ## ## ## ### #### ###";
-            String addressinsured = "მისამართი / Address : ######### ########## # ## ## ## ### #### ###";
-
             // data for coverage table
             String coverage0 = "დაფარვა / Coverage ";
             String limit0 = "ლიმიტი / Limit";
@@ -1196,11 +1107,11 @@ public class pdfDesigner {
             String policyDateValue = "12 თებერვალი / 12th of February";
             String signature = "ელექტრონული ხელმოწერა / Signature";
             String providermail = "მეილი / Contact email";
-            String providermailvaluer = "####################@##########";
+            //           String providermailvaluer = "####################@##########";
             String providerphone = "საკონტაქტო ტელეფონის ნომერი /Contact phone numbers";
-            String providerphonevalue = "##########";
+//            String providerphonevalue = "##########";
             String provideraddress = "მისამართი/Address";
-            String provideraddressvalue = "######### ########## # ## ## ## ### #### ###";
+//            String provideraddressvalue = "######### ########## # ## ## ## ### #### ###";
 
             // declaring tables
             Table head = new Table(2).useAllAvailableWidth();
@@ -1248,14 +1159,14 @@ public class pdfDesigner {
             // adding cells to head table
             head.addCell(img.scale(0.14F, 0.14F).setHorizontalAlignment(HorizontalAlignment.CENTER));
             head.addCell(policeheadC);
-            headerstrings.addCell(pheader);
+            headerstrings.addCell(pheadereng);
             headerstrings.addCell(pheadergeo);
 
             //adding cells to body table
             body.addCell(insurer);
             body.addCell(insured);
             body.addCell(pnumberinsurer);
-            body.addCell(pnumberinsuded);
+            body.addCell(pnumberinsured);
             body.addCell(cityzenshipinsurer);
             body.addCell(cityzenshipinsured);
             body.addCell(sexinsurer);
@@ -1362,7 +1273,7 @@ public class pdfDesigner {
             footertable.addCell(policyDate);
             footertable.addCell(policyDateValue);
             footertable.addCell(providermail);
-            footertable.addCell(providermailvaluer);
+            footertable.addCell(providermailvalue);
             footertable.addCell(providerphone);
             footertable.addCell(providerphonevalue);
             footertable.addCell(provideraddress);

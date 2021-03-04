@@ -111,73 +111,6 @@ public class mainService extends HttpServlet {
 
                         System.out.println("s9999999999999999999999999999999" + s22[3]);
 
-//  ********************************************
-//                    ss = "{\n\"command\":\"getpolicelist\",\n"
-//                            + "\"result\":\"ok\",\n"
-//                            + "\"userid\":\"" + userid + "\",\n"
-//                            + "\"policelist\":\"<style>  table.orderlist td,th {border: 1px solid #dddddd;text-align: left;padding: 8px;width:50%}</style>\\n"
-//                            + "<h2>გადახდილი პოლისები</h2>\\n"
-//                            + "<table class='orderlist' table style='cursor:hand;width:100%;margin-top: 20px' id='policelist1a' onclick=\\\"$('#policelist1a').css('display', 'none');$('#policelist1b').css('display', 'table');\\\">\\n"
-//                            //        +"<tr style='color:blue'> <td style='width:50%'>ავტო მპპდ</th><td><img style='margin: auto;' src='icons/aldagi.png'></td></tr>\\n"
-//                            + "<tr style='color:blue'> <td >ავტო მპპდ</th><td><img style='margin: auto;' src='icons/aldagi.png'></td></tr>\\n"
-//                            + "</table>\\n"
-//                            + "<table class='orderlist' id='policelist1b' style='display: none;width:100%;margin-top: 20px'>\\n"
-//                            + "<tr onclick=\\\"$('#policelist1b').css('display', 'none');$('#policelist1a').css('display', 'table');\\\" style='color:blue;cursor:hand;'> <td  colspan='2' style='width:50%'>ავტო მპპდ</td></tr>\\n"
-//                            //                            +"<table class='orderlist' id='policelist1b' style='display: none;width:100%;margin-top: 20px' onclick=\\\"$('#policelist1b').css('display', 'none');$('#policelist1a').css('display', 'table');\\\">\\n"
-//                            //                  
-//                            //                            +"<tr style='color:blue;cursor:hand;'> <td  colspan='2' style='width:50%'>ავტო მპპდ</td></tr>\\n"
-//                            + "<tr> <td style='padding-left: 20px;'>პროვაიდერი</td> <td><img style='margin: auto;' src='icons/aldagi.png'></td> </tr>\\n"
-//                            + "<tr> <td style='padding-left: 20px;'>დაზღვეული</td> <td >კურდღელაშვილი ნაზიბროლა</td> </tr>\\n"
-//                            + "<tr> <td style='padding-left: 20px;'>შეძენისთარიღი</td> <td></td> </tr>\\n"
-//                            + "<tr> <td style='padding-left: 20px;'>მოქმედებისვადა</td> <td>პოლისის გააქტიურება</td> </tr>\\n"
-//                            + "<tr> <td style='padding-left: 20px;'>ღირებულება</td> <td></td> </tr>\\n"
-//                            + "<tr> <td style='padding-left: 20px;'>გადახდისგრაფიკი</td> <td>მიმდინარე გადასახადი 30 ლარი 15.04.2020</td> </tr>\\n"
-//                            + "<tr> <td style='padding-left: 20px;'>ფოტოსატვირთვა</td> <td>ფოტოებს არ საჭიროებს</td> </tr>\\n"
-//                            + "<tr> <td style='padding-left: 20px;'>პოლისი</td> <td>იხილეთ მიმაგრებული პოლისი</td></tr>\\n"
-//                            + "</table>\\n"
-//                            ///////////////////////////////////////
-//
-//                            + "<table class='orderlist' table style='cursor:hand;width:100%;margin-top: 20px' id='policelist2a' onclick=\\\"$('#policelist2a').css('display', 'none');$('#policelist2b').css('display', 'table');\\\">\\n"
-//                            + "<tr style='color:blue'> <td style='width:50%'>კასკო</td>    <td><img style='margin: auto;' src='icons/imedil.png'></td></tr>\\n"
-//                            + "</table>\\n"
-//                            + "<table class='orderlist' id='policelist2b' style='display: none;width:100%;margin-top: 20px' onclick=\\\"$('#policelist2b').css('display', 'none');$('#policelist2a').css('display', 'table');\\\">\\n"
-//                            + "<tr style='color:blue;cursor:hand;'> <td  colspan='2' style='width:50%'>კასკო</td></tr>\\n"
-//                            //         +"<tr style='color:blue;cursor:hand;'><td style='width:50%'>პროდუქტი</td> <td style='width:50%'>კასკო</td></tr>\\n"
-//                            + "<tr> <td style='padding-left: 20px;'>პროვაიდერი</td> <td><img style='margin: auto;' src='icons/imedil.png'></td> </tr>\\n"
-//                            + "<tr> <td style='padding-left: 20px;'>დაზღვეული</td> <td>ტოპოლკაროევი კოლა</td> </tr>\\n"
-//                            + "<tr> <td style='padding-left: 20px;'>შეძენისთარიღი</td> <td></td> </tr>\\n"
-//                            + "<tr> <td style='padding-left: 20px;'>მოქმედებისვადა</td> <td></td> </tr>\\n"
-//                            + "<tr> <td style='padding-left: 20px;'>ღირებულება</td> <td></td> </tr>\\n"
-//                            + "<tr> <td style='padding-left: 20px;'>გადახდისგრაფიკი</td> <td></td> </tr>\\n"
-//                            + "<tr> <td style='padding-left: 20px;'>ფოტოსატვირთვა</td> <td></td> </tr>\\n"
-//                            + "<tr> <td style='padding-left: 20px;'>პოლისი</td> <td></td> </tr>\\n"
-//                            + "</table>\\n"
-//                            /// ////////  NEw            
-//                            //         +"<table class='orderlist' table style='cursor:hand;width:100%;margin-top: 20px' id='policelist1a' onclick=\\\"$('#policelist1a').css('display', 'none');$('#policelist1b').css('display', 'table');\\\">\\n"
-//                            + "<table class='orderlist'  style='cursor:hand;width:100%;margin-top: 20px' id='policelist9991a'  onclick=\\\"$('#policelist9991a').css('display', 'none');$('#policelist9991b').css('display', 'table');\\\">\\n"
-//                            + "<tr style='color:blue'> <td >ავტო მპპდ</th><td><img style='margin: auto;' src='icons/aldagi.png'></td></tr>\\n"
-//                            + "</table>\\n"
-//                            //            +"<table class='orderlist' id='policelist1b' style='display: none;width:100%;margin-top: 20px'>\\n"
-//                            + "<table class='orderlist' id='policelist9991b' style='display: none;width:100%;margin-top: 20px'>\\n"
-//                            //         +"<tr onclick=\\\"$('#policelist1b').css('display', 'none');$('#policelist1a').css('display', 'table');\\\" style='color:blue;cursor:hand;'> <td  colspan='2' style='width:50%'>ავტო მპპდ</td></tr>\\n"
-//                            + "<tr onclick=\\\"$('#policelist9991b').css('display', 'none');$('#policelist9991a').css('display', 'table');\\\" style='color:blue;cursor:hand;'><td  colspan='2' style='width:50%'>ავტო მპპდ</td></tr>\\n"
-//                            //                          
-//                            + "<tr> <td style='padding-left: 20px;'>პროვაიდერი</td> <td><img style='margin: auto;' src='icons/aldagi.png'></td> </tr>\\n"
-//                            + "<tr> <td style='padding-left: 20px;'>დაზღვეული</td> <td >სერვერავა ეიჩპი</td> </tr>\\n"
-//                            + "<tr> <td style='padding-left: 20px;'>შეძენისთარიღი</td> <td></td> </tr>\\n"
-//                            + "<tr> <td style='padding-left: 20px;'>მოქმედებისვადა</td> <td>პოლისის გააქტიურება</td> </tr>\\n"
-//                            + "<tr> <td style='padding-left: 20px;'>ღირებულება</td> <td></td> </tr>\\n"
-//                            //                            +"<tr> <td style='padding-left: 20px;'>გადახდისგრაფიკი</td> <td>მიმდინარე გადასახადი 30 ლარი 15.04.2020</td> </tr>\\n"
-//                            //                            +"<tr> <td style='padding-left: 20px;'>ფოტოსატვირთვა</td> <td>ფოტოებს არ საჭიროებს</td> </tr>\\n"
-//                            //                            +"<tr> <td style='padding-left: 20px;'>პოლისი</td> <td>იხილეთ მიმაგრებული პოლისი</td></tr>\\n"
-//                            + "<tr> <td style='padding-left: 20px;cursor:hand;text-decoration: underline;' onclick=\\\"detalssubmitajax('123456','getmodalgraphic');\\\">გადახდისგრაფიკი</td> <td>მიმდინარე გადასახადი 30 ლარი</td> </tr>\\n"
-//                            + "<tr> <td style='padding-left: 20px;cursor:hand;text-decoration: underline;' onclick=\\\"detalssubmitajax('123456','getmodalphoto');\\\">ფოტოსატვირთვა</td> <td>ფოტოებს არ საჭიროებს</td> </tr>\\n"
-//                            + "<tr> <td style='padding-left: 20px;cursor:hand;text-decoration: underline;' onclick=\\\"showpdf('pdf/getliabilityunison.pdf')\\\">ხელშეკრულება</td> <td>იხილეთ მიმაგრებული ხელშეკრულება</td></tr>\\n"
-//                            + "<tr> <td style='padding-left: 20px;cursor:hand;text-decoration: underline;' onclick=\\\"showpdf('pdf/policy.pdf')\\\">პოლისი</td> <td>იხილეთ მიმაგრებული პოლისი</td></tr>\\n"
-//                            + "</table>\\n"
-//                            + "\"}";
-                        /// ////////  NEw            
-                        //         +"<table class='orderlist' table style='cursor:hand;width:100%;margin-top: 20px' id='policelist1a' onclick=\\\"$('#policelist1a').css('display', 'none');$('#policelist1b').css('display', 'table');\\\">\\n"
                         ss += "<table class='orderlist'  style='cursor:hand;width:100%;margin-top: 20px' id='policelist" + s22[3] + "a'onclick=\\\"$('#policelist" + s22[3] + "a').css('display', 'none');$('#policelist" + s22[3] + "b').css('display', 'table');\\\">\\n"
                                 + "<tr style='color:blue'> <td >?_" + s22[4] + "?</th><td><img style='margin: auto;' src='icons/" + s22[5] + ".png'></td></tr>\\n"
                                 + "</table>\\n"
@@ -193,7 +126,7 @@ public class mainService extends HttpServlet {
                                 + "<tr> <td style='padding-left: 20px;cursor:hand;text-decoration: underline;' onclick=\\\"detalssubmitajax('123456','getmodalgraphic');\\\">გადახდისგრაფიკი</td> <td>მიმდინარე გადასახადი 30 ლარი</td> </tr>\\n"
                                 + "<tr> <td style='padding-left: 20px;cursor:hand;text-decoration: underline;' onclick=\\\"detalssubmitajax('123456','getmodalphoto');\\\">ფოტოსატვირთვა</td> <td>ფოტოებს არ საჭიროებს</td> </tr>\\n"
                                 + "<tr> <td style='padding-left: 20px;cursor:hand;text-decoration: underline;' onclick=\\\"showpdf('pdf/getliability" + s22[5] + ".pdf')\\\">ხელშეკრულება</td> <td>იხილეთ მიმაგრებული ხელშეკრულება</td></tr>\\n"
-                                + "<tr> <td style='padding-left: 20px;cursor:hand;text-decoration: underline;' onclick=\\\"showpdf('pdf/"+s22[6]+".pdf')\\\">პოლისი</td> <td>იხილეთ მიმაგრებული პოლისი</td></tr>\\n"
+                                + "<tr> <td style='padding-left: 20px;cursor:hand;text-decoration: underline;' onclick=\\\"showpdf('pdf/" + s22[6] + ".pdf')\\\">პოლისი</td> <td>იხილეთ მიმაგრებული პოლისი</td></tr>\\n"
                                 + "</table>\\n";
 
                     }
@@ -675,34 +608,71 @@ public class mainService extends HttpServlet {
 
                 String paymentschedule = tools.functions.jsonget(job, "paymentschedule");
                 System.out.println("paymentschedule=" + paymentschedule);
+                String pnumberinsurer = tools.functions.jsonget(job, "personal_n");
+                System.out.println("pnumberinsurer=" + pnumberinsurer);
+                String pnumberinsured = tools.functions.jsonget(job, "2personal_n");
+                System.out.println("pnumberinsured=" + pnumberinsured);
+                String birthday = tools.functions.jsonget(job, "birthday");
+                System.out.println("birthday=" + birthday);
+                String birthday2 = tools.functions.jsonget(job, "2birthday");
+                System.out.println("birthday2=" + birthday2);
+                String gender = tools.functions.jsonget(job, "gender");
+                System.out.println("gender=" + gender);
+                String gender2 = tools.functions.jsonget(job, "2gender");
+                System.out.println("gender2=" + gender2);
+                String citizenship_code = tools.functions.jsonget(job, "citizenship_code");
+                System.out.println("citizenship_code=" + citizenship_code);
+                String citizenship_code2 = tools.functions.jsonget(job, "2citizenship_coder");
+                System.out.println("citizenship_code2=" + citizenship_code2);
+                String phone = tools.functions.jsonget(job, "phone");
+                System.out.println("phone=" + phone);
+                String email = tools.functions.jsonget(job, "email");
+                System.out.println("email=" + email);
+                String addressinsurer = "ასეთი ველი რეგისტრაციისას არ გვაქვს";
+                System.out.println("addressinsurer=" + addressinsurer);
+                String forwho = tools.functions.jsonget(job, "forwho");
+                System.out.println("forwho=" + forwho);
+                String carvin = tools.functions.jsonget(job, "carvin");
+                System.out.println("carvin=" + carvin);
+                String year = tools.functions.jsonget(job, "year");
+                System.out.println("year=" + year);
+                
+                
+                if (forwho.equals("forme")) {
+                    pnumberinsured = "pnumberinsurer";
+                    birthday2 = birthday;
+                    gender2 = gender;
+                    citizenship_code2 = citizenship_code;
+                }
 
                 String tablename = type.substring(3);
                 if (tablename.equals("liability")) {
                     tablename = "ma_mtpl";
-                }else if (tablename.equals("casco")) {
+                } else if (tablename.equals("casco")) {
                     tablename = "casco";
-                }else if (tablename.equals("property")) {
+                } else if (tablename.equals("property")) {
                     tablename = "property";
-                }else if (tablename.equals("health")) {
+                } else if (tablename.equals("health")) {
                     tablename = "health";
-                }
-                else if (tablename.equals("travel")) {
+                } else if (tablename.equals("travel")) {
                     tablename = "travel";
                 }
 
-                String pqwr = "select p.name from " + tablename + "_params pp left join provider p on pp.provider_id=p.id where pp.id=" + productid;
+                String pqwr = "select p.name,headergeo,headereng,addressgeo,phone,mail from " + tablename + "_params pp left join provider p on pp.provider_id=p.id where pp.id=" + productid;
+                System.out.println("pqwr=" + pqwr);
 
                 ArrayList<String[]> spqwr = tools.functions.getResult(pqwr, tools.functions.isnewcompare);
-    // make police    begin        
-                String insurer=namefirst+" "+namelast;
-                String insured=namefirst_2+" "+namelast_2;;
-                
-               
-                String filename=tools.pdfDesigner.makepolice(tablename,userid,insurer,insured);
-    // make police end
+                // make police    begin        
+                String insurer = namefirst + " " + namelast;
+                String insured = namefirst_2 + " " + namelast_2;;
+
+                String filename = tools.pdfDesigner.makepolice(tablename, userid, insurer, insured, spqwr.get(0)[0], spqwr.get(0)[1],
+                        spqwr.get(0)[2], spqwr.get(0)[3], spqwr.get(0)[4], spqwr.get(0)[5], "5000", pnumberinsurer, pnumberinsured, birthday,
+                        birthday2, gender, gender2, citizenship_code, citizenship_code2, phone, email, addressinsurer, carvin,year);
+                // make police end
                 String qwr = "insert into order_params (user_id,product_id,product_name,payment_schedule,policyholder,policyowner,company_name,filename)"
-                        + " values (" + userid + "," + productid + ",'" + tablename + "','" + paymentschedule + "','" + policyowner + "','" 
-                        + policyholder + "','" + spqwr.get(0)[0] + "','"+filename +"')  returning id; ";;
+                        + " values (" + userid + "," + productid + ",'" + tablename + "','" + paymentschedule + "','" + policyowner + "','"
+                        + policyholder + "','" + spqwr.get(0)[0] + "','" + filename + "')  returning id; ";;
 
                 System.out.println(qwr);
 
@@ -725,9 +695,8 @@ public class mainService extends HttpServlet {
                 response.getWriter().write(ss);
                 //          invoice_params [0]="kuku";
                 System.out.println("this is entry");
-                
-              //  pdfDesigner.invoice(tablename);
 
+                //  pdfDesigner.invoice(tablename);
             } else if (command.equals("getcars")) {
 // get car models
 
