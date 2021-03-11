@@ -655,12 +655,19 @@ public class mainService extends HttpServlet {
                 System.out.println("startdate=" + startdate);
                 String enddate = tools.functions.jsonget(job, "date22");
                 System.out.println("enddate=" + enddate);
+                String currency = tools.functions.jsonget(job, "currency");
+                System.out.println("currency=" + currency);
                 String country_code = "";
-                
+                String marca = "";
+                String model = "";
+                String carnumber="";
+
                 country_code = tools.functions.jsonget(job, "country_code");
-                if (country_code.equals(null)||country_code.equals("")){country_code="ge";}
+                if (country_code.equals(null) || country_code.equals("")) {
+                    country_code = "ge";
+                }
                 System.out.println("country_code=" + country_code);
-                String countryqwe = "select name from global_countries where idn='" + country_code+"'";
+                String countryqwe = "select name from global_countries where idn='" + country_code + "'";
                 System.out.println("countryqwe=" + countryqwe);
                 ArrayList<String[]> tcountry = tools.functions.getResult(countryqwe, tools.functions.isnewcompare);
                 System.out.println("2 tcountry=     " + tcountry.get(0)[0]);
@@ -671,14 +678,21 @@ public class mainService extends HttpServlet {
                     gender2 = gender;
                     citizenship_code2 = citizenship_code;
                     addressinsured = addressinsurer;
+
                 }
 
                 String tablename = type.substring(3);
                 if (tablename.equals("liability")) {
                     tablename = "ma_mtpl";
                     franchise = tools.functions.jsonget(job, "liabilitylimit");
-
-                    System.out.println("franchise=" + franchise);
+                    marca = tools.functions.jsonget(job, "marca");
+                    System.out.println("marca=" + marca);
+                    model = tools.functions.jsonget(job, "model");
+                    System.out.println("model=" + model);
+                    model = tools.functions.jsonget(job, "model");
+                    System.out.println("model=" + model);
+                    carnumber = tools.functions.jsonget(job, "carnumber");
+                    System.out.println("carnumber=" + carnumber);
 
                 } else if (tablename.equals("casco")) {
                     tablename = "casco";
@@ -703,7 +717,8 @@ public class mainService extends HttpServlet {
 
                 String filename = tools.pdfDesigner.makepolice(tablename, userid, insurer, insured, spqwr.get(0)[0], spqwr.get(0)[1],
                         spqwr.get(0)[2], spqwr.get(0)[3], spqwr.get(0)[4], spqwr.get(0)[5], franchise, pnumberinsurer, pnumberinsured, birthday,
-                        birthday2, gender, gender2, citizenship_code, citizenship_code2, phone, email, addressinsurer, carvin, year, price0, payprice, addressinsured, startdate, enddate, tcountry.get(0)[0]);
+                        birthday2, gender, gender2, citizenship_code, citizenship_code2, phone, email, addressinsurer, carvin, year, price0, payprice,
+                        addressinsured, startdate, enddate, tcountry.get(0)[0], marca,model,carnumber,currency);
                 // make police end
                 String qwr = "insert into order_params (user_id,product_id,product_name,payment_schedule,policyholder,policyowner,company_name,filename,addressinsurer,addressinsured,start_date,end_date)"
                         + " values (" + userid + "," + productid + ",'" + tablename + "','" + paymentschedule + "','" + policyowner + "','"

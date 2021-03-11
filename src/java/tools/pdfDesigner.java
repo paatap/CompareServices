@@ -53,35 +53,45 @@ public class pdfDesigner {
             String pnumberinsurer,
             String pnumberinsured, String bithdayinsurer, String bithdayinsured, String sexinsurer, String sexinsured,
             String cityzenshipinsurer, String cityzenshipinsured, String phoneinsurer, String mailinsurer, String addressinsurer,
-            String vincodeValue, String releaseYearValue, String SumAmountValue,String monthlyAmountValue,String addressinsured,
-            String datefrom,String dateto, String countriesvalue
+            String vincodeValue, String releaseYearValue, String SumAmountValue, String monthlyAmountValue, String addressinsured,
+            String datefrom, String dateto, String countriesvalue, String carMarkValue, String carModelValue, String countrynumValue, String currency
     )
             throws Exception, NullPointerException {
+        if (currency.equals("_lari")) {
+            currency = " ლარი / GEL";
+        }
 
-        String amountValue = coveragelimitvalue +" ლარი / GEL";
+        String amountValue = coveragelimitvalue + currency;
         String monthlyAmount = "ყოველთვიური თანხა / Monthly bill";
-      
-        String InsuranceBillValue = coveragelimitvalue +" ლარი / GEL";
+
+        String InsuranceBillValue = coveragelimitvalue + currency;
         String SumAmount = "ჯამური ფასი / Total cost ";
-            String InsuranceBill = "სადაზღვევო თანხა / Insurance Bill";
+        String InsuranceBill = "სადაზღვევო თანხა / Insurance Bill";
         String rule = "სადაზღვეო პრემიის გადახდის წესი / Terms of Payment";
 
         String InsuranceLimit = "დაზღვევის ლიმიტი / Insurance Limit";
-        String InsuranceLimitValue =coveragelimitvalue +" ლარი / GEL";
+        String InsuranceLimitValue = coveragelimitvalue + currency;
 
         String mounthly = " თვიური / Mounthly";
-        String mounthlyValue = monthlyAmountValue+ " ლარი / GEL";
+        String mounthlyValue = monthlyAmountValue + currency;
+        String responsibility = "პასუხისმგებლობის დეტალები / Responsibility Details ";
+        String parameters = "პარამეტრების ცვლილება / Change Parameters";
+        String countrynum = "სახელმწიფო ნომერი / Country code";
+
+        String carMark = "მარკა/ Mark ";
+
+        String carModel = "მოდელი / Model";
+
+        String amount = " სადაზღვევო თანხა / Insurance bill";
 
         //data for money table
-    
-
         String image = "/home/paatap/JAVA/apache-tomcat-8.5.30/webapps/ROOT/src/" + providervalue + ".png";
         String stamp = "/home/paatap/JAVA/apache-tomcat-8.5.30/webapps/ROOT/src/" + providervalue + "stamp.png";
         System.out.println("image=" + image);
         System.out.println("stamp=" + stamp);
         System.out.println("insurer=" + insurer);
         System.out.println("insured=" + insured);
-        coveragelimitvalue = coveragelimitvalue + " ლარი / GEL";
+        coveragelimitvalue = coveragelimitvalue + currency;
 
         insurer = "დამზღვევი / Policy Holder :" + insurer;
         insured = "დაზღვეული / Policy Owner :" + insured;
@@ -100,17 +110,15 @@ public class pdfDesigner {
         mailinsurer = "მეილი / Email :" + mailinsurer;
         String mailinsured = "მეილი / Email : ";
         addressinsurer = "მისამართი / Address : " + addressinsurer;
-        addressinsured = "მისამართი / Address : "+ addressinsured;
+        addressinsured = "მისამართი / Address : " + addressinsured;
         String releaseYear = " წელი / Year";
         String countries = "ქვეყნები / Countries";
-          
-        
 
         String vincode = "ვინკოდი / VIN code";
         //     String vincodeValue = "112234";
-                    String period = "სადაზღვევო პერიოდი / Insurance period";
-             datefrom = datefrom +" დან";
-             dateto = dateto+ " მდე/ჩათვლით";
+        String period = "სადაზღვევო პერიოდი / Insurance period";
+        datefrom = datefrom + " დან";
+        dateto = dateto + " მდე/ჩათვლით";
 
         System.out.println("font=" + FONT);
         PdfFont gefont = PdfFontFactory.createFont(FONT, "Identity-H");
@@ -317,22 +325,7 @@ public class pdfDesigner {
             String cosponsor12 = "cosponsor12";
 
             // data for info table
-            String responsibility = "პასუხისმგებლობის დეტალები / Responsibility Details ";
-            String parameters = "პარამეტრების ცვლილება / Change Parameters";
-            String countrynum = "სახელმწიფო ნომერი / Country code";
-            String countrynumValue = "ad112ha";
-
-            String carMark = "მარკა/ Mark ";
-            String carMarkValue = "alfa romeo";
-            String carModel = "მოდელი / Model";
-            String carModelValue = "13";
-
-
-            String amount = " სადაზღვევო თანხა / Insurance bill";
-
             //data for money table
-
-
             //data for footertable
             String signature = "ელექტრონული ხელმოწერა / Signature";
             String providermail = "მეილი / Contact email";
@@ -565,8 +558,6 @@ public class pdfDesigner {
             String satelofonoValue = "ულიმიტო / Unlimited";
             String cosatelofono = " 50%";
 
-
-
             //data for money table
             //data for footertable
             String signature = "ელექტრონული ხელმოწერა / Signature";
@@ -794,20 +785,6 @@ public class pdfDesigner {
             String cosponsor12 = "cosponsor12";
 
             // data for info table
-            String responsibility = "დაზღვევის დეტალები / Insurance Details ";
-            String parameters = "";
-            String countrynum = "სახელმწიფო ნომერი / Country code";
-            String countrynumValue = "ad112ha";
-
-            String carMark = "მარკა/ Mark ";
-            String carMarkValue = "alfa romeo";
-            String carModel = "მოდელი / Model";
-            String carModelValue = "13";
-//            String releaseYear = " წელი / Year";
-//            String releaseYearValue = " 2002";
-
-            String amount = " სადაზღვევო თანხა / Insurance bill";
-
             //data for footertable
             String signature = "ელექტრონული ხელმოწერა / Signature";
             String providermail = "მეილი / Contact email";
@@ -1085,9 +1062,6 @@ public class pdfDesigner {
             String teritorryValue = "საქართველო / Georgia";
 
             //data for money table
-
-
-
             //data for footertable
             String policyDate = "გაცემის თარიღი / Date of Policy Issue";
             String policyDateValue = "12 თებერვალი / 12th of February";
@@ -1276,13 +1250,13 @@ public class pdfDesigner {
             doc.add(body);
             body.complete();
             // error
-            
-  //          if (!par.equals("null")) {
-                //setting gap between body and coverage
-                coverage.setMarginTop(13f);
-                doc.add(coverage);
-                coverage.complete();
-   //         }
+
+            //          if (!par.equals("null")) {
+            //setting gap between body and coverage
+            coverage.setMarginTop(13f);
+            doc.add(coverage);
+            coverage.complete();
+            //         }
             //setting gap between coverage and info
             info.setMarginTop(13f);
             doc.add(info);
