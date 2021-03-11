@@ -59,6 +59,8 @@ public class pdfDesigner {
             throws Exception, NullPointerException {
         if (currency.equals("_lari")) {
             currency = " ლარი / GEL";
+        }else if(currency.equals("_usd")) {
+            currency = " USD";
         }
 
         String amountValue = coveragelimitvalue + currency;
