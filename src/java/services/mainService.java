@@ -40,6 +40,7 @@ public class mainService extends HttpServlet {
         String ptable = "";
         String buytable = "";
         String[] invoice_params;
+        String franchise = "";
 
 //response.getWriter().write(tools.SendEmailTLS.SendEmailTLS());
         try {
@@ -95,7 +96,7 @@ public class mainService extends HttpServlet {
 
                 //               String qwr = "select u.id,name_first,name_last from users u left join crm_contact cc on u.id=cc.userid where username='" + user + "'  and password='" + pass + "'";
                 //            String qwr = "select now()";
-                String qwr = "select policyholder,policyowner,creation_date,id,product_name,company_name,filename from order_params";
+                String qwr = "select policyholder,policyowner,creation_date,id,product_name,company_name,filename from order_params where  user_id=" + userid + " order by creation_date desc ";
                 ArrayList<String[]> s2 = tools.functions.getResult(qwr, tools.functions.isnewcompare);
 
                 String ss = "{\n\"command\":\"getpolicelist\",\n"
@@ -379,7 +380,7 @@ public class mainService extends HttpServlet {
 
                 //name,email,userid,pid,contact_type_id,name_first,name_last,gender
                 String qwr = "select cc.userid,cc.name_first,cc.name_last,cc.email,cc.info2mail,cc.pid,cc.birthday,cc.phone,cc.phonepre,cc.gender,"
-                        + "cc.name_first_lat,cc.name_last_lat,idn"
+                        + "cc.name_first_lat,cc.name_last_lat,idn,address"
                         + " from crm_contact cc  \n"
                         + "  where userid=" + userid + ";";
                 System.out.println(qwr);
@@ -400,7 +401,9 @@ public class mainService extends HttpServlet {
                             + "\"gender\":\"" + s2.get(0)[9] + "\",\n"
                             + "\"namefirstlat\":\"" + s2.get(0)[10] + "\",\n"
                             + "\"namelastlat\":\"" + s2.get(0)[11] + "\",\n"
-                            + "\"citizenship_code\":\"" + s2.get(0)[12] + "\"\n}";
+                            + "\"citizenship_code\":\"" + s2.get(0)[12] + "\",\n"
+                            + "\"myaddress\":\"" + s2.get(0)[13]
+                            + "\"\n}";
                 } else {
                     ss = "{\n\"command\":\"getparameters\",\n"
                             + "\"result\":\"usernotfound\"\n}";
@@ -441,6 +444,9 @@ public class mainService extends HttpServlet {
                 String email = tools.functions.jsonget(job, "email");
                 System.out.println("email=" + email);
 
+                String address = tools.functions.jsonget(job, "myaddress");
+                System.out.println("address=" + address);
+
                 String citizenship_code = tools.functions.jsonget(job, "citizenship_code");
                 System.out.println("citizenship_code=" + citizenship_code);
 
@@ -466,6 +472,7 @@ public class mainService extends HttpServlet {
                         + "gender='" + gender + "',"
                         + "phone='" + phone + "',"
                         + "phonepre='" + phonepre + "',"
+                        + "address='" + address + "',"
                         + "email='" + email + "',"
                         + "idn='" + citizenship_code + "',"
                         //                        + "info2mail="+
@@ -602,6 +609,8 @@ public class mainService extends HttpServlet {
                 //2namefirst
                 String price0 = tools.functions.jsonget(job, "price0");
                 System.out.println("price0=" + price0);
+                String payprice = tools.functions.jsonget(job, "payprice");
+                System.out.println("payprice=" + payprice);
 
                 String price1 = tools.functions.jsonget(job, "price1");
                 System.out.println("price1=" + price1);
@@ -628,26 +637,49 @@ public class mainService extends HttpServlet {
                 System.out.println("phone=" + phone);
                 String email = tools.functions.jsonget(job, "email");
                 System.out.println("email=" + email);
-                String addressinsurer = "ასეთი ველი რეგისტრაციისას არ გვაქვს";
+
+                String addressinsurer = tools.functions.jsonget(job, "myaddress");
                 System.out.println("addressinsurer=" + addressinsurer);
+
                 String forwho = tools.functions.jsonget(job, "forwho");
                 System.out.println("forwho=" + forwho);
                 String carvin = tools.functions.jsonget(job, "carvin");
                 System.out.println("carvin=" + carvin);
                 String year = tools.functions.jsonget(job, "year");
                 System.out.println("year=" + year);
+
+                String addressinsured = tools.functions.jsonget(job, "2myaddress");
+                System.out.println("address=" + addressinsured);
+
+                String startdate = tools.functions.jsonget(job, "date12");
+                System.out.println("startdate=" + startdate);
+                String enddate = tools.functions.jsonget(job, "date22");
+                System.out.println("enddate=" + enddate);
+                String country_code = "";
                 
-                
+                country_code = tools.functions.jsonget(job, "country_code");
+                if (country_code.equals(null)||country_code.equals("")){country_code="ge";}
+                System.out.println("country_code=" + country_code);
+                String countryqwe = "select name from global_countries where idn='" + country_code+"'";
+                System.out.println("countryqwe=" + countryqwe);
+                ArrayList<String[]> tcountry = tools.functions.getResult(countryqwe, tools.functions.isnewcompare);
+                System.out.println("2 tcountry=     " + tcountry.get(0)[0]);
+
                 if (forwho.equals("forme")) {
                     pnumberinsured = "pnumberinsurer";
                     birthday2 = birthday;
                     gender2 = gender;
                     citizenship_code2 = citizenship_code;
+                    addressinsured = addressinsurer;
                 }
 
                 String tablename = type.substring(3);
                 if (tablename.equals("liability")) {
                     tablename = "ma_mtpl";
+                    franchise = tools.functions.jsonget(job, "liabilitylimit");
+
+                    System.out.println("franchise=" + franchise);
+
                 } else if (tablename.equals("casco")) {
                     tablename = "casco";
                 } else if (tablename.equals("property")) {
@@ -656,6 +688,9 @@ public class mainService extends HttpServlet {
                     tablename = "health";
                 } else if (tablename.equals("travel")) {
                     tablename = "travel";
+                    franchise = tools.functions.jsonget(job, "insurancelimit");
+                    System.out.println("franchise=" + franchise);
+
                 }
 
                 String pqwr = "select p.name,headergeo,headereng,addressgeo,phone,mail from " + tablename + "_params pp left join provider p on pp.provider_id=p.id where pp.id=" + productid;
@@ -667,12 +702,12 @@ public class mainService extends HttpServlet {
                 String insured = namefirst_2 + " " + namelast_2;;
 
                 String filename = tools.pdfDesigner.makepolice(tablename, userid, insurer, insured, spqwr.get(0)[0], spqwr.get(0)[1],
-                        spqwr.get(0)[2], spqwr.get(0)[3], spqwr.get(0)[4], spqwr.get(0)[5], "5000", pnumberinsurer, pnumberinsured, birthday,
-                        birthday2, gender, gender2, citizenship_code, citizenship_code2, phone, email, addressinsurer, carvin,year);
+                        spqwr.get(0)[2], spqwr.get(0)[3], spqwr.get(0)[4], spqwr.get(0)[5], franchise, pnumberinsurer, pnumberinsured, birthday,
+                        birthday2, gender, gender2, citizenship_code, citizenship_code2, phone, email, addressinsurer, carvin, year, price0, payprice, addressinsured, startdate, enddate, tcountry.get(0)[0]);
                 // make police end
-                String qwr = "insert into order_params (user_id,product_id,product_name,payment_schedule,policyholder,policyowner,company_name,filename)"
+                String qwr = "insert into order_params (user_id,product_id,product_name,payment_schedule,policyholder,policyowner,company_name,filename,addressinsurer,addressinsured,start_date,end_date)"
                         + " values (" + userid + "," + productid + ",'" + tablename + "','" + paymentschedule + "','" + policyowner + "','"
-                        + policyholder + "','" + spqwr.get(0)[0] + "','" + filename + "')  returning id; ";;
+                        + policyholder + "','" + spqwr.get(0)[0] + "','" + filename + "','" + addressinsurer + "','" + addressinsured + "','" + startdate + "','" + enddate + "')  returning id; ";
 
                 System.out.println(qwr);
 

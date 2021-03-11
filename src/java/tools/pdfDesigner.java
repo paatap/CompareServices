@@ -52,19 +52,39 @@ public class pdfDesigner {
             String coveragelimitvalue,
             String pnumberinsurer,
             String pnumberinsured, String bithdayinsurer, String bithdayinsured, String sexinsurer, String sexinsured,
-            String cityzenshipinsurer, String cityzenshipinsured, String phoneinsurer, String mailinsurer, String addressinsurer, String vincodeValue, String releaseYearValue
+            String cityzenshipinsurer, String cityzenshipinsured, String phoneinsurer, String mailinsurer, String addressinsurer,
+            String vincodeValue, String releaseYearValue, String SumAmountValue,String monthlyAmountValue,String addressinsured,
+            String datefrom,String dateto, String countriesvalue
     )
             throws Exception, NullPointerException {
+
+        String amountValue = coveragelimitvalue +" ლარი / GEL";
+        String monthlyAmount = "ყოველთვიური თანხა / Monthly bill";
+      
+        String InsuranceBillValue = coveragelimitvalue +" ლარი / GEL";
+        String SumAmount = "ჯამური ფასი / Total cost ";
+            String InsuranceBill = "სადაზღვევო თანხა / Insurance Bill";
+        String rule = "სადაზღვეო პრემიის გადახდის წესი / Terms of Payment";
+
+        String InsuranceLimit = "დაზღვევის ლიმიტი / Insurance Limit";
+        String InsuranceLimitValue =coveragelimitvalue +" ლარი / GEL";
+
+        String mounthly = " თვიური / Mounthly";
+        String mounthlyValue = monthlyAmountValue+ " ლარი / GEL";
+
+        //data for money table
+    
+
         String image = "/home/paatap/JAVA/apache-tomcat-8.5.30/webapps/ROOT/src/" + providervalue + ".png";
         String stamp = "/home/paatap/JAVA/apache-tomcat-8.5.30/webapps/ROOT/src/" + providervalue + "stamp.png";
         System.out.println("image=" + image);
         System.out.println("stamp=" + stamp);
         System.out.println("insurer=" + insurer);
         System.out.println("insured=" + insured);
-        coveragelimitvalue = coveragelimitvalue + "EURO";
+        coveragelimitvalue = coveragelimitvalue + " ლარი / GEL";
 
         insurer = "დამზღვევი / Policy Holder :" + insurer;
-        insurer = "დაზღვეულუი / Policy Owner :" + insured;
+        insured = "დაზღვეული / Policy Owner :" + insured;
         pnumberinsurer = "პირადი ნომერი/Personal Number : " + pnumberinsurer;
         pnumberinsured = "პირადი ნომერი/Personal Number : " + pnumberinsured;
         bithdayinsurer = "დაბადების თარიღი / Birthday : " + bithdayinsurer;
@@ -79,13 +99,18 @@ public class pdfDesigner {
 
         mailinsurer = "მეილი / Email :" + mailinsurer;
         String mailinsured = "მეილი / Email : ";
-        addressinsurer = "მისამართი / Address : ######### ########## # ## ## ## ### #### ###";
-        String addressinsured = "მისამართი / Address : ასეთიო ველი არ გვქონია";
+        addressinsurer = "მისამართი / Address : " + addressinsurer;
+        addressinsured = "მისამართი / Address : "+ addressinsured;
         String releaseYear = " წელი / Year";
-      
+        String countries = "ქვეყნები / Countries";
+          
+        
 
         String vincode = "ვინკოდი / VIN code";
         //     String vincodeValue = "112234";
+                    String period = "სადაზღვევო პერიოდი / Insurance period";
+             datefrom = datefrom +" დან";
+             dateto = dateto+ " მდე/ჩათვლით";
 
         System.out.println("font=" + FONT);
         PdfFont gefont = PdfFontFactory.createFont(FONT, "Identity-H");
@@ -117,13 +142,10 @@ public class pdfDesigner {
             //data for head table
             // data for info table
             String policyinfoheader = "ინფორმაცია პოლისის შესახებ/Police Info ";
-            String countries = "ქვეყნები / Countries";
-            String countriesvalue = "ევროკავშირი, თურქეთი, ზანზიბარი";
+
             String coveragelimit = "დაზღვევის ლიმიტი / Coverage limit";
 //            String coveragelimitvalue = "5000 EURO";
-            String period = "სადაზღვევო პერიოდი / Insurance period";
-            String datefrom = "##.##.## დან";
-            String dateto = "##.##.## მდე/ჩათვლით";
+
             String addservice = "დამატებითი სერვისები / Additional coverages";
             String flight = "ფრენა / Flight";
             String luggage = "ბარგი / Luggage";
@@ -305,20 +327,11 @@ public class pdfDesigner {
             String carModel = "მოდელი / Model";
             String carModelValue = "13";
 
-            String period = "სადაზღვევო პერიოდი / Insurance period";
-            String datefrom = "##.##.## დან";
-            String dateto = "##.##.## მდე/ჩათვლით";
+
             String amount = " სადაზღვევო თანხა / Insurance bill";
-            String amountValue = "5000 ლარი / GEL";
-            String monthlyAmount = "ყოველთვიური თანხა / Monthly bill";
-            String monthlyAmountValue = "4.17 ლარი / GEL";
 
             //data for money table
-            String InsuranceBill = "სადაზღვევო თანხა / Insurance Bill";
-            String InsuranceBillValue = "5000 ლარი / GEL";
-            String SumAmount = "ჯამური ფასი / Total cost ";
-            String SumAmountValue = "50 ლარი / GEL ";
-            String rule = "სადაზღვეო პრემიის გადახდის წესი / Terms of Payment";
+
 
             //data for footertable
             String signature = "ელექტრონული ხელმოწერა / Signature";
@@ -460,7 +473,7 @@ public class pdfDesigner {
             cperiod.addCell(dateto);
             money.addCell(cperiod);
             money.addCell(amount);
-            money.addCell(amountValue);
+            money.addCell(coveragelimitvalue);
             money.addCell(monthlyAmount);
             money.addCell(monthlyAmountValue);
             money.addCell(InsuranceBill).setBorder(null);
@@ -552,19 +565,9 @@ public class pdfDesigner {
             String satelofonoValue = "ულიმიტო / Unlimited";
             String cosatelofono = " 50%";
 
-            String period = "სადაზღვევო პერიოდი / Insurance period";
-            String datefrom = "##.##.## დან";
-            String dateto = "##.##.## მდე/ჩათვლით";
+
 
             //data for money table
-            String InsuranceLimit = "დაზღვევის ლიმიტი / Insurance Limit";
-            String InsuranceLimitValue = "5000 ლარი / GEL";
-            String SumAmount = "ჯამური ფასი / Total cost ";
-            String SumAmountValue = "96 ლარი / GEL ";
-            String mounthly = " თვიური / Mounthly";
-            String mounthlyValue = "8 ლარი / GEL";
-            String rule = "სადაზღვეო პრემიის გადახდის წესი / Terms of Payment";
-
             //data for footertable
             String signature = "ელექტრონული ხელმოწერა / Signature";
             String providermail = "მეილი / Contact email";
@@ -802,20 +805,8 @@ public class pdfDesigner {
             String carModelValue = "13";
 //            String releaseYear = " წელი / Year";
 //            String releaseYearValue = " 2002";
-            String period = "სადაზღვევო პერიოდი / Insurance period";
-            String datefrom = "##.##.## დან";
-            String dateto = "##.##.## მდე/ჩათვლით";
-            String amount = " სადაზღვევო თანხა / Insurance bill";
-            String amountValue = "5000 ლარი / GEL";
-            String monthlyAmount = "ყოველთვიური თანხა / Monthly bill";
-            String monthlyAmountValue = "4.17 ლარი / GEL";
-            String rule = "სადაზღვეო პრემიის გადახდის წესი / Terms of Payment";
 
-            //data for money table
-            String InsuranceBill = "სადაზღვევო თანხა / Insurance Bill";
-            String InsuranceBillValue = "5000 ლარი / GEL";
-            String SumAmount = "ჯამური ფასი / Total cost ";
-            String SumAmountValue = "50 ლარი / GEL ";
+            String amount = " სადაზღვევო თანხა / Insurance bill";
 
             //data for footertable
             String signature = "ელექტრონული ხელმოწერა / Signature";
@@ -953,7 +944,7 @@ public class pdfDesigner {
             cperiod.addCell(dateto);
             info.addCell(cperiod);
             info.addCell(amount);
-            info.addCell(amountValue);
+            info.addCell(coveragelimitvalue);
             info.addCell(monthlyAmount);
             info.addCell(monthlyAmountValue);
 
@@ -1089,18 +1080,13 @@ public class pdfDesigner {
             String deductValue = "მზღვევევლის მიერ დადგენილი ზარალის 10%, მინიმუმ 400 (ოთხასი) ლარი";
             String annprem = "წლიური სადაზღვეო პრემია / Annual Insurance Premium";
             String annpremValue = " 840 (რვაას ორმოცი) ლარი / 840 (eight hundred and forty) Lari";
-            String rule = "სადაზღვეო პრემიის გადახდის წესი / Terms of Payment";
+
             String teritorry = "დაზღვევის ტერიტორია / Coverage Area";
             String teritorryValue = "საქართველო / Georgia";
 
             //data for money table
-            String period = "სადაზღვევო პერიოდი / Insurance period";
-            String datefrom = "##.##.## დან";
-            String dateto = "##.##.## მდე/ჩათვლით";
-            String InsuranceBill = "სადაზღვევო თანხა / Insurance Bill";
-            String InsuranceBillValue = "5000 ლარი / GEL";
-            String SumAmount = "ჯამური ფასი / Total cost ";
-            String SumAmountValue = "50 ლარი / GEL ";
+
+
 
             //data for footertable
             String policyDate = "გაცემის თარიღი / Date of Policy Issue";
