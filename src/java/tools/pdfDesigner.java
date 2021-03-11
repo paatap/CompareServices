@@ -1275,12 +1275,14 @@ public class pdfDesigner {
             body.setMarginTop(13f);
             doc.add(body);
             body.complete();
-            if (!par.equals("null")) {
+            // error
+            
+  //          if (!par.equals("null")) {
                 //setting gap between body and coverage
                 coverage.setMarginTop(13f);
                 doc.add(coverage);
                 coverage.complete();
-            }
+   //         }
             //setting gap between coverage and info
             info.setMarginTop(13f);
             doc.add(info);
