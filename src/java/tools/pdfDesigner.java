@@ -54,7 +54,7 @@ public class pdfDesigner {
             String pnumberinsured, String bithdayinsurer, String bithdayinsured, String sexinsurer, String sexinsured,
             String cityzenshipinsurer, String cityzenshipinsured, String phoneinsurer, String mailinsurer, String addressinsurer,
             String vincodeValue, String releaseYearValue, String SumAmountValue, String monthlyAmountValue, String addressinsured,
-            String datefrom, String dateto, String countriesvalue, String carMarkValue, String carModelValue, String countrynumValue, String currency
+            String datefrom, String dateto, String countriesvalue, String carMarkValue, String carModelValue, String countrynumValue, String currency,String[] schedule
     )
             throws Exception, NullPointerException {
         if (currency.equals("_lari")) {
@@ -485,7 +485,9 @@ public class pdfDesigner {
             rulesVal.setFontSize(6.0F);
             rulesVal.setFont(gefont);
             for (int i = 0; i < 12; i++) {
-                rulesVal.addCell("2018." + String.valueOf(01 + i) + ".01 - 70 ლარი");
+              //  rulesVal.addCell("2018." + String.valueOf(01 + i) + ".01 - 70 ლარი");
+             if (schedule[i].equals("")){rulesVal.addCell(schedule[i]+" - ");} else 
+                rulesVal.addCell(schedule[i]+" - "+ monthlyAmountValue + currency);
             }
 
             //adding cells to footertable
@@ -700,7 +702,9 @@ public class pdfDesigner {
             rulesVal.setFontSize(6.0F);
             rulesVal.setFont(gefont);
             for (int i = 0; i < 12; i++) {
-                rulesVal.addCell("2018." + String.valueOf(01 + i) + ".01 - 70 ლარი");
+              //  rulesVal.addCell("2018." + String.valueOf(01 + i) + ".01 - 70 ლარი");
+                            if (schedule[i].equals("")){rulesVal.addCell(schedule[i]+" - ");} else 
+                rulesVal.addCell(schedule[i]+" - "+ monthlyAmountValue + currency);
             }
 
             //adding cells to footertable
@@ -942,7 +946,10 @@ public class pdfDesigner {
             rulesVal.setFontSize(6.0F);
             rulesVal.setFont(gefont);
             for (int i = 0; i < 12; i++) {
-                rulesVal.addCell("2018." + String.valueOf(01 + i) + ".01 - 70 ლარი");
+            //    rulesVal.addCell("2018." + String.valueOf(01 + i) + ".01 - 70 ლარი");
+                         if (schedule[i].equals("")){rulesVal.addCell(schedule[i]+" - ");} else 
+                rulesVal.addCell(schedule[i]+" - "+ monthlyAmountValue + currency);
+                
             }
 
             //adding cells to footertable
@@ -1228,7 +1235,9 @@ public class pdfDesigner {
             rulesVal.setFontSize(6.0F);
             rulesVal.setFont(gefont);
             for (int i = 0; i < 12; i++) {
-                rulesVal.addCell("2018." + String.valueOf(01 + i) + ".01 - 70 ლარი");
+              //  rulesVal.addCell("2018." + String.valueOf(01 + i) + ".01 - 70 ლარი");
+                         if (schedule[i].equals("")){rulesVal.addCell(schedule[i]+" - ");} else 
+                              rulesVal.addCell(schedule[i] + " - "+ monthlyAmountValue + currency);
             }
 
             //adding cells to footertable

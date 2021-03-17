@@ -15,7 +15,10 @@ import java.sql.Statement;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -660,7 +663,8 @@ public class mainService extends HttpServlet {
                 String country_code = "";
                 String marca = "";
                 String model = "";
-                String carnumber="";
+                String modelname = "";
+                String carnumber = "";
 
                 country_code = tools.functions.jsonget(job, "country_code");
                 if (country_code.equals(null) || country_code.equals("")) {
@@ -689,8 +693,8 @@ public class mainService extends HttpServlet {
                     System.out.println("marca=" + marca);
                     model = tools.functions.jsonget(job, "model");
                     System.out.println("model=" + model);
-                    model = tools.functions.jsonget(job, "model");
-                    System.out.println("model=" + model);
+                    modelname = tools.functions.jsonget(job, "modelname");
+                    System.out.println("modelname=" + modelname);
                     carnumber = tools.functions.jsonget(job, "carnumber");
                     System.out.println("carnumber=" + carnumber);
 
@@ -706,6 +710,42 @@ public class mainService extends HttpServlet {
                     System.out.println("franchise=" + franchise);
 
                 }
+                int pschedule = 0;
+                int ischedule=0;
+                if (paymentschedule.equals("inonce")) {
+                    pschedule = 1;
+                } else if (paymentschedule.equals("inyear2")) {
+                    pschedule = 2; ischedule=6;
+                } else if (paymentschedule.equals("inkvart")) {
+                    pschedule = 4;ischedule=4;
+                } else if (paymentschedule.equals("inmounth")) {
+                    pschedule = 12;ischedule=1;
+                }
+
+                // Make Schedule
+                //         String[] schedule = new String[11];
+                String[] schedule = {"", "", "", "", "", "", "", "", "", "", "", ""};
+                java.util.Date now = new Date();
+                Calendar myCal = Calendar.getInstance();
+                myCal.setTime(now);
+                //      myCal.add(Calendar.MONTH, +1);
+                now = myCal.getTime();
+
+                System.out.println("now=" + now);
+                for (int i = 0; i < pschedule; i++) {
+                    
+                    now = myCal.getTime();
+                    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd ");
+                    //          System.out.println(formatter.format(now));
+                    schedule[i] = formatter.format(now);
+                    System.out.println(schedule[i]);
+
+                    System.out.println("shedule[" + i + "]=" + schedule[i]);
+                    System.out.println(i);
+                    myCal.add(Calendar.MONTH, +1);
+                }
+                
+                // endSchedule
 
                 String pqwr = "select p.name,headergeo,headereng,addressgeo,phone,mail from " + tablename + "_params pp left join provider p on pp.provider_id=p.id where pp.id=" + productid;
                 System.out.println("pqwr=" + pqwr);
@@ -718,7 +758,7 @@ public class mainService extends HttpServlet {
                 String filename = tools.pdfDesigner.makepolice(tablename, userid, insurer, insured, spqwr.get(0)[0], spqwr.get(0)[1],
                         spqwr.get(0)[2], spqwr.get(0)[3], spqwr.get(0)[4], spqwr.get(0)[5], franchise, pnumberinsurer, pnumberinsured, birthday,
                         birthday2, gender, gender2, citizenship_code, citizenship_code2, phone, email, addressinsurer, carvin, year, price0, payprice,
-                        addressinsured, startdate, enddate, tcountry.get(0)[0], marca,model,carnumber,currency);
+                        addressinsured, startdate, enddate, tcountry.get(0)[0], marca, modelname, carnumber, currency,schedule);
                 // make police end
                 String qwr = "insert into order_params (user_id,product_id,product_name,payment_schedule,policyholder,policyowner,company_name,filename,addressinsurer,addressinsured,start_date,end_date)"
                         + " values (" + userid + "," + productid + ",'" + tablename + "','" + paymentschedule + "','" + policyowner + "','"
