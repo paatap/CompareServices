@@ -742,7 +742,7 @@ public class mainService extends HttpServlet {
 
                     System.out.println("shedule[" + i + "]=" + schedule[i]);
                     System.out.println(i);
-                    myCal.add(Calendar.MONTH, +1);
+                    myCal.add(Calendar.MONTH, +ischedule);
                 }
                 
                 // endSchedule
