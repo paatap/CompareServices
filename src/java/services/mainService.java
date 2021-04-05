@@ -650,6 +650,11 @@ public class mainService extends HttpServlet {
                 System.out.println("carvin=" + carvin);
                 String year = tools.functions.jsonget(job, "year");
                 System.out.println("year=" + year);
+                
+                // property
+                String property_address = tools.functions.jsonget(job, "address");
+                System.out.println("property_address=" + property_address);
+                
 
                 String addressinsured = tools.functions.jsonget(job, "2myaddress");
                 System.out.println("address=" + addressinsured);
@@ -684,7 +689,8 @@ public class mainService extends HttpServlet {
                     addressinsured = addressinsurer;
 
                 }
-
+                
+                String covering="";
                 String tablename = type.substring(3);
                 if (tablename.equals("liability")) {
                     tablename = "ma_mtpl";
@@ -702,6 +708,7 @@ public class mainService extends HttpServlet {
                     tablename = "casco";
                 } else if (tablename.equals("property")) {
                     tablename = "property";
+         //           covering=",covering";
                 } else if (tablename.equals("health")) {
                     tablename = "health";
                 } else if (tablename.equals("travel")) {
@@ -747,18 +754,18 @@ public class mainService extends HttpServlet {
                 
                 // endSchedule
 
-                String pqwr = "select p.name,headergeo,headereng,addressgeo,phone,mail from " + tablename + "_params pp left join provider p on pp.provider_id=p.id where pp.id=" + productid;
+                String pqwr = "select p.name,headergeo,headereng,addressgeo,phone,mail,covering from " + tablename + "_params pp left join provider p on pp.provider_id=p.id where pp.id=" + productid;
                 System.out.println("pqwr=" + pqwr);
 
                 ArrayList<String[]> spqwr = tools.functions.getResult(pqwr, tools.functions.isnewcompare);
                 // make police    begin        
                 String insurer = namefirst + " " + namelast;
                 String insured = namefirst_2 + " " + namelast_2;;
-
+                String covered=spqwr.get(0)[6];
                 String filename = tools.pdfDesigner.makepolice(tablename, userid, insurer, insured, spqwr.get(0)[0], spqwr.get(0)[1],
                         spqwr.get(0)[2], spqwr.get(0)[3], spqwr.get(0)[4], spqwr.get(0)[5], franchise, pnumberinsurer, pnumberinsured, birthday,
                         birthday2, gender, gender2, citizenship_code, citizenship_code2, phone, email, addressinsurer, carvin, year, price0, payprice,
-                        addressinsured, startdate, enddate, tcountry.get(0)[0], marca, modelname, carnumber, currency,schedule);
+                        addressinsured, startdate, enddate, tcountry.get(0)[0], marca, modelname, carnumber, currency,schedule,covered,property_address);
                 // make police end
                 String qwr = "insert into order_params (user_id,product_id,product_name,payment_schedule,policyholder,policyowner,company_name,filename,addressinsurer,addressinsured,start_date,end_date)"
                         + " values (" + userid + "," + productid + ",'" + tablename + "','" + paymentschedule + "','" + policyowner + "','"

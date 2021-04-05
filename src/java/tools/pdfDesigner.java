@@ -54,7 +54,8 @@ public class pdfDesigner {
             String pnumberinsured, String bithdayinsurer, String bithdayinsured, String sexinsurer, String sexinsured,
             String cityzenshipinsurer, String cityzenshipinsured, String phoneinsurer, String mailinsurer, String addressinsurer,
             String vincodeValue, String releaseYearValue, String SumAmountValue, String monthlyAmountValue, String addressinsured,
-            String datefrom, String dateto, String countriesvalue, String carMarkValue, String carModelValue, String countrynumValue, String currency,String[] schedule
+            String datefrom, String dateto, String countriesvalue, String carMarkValue, String carModelValue, String countrynumValue, String currency,String[] schedule,
+            String covered, String addressValue
     )
             throws Exception, NullPointerException {
         if (currency.equals("_lari")) {
@@ -537,8 +538,8 @@ public class pdfDesigner {
 //            String insured = "დაზღვეული /Insured person : კოჭლამაზაშვილი მარგარიტა";
             //data for body table
             // data for info table
-            String coverage = "დაფარვა / Coverage ";
-            String limit = "ლიმიტი / Limit";
+//            String coverage = "დაფარვა / Coverage ";
+//            String limit = "ლიმიტი / Limit";
             String cosponsor = "თანადაფინანსება  / Cosponsor";
             String death = "უბედური შემთხვევით გამოწვეული გარდაცვალება";
             String deathValue = "5000  / GEL";
@@ -572,11 +573,21 @@ public class pdfDesigner {
             String provideraddress = "მისამართი / Address";
 //            String provideraddressvalue = "######### ########## # ## ## ## ### #### ###";
 
+
+//new 
+            String header = "დაზღვევის დეტალები / Insurance Details";
+            String risks = "სადაზღვეო რისკები / Risks Insured ";
+            com.itextpdf.layout.element.List riskval = new List();
+            riskval.setFontSize(6.0F);
+             riskval.add("       " + covered);
+// new
+
             // declaring tables
             Table head = new Table(2).useAllAvailableWidth();
             Table headerstrings = new Table(1, true);
             Table body = new Table(2, true);
-            Table info = new Table(3, true);
+            Table info = new Table(2, true);
+ // old           Table info = new Table(3, true);
             Table cperiod = new Table(2, true);
             Table addservices = new Table(2, true);
             Table footertable = new Table(2, true);
@@ -636,50 +647,66 @@ public class pdfDesigner {
             body.addCell(mailinsured);
             body.addCell(addressinsurer);
             body.addCell(addressinsured);
+            
+            
 
             //adding cells to info table
-            Paragraph first = new Paragraph(coverage).setBold();
-            Paragraph second = new Paragraph(limit).setBold();
-            Paragraph third = new Paragraph(cosponsor).setBold();
-            info.addCell(first);
-            info.addCell(second);
-            info.addCell(third);
-            info.addCell(death);
-            info.addCell(deathValue);
-            info.addCell(codeath);
-            info.addCell(nurse);
-            info.addCell(nurseValue);
-            info.addCell(conurse);
-            info.addCell(service);
-            info.addCell(serviceValue);
-            info.addCell(coservice);
-            info.addCell(medicament);
-            info.addCell(medicamentValue);
-            info.addCell(comedicament);
-            info.addCell(stomatolog);
-            info.addCell(stomatologValue);
-            info.addCell(costomatolog);
-            info.addCell(gadauvadebel);
-            info.addCell(gadauvadebelValue);
-            info.addCell(cogadauvadebel);
-            info.addCell(satelofono);
-            info.addCell(satelofonoValue);
-            info.addCell(cosatelofono);
-            info.addCell(medicament);
-            info.addCell(medicamentValue);
-            info.addCell(comedicament);
-            info.addCell(stomatolog);
-            info.addCell(stomatologValue);
-            info.addCell(costomatolog);
-            info.addCell(gadauvadebel);
-            info.addCell(gadauvadebelValue);
-            info.addCell(cogadauvadebel);
-            info.addCell(satelofono);
-            info.addCell(satelofonoValue);
-            info.addCell(cosatelofono);
-            info.addCell(satelofono);
-            info.addCell(satelofonoValue);
-            info.addCell(cosatelofono);
+            //new
+            
+            info.addCell(header);
+            info.addCell(" ");
+            info.addCell(risks);
+            Cell riskebi = new Cell();
+            riskebi.add(riskval);
+            info.addCell(riskebi);
+            
+            
+
+            
+            //new
+//            
+//            Paragraph first = new Paragraph(coverage).setBold();
+//            Paragraph second = new Paragraph(limit).setBold();
+//            Paragraph third = new Paragraph(cosponsor).setBold();
+//            info.addCell(first);
+//            info.addCell(second);
+//            info.addCell(third);
+//            info.addCell(death);
+//            info.addCell(deathValue);
+//            info.addCell(codeath);
+//            info.addCell(nurse);
+//            info.addCell(nurseValue);
+//            info.addCell(conurse);
+//            info.addCell(service);
+//            info.addCell(serviceValue);
+//            info.addCell(coservice);
+//            info.addCell(medicament);
+//            info.addCell(medicamentValue);
+//            info.addCell(comedicament);
+//            info.addCell(stomatolog);
+//            info.addCell(stomatologValue);
+//            info.addCell(costomatolog);
+//            info.addCell(gadauvadebel);
+//            info.addCell(gadauvadebelValue);
+//            info.addCell(cogadauvadebel);
+//            info.addCell(satelofono);
+//            info.addCell(satelofonoValue);
+//            info.addCell(cosatelofono);
+//            info.addCell(medicament);
+//            info.addCell(medicamentValue);
+//            info.addCell(comedicament);
+//            info.addCell(stomatolog);
+//            info.addCell(stomatologValue);
+//            info.addCell(costomatolog);
+//            info.addCell(gadauvadebel);
+//            info.addCell(gadauvadebelValue);
+//            info.addCell(cogadauvadebel);
+//            info.addCell(satelofono);
+//            info.addCell(satelofonoValue);
+//            info.addCell(cosatelofono);
+//            info.addCell(satelofono);
+//            info.addCell(satelofonoValue);
+//            info.addCell(cosatelofono);
 
             //adding cells to money table
             money.addCell(period);
@@ -1046,16 +1073,17 @@ public class pdfDesigner {
             String risks = "სადაზღვეო რისკები / Risks Insured ";
             com.itextpdf.layout.element.List riskval = new List();
             riskval.setFontSize(6.0F);
-            riskval.add("       " + "ხანძარი, მეხის დაცემა, აფეთქება, საჰაერო ხომალდის ან მათი ნაწილების დაცემა.");
-            riskval.add("შტორმი, გრიგალი, ქარიშხალი, წყალდიდობა, სეტყვა, გრუნტის დაჯდომა, მეწყერი, ზვავი, თოვლის ჩამოშლა.");
-            riskval.add("წყლით დაზიანება;დატბორვა");
-            riskval.add("სხვადასხვა საგნების დაცემა");
-            riskval.add("მესამე პირთა მართლსაწინააღმდეგო ქმედება, ვანდალიზმი");
+             riskval.add("       " + covered);
+//            riskval.add("       " + "ხანძარი, მეხის დაცემა, აფეთქება, საჰაერო ხომალდის ან მათი ნაწილების დაცემა.");
+//            riskval.add("შტორმი, გრიგალი, ქარიშხალი, წყალდიდობა, სეტყვა, გრუნტის დაჯდომა, მეწყერი, ზვავი, თოვლის ჩამოშლა.");
+//            riskval.add("წყლით დაზიანება;დატბორვა");
+//            riskval.add("სხვადასხვა საგნების დაცემა");
+//            riskval.add("მესამე პირთა მართლსაწინააღმდეგო ქმედება, ვანდალიზმი");
             Paragraph risksValue = new Paragraph("* დაზღვევის სხვა დეტალური პირობები წარმოდგენილია, მხარეთა მიერ ხელმოწერებით "
                     + "დადასტურებული დანართი #1-ის სახით და წარმოადგენს შესაბამისი ხელშეკრულების და წინამდებარე ქონების დაზღვევის "
                     + "პოლისის განუყოფელ ნაწილს.").setItalic().setFontSize(6.0F);
             String address = "დაზღვეული ქონების მისამართი / Insured Property Address";
-            String addressValue = "მაღაზია MOD - 29, 99 და M9 - 1, სავაჭრო ცენტრი ლილო მოლი, მის. კახეთის გზატკელიცილი N 112";
+  //          addressValue = "მაღაზია MOD - 29, 99 და M9 - 1, სავაჭრო ცენტრი ლილო მოლი, მის. კახეთის გზატკელიცილი N 112";
             String type = "დაზღვეული ქონების ტიპი / Insured Property Type";
             String typeValue = "სასაქონლო-მატერიალური მარაგები, უძრავი ქონება";
             String object = "დაზღვეული ქონების ობიექტი / Insured Property object";
