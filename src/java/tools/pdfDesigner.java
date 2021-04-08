@@ -54,13 +54,13 @@ public class pdfDesigner {
             String pnumberinsured, String bithdayinsurer, String bithdayinsured, String sexinsurer, String sexinsured,
             String cityzenshipinsurer, String cityzenshipinsured, String phoneinsurer, String mailinsurer, String addressinsurer,
             String vincodeValue, String releaseYearValue, String SumAmountValue, String monthlyAmountValue, String addressinsured,
-            String datefrom, String dateto, String countriesvalue, String carMarkValue, String carModelValue, String countrynumValue, String currency,String[] schedule,
+            String datefrom, String dateto, String countriesvalue, String carMarkValue, String carModelValue, String countrynumValue, String currency, String[] schedule,
             String covered, String addressValue
     )
             throws Exception, NullPointerException {
         if (currency.equals("_lari")) {
             currency = " ლარი / GEL";
-        }else if(currency.equals("_usd")) {
+        } else if (currency.equals("_usd")) {
             currency = " USD";
         }
 
@@ -77,10 +77,13 @@ public class pdfDesigner {
 
         String mounthly = " თვიური / Mounthly";
         String mounthlyValue = monthlyAmountValue + currency;
-        String responsibility = "პასუხისმგებლობის დეტალები / Responsibility Details ";
-        String parameters = "პარამეტრების ცვლილება / Change Parameters";
+        String responsibility = "დაზღვევის დეტალები / Insurance Details ";
+        String parameters = "";
         String countrynum = "სახელმწიფო ნომერი / Country code";
-
+        String providerphone = "საკონტაქტო ტელეფონის ნომერი /Contact phone numbers";
+        pheadergeo=pheadergeo+" "+providerphone+" "+providerphonevalue;
+        pheadereng=pheadereng+" "+providerphone+" "+providerphonevalue;
+      //provideraddressvalue+" "+providerphone+" "+providerphonevalue;
         String carMark = "მარკა/ Mark ";
 
         String carModel = "მოდელი / Model";
@@ -169,7 +172,7 @@ public class pdfDesigner {
             String signature = "ელექტრონული ხელმოწერა / Signature";
             String providermail = "მეილი / Contact email";
             //           String providermailvalue = "####################@##########";
-            String providerphone = "საკონტაქტო ტელეფონის ნომერი /Contact phone numbers";
+//            String providerphone = "საკონტაქტო ტელეფონის ნომერი /Contact phone numbers";
             //          String providerphonevalue = "##########";
             String provideraddress = "მისამართი/Address";
             //           String provideraddressvalue = "######### ########## # ## ## ## ### #### ###";
@@ -254,7 +257,8 @@ public class pdfDesigner {
 
             //adding cells to footertable
             footertable.addCell(signature).setHorizontalAlignment(HorizontalAlignment.CENTER);
-            footertable.addCell(stmp.scale(0.08F, 0.08F).setHorizontalAlignment(HorizontalAlignment.CENTER));
+            //          footertable.addCell(stmp.scale(0.08F, 0.08F).setHorizontalAlignment(HorizontalAlignment.CENTER));
+            footertable.addCell(stmp.scale(0.5F, 0.5F).setHorizontalAlignment(HorizontalAlignment.CENTER));
             footertable.addCell(providermail);
             footertable.addCell(providermailvalue);
             footertable.addCell(providerphone);
@@ -333,7 +337,7 @@ public class pdfDesigner {
             String signature = "ელექტრონული ხელმოწერა / Signature";
             String providermail = "მეილი / Contact email";
             //           String providermailvaluer = "####################@##########";
-            String providerphone = "საკონტაქტო ტელეფონის ნომერი /Contact phone numbers";
+
 //            String providerphonevalue = "##########";
             String provideraddress = "მისამართი/Address";
 //            String provideraddressvalue = "######### ########## # ## ## ## ### #### ###";
@@ -405,52 +409,52 @@ public class pdfDesigner {
             body.addCell(addressinsured);
 
             //adding cells to coverage table
-            Paragraph fs = new Paragraph(coverage0).setBold();
-            Paragraph sec = new Paragraph(limit0).setBold();
-            Paragraph thr = new Paragraph(cosponsor0).setBold();
-            coverage.addCell(fs);
-            coverage.addCell(sec);
-            coverage.addCell(thr);
-            coverage.addCell(coverage1);
-            coverage.addCell(limit1);
-            coverage.addCell(cosponsor1);
-            coverage.addCell(coverage2);
-            coverage.addCell(limit2);
-            coverage.addCell(cosponsor2);
-            coverage.addCell(coverage3);
-            coverage.addCell(limit3);
-            coverage.addCell(cosponsor3);
-            coverage.addCell(coverage4);
-            coverage.addCell(limit4);
-            coverage.addCell(cosponsor4);
-            coverage.addCell(coverage5);
-            coverage.addCell(limit5);
-            coverage.addCell(cosponsor5);
-            coverage.addCell(coverage6);
-            coverage.addCell(limit6);
-            coverage.addCell(cosponsor6);
-            coverage.addCell(coverage7);
-            coverage.addCell(limit7);
-            coverage.addCell(cosponsor7);
-            coverage.addCell(coverage8);
-            coverage.addCell(limit8);
-            coverage.addCell(cosponsor8);
-            coverage.addCell(coverage9);
-            coverage.addCell(limit9);
-            coverage.addCell(cosponsor9);
-            coverage.addCell(coverage10);
-            coverage.addCell(limit10);
-            coverage.addCell(cosponsor10);
-            coverage.addCell(coverage11);
-            coverage.addCell(limit11);
-            coverage.addCell(cosponsor11);
-            coverage.addCell(coverage12);
-            coverage.addCell(limit12);
-            coverage.addCell(cosponsor12);
-
+//            Paragraph fs = new Paragraph(coverage0).setBold();
+//            Paragraph sec = new Paragraph(limit0).setBold();
+//            Paragraph thr = new Paragraph(cosponsor0).setBold();
+//            coverage.addCell(fs);
+//            coverage.addCell(sec);
+//            coverage.addCell(thr);
+//            coverage.addCell(coverage1);
+//            coverage.addCell(limit1);
+//            coverage.addCell(cosponsor1);
+//            coverage.addCell(coverage2);
+//            coverage.addCell(limit2);
+//            coverage.addCell(cosponsor2);
+//            coverage.addCell(coverage3);
+//            coverage.addCell(limit3);
+//            coverage.addCell(cosponsor3);
+//            coverage.addCell(coverage4);
+//            coverage.addCell(limit4);
+//            coverage.addCell(cosponsor4);
+//            coverage.addCell(coverage5);
+//            coverage.addCell(limit5);
+//            coverage.addCell(cosponsor5);
+//            coverage.addCell(coverage6);
+//            coverage.addCell(limit6);
+//            coverage.addCell(cosponsor6);
+//            coverage.addCell(coverage7);
+//            coverage.addCell(limit7);
+//            coverage.addCell(cosponsor7);
+//            coverage.addCell(coverage8);
+//            coverage.addCell(limit8);
+//            coverage.addCell(cosponsor8);
+//            coverage.addCell(coverage9);
+//            coverage.addCell(limit9);
+//            coverage.addCell(cosponsor9);
+//            coverage.addCell(coverage10);
+//            coverage.addCell(limit10);
+//            coverage.addCell(cosponsor10);
+//            coverage.addCell(coverage11);
+//            coverage.addCell(limit11);
+//            coverage.addCell(cosponsor11);
+//            coverage.addCell(coverage12);
+//            coverage.addCell(limit12);
+//            coverage.addCell(cosponsor12);
             //adding cells to info table
             Paragraph second = new Paragraph(parameters).setFontColor(ColorConstants.BLUE);
             info.addCell(responsibility);
+            // 
             info.addCell(second);
             info.addCell(countrynum);
             info.addCell(countrynumValue);
@@ -472,8 +476,8 @@ public class pdfDesigner {
             money.addCell(coveragelimitvalue);
             money.addCell(monthlyAmount);
             money.addCell(monthlyAmountValue);
-            money.addCell(InsuranceBill).setBorder(null);
-            money.addCell(InsuranceBillValue).setBorder(null);
+//            money.addCell(InsuranceBill).setBorder(null);
+//            money.addCell(InsuranceBillValue).setBorder(null);
             money.addCell(SumAmount).setBorder(null);
             money.addCell(SumAmountValue).setBorder(null);
 
@@ -486,14 +490,18 @@ public class pdfDesigner {
             rulesVal.setFontSize(6.0F);
             rulesVal.setFont(gefont);
             for (int i = 0; i < 12; i++) {
-              //  rulesVal.addCell("2018." + String.valueOf(01 + i) + ".01 - 70 ლარი");
-             if (schedule[i].equals("")){rulesVal.addCell(schedule[i]+" - ");} else 
-                rulesVal.addCell(schedule[i]+" - "+ monthlyAmountValue + currency);
+                //  rulesVal.addCell("2018." + String.valueOf(01 + i) + ".01 - 70 ლარი");
+                if (schedule[i].equals("")) {
+                    rulesVal.addCell(schedule[i] + " - ");
+                } else {
+                    rulesVal.addCell(schedule[i] + " - " + monthlyAmountValue + currency);
+                }
             }
 
             //adding cells to footertable
             footertable.addCell(signature).setHorizontalAlignment(HorizontalAlignment.CENTER);
-            footertable.addCell(stmp.scale(0.08F, 0.08F).setHorizontalAlignment(HorizontalAlignment.CENTER));
+            //          footertable.addCell(stmp.scale(0.08F, 0.08F).setHorizontalAlignment(HorizontalAlignment.CENTER));
+            footertable.addCell(stmp.scale(0.5F, 0.5F).setHorizontalAlignment(HorizontalAlignment.CENTER));
             footertable.addCell(providermail);
             footertable.addCell(providermailvalue);
             footertable.addCell(providerphone);
@@ -568,18 +576,17 @@ public class pdfDesigner {
             String signature = "ელექტრონული ხელმოწერა / Signature";
             String providermail = "მეილი / Contact email";
             //          String providermailvaluer = "####################@##########";
-            String providerphone = "საკონტაქტო ტელეფონის ნომერი / Contact phone numbers";
+//            String providerphone = "საკონტაქტო ტელეფონის ნომერი / Contact phone numbers";
 //            String providerphonevalue = "##########";
             String provideraddress = "მისამართი / Address";
 //            String provideraddressvalue = "######### ########## # ## ## ## ### #### ###";
-
 
 //new 
             String header = "დაზღვევის დეტალები / Insurance Details";
             String risks = "სადაზღვეო რისკები / Risks Insured ";
             com.itextpdf.layout.element.List riskval = new List();
             riskval.setFontSize(6.0F);
-             riskval.add("       " + covered);
+            riskval.add("       " + covered);
 // new
 
             // declaring tables
@@ -587,7 +594,7 @@ public class pdfDesigner {
             Table headerstrings = new Table(1, true);
             Table body = new Table(2, true);
             Table info = new Table(2, true);
- // old           Table info = new Table(3, true);
+            // old           Table info = new Table(3, true);
             Table cperiod = new Table(2, true);
             Table addservices = new Table(2, true);
             Table footertable = new Table(2, true);
@@ -647,22 +654,16 @@ public class pdfDesigner {
             body.addCell(mailinsured);
             body.addCell(addressinsurer);
             body.addCell(addressinsured);
-            
-            
 
             //adding cells to info table
             //new
-            
             info.addCell(header);
             info.addCell(" ");
             info.addCell(risks);
             Cell riskebi = new Cell();
             riskebi.add(riskval);
             info.addCell(riskebi);
-            
-            
 
-            
             //new
 //            
 //            Paragraph first = new Paragraph(coverage).setBold();
@@ -707,7 +708,6 @@ public class pdfDesigner {
 //            info.addCell(satelofono);
 //            info.addCell(satelofonoValue);
 //            info.addCell(cosatelofono);
-
             //adding cells to money table
             money.addCell(period);
             cperiod.addCell(datefrom);
@@ -729,14 +729,18 @@ public class pdfDesigner {
             rulesVal.setFontSize(6.0F);
             rulesVal.setFont(gefont);
             for (int i = 0; i < 12; i++) {
-              //  rulesVal.addCell("2018." + String.valueOf(01 + i) + ".01 - 70 ლარი");
-                            if (schedule[i].equals("")){rulesVal.addCell(schedule[i]+" - ");} else 
-                rulesVal.addCell(schedule[i]+" - "+ monthlyAmountValue + currency);
+                //  rulesVal.addCell("2018." + String.valueOf(01 + i) + ".01 - 70 ლარი");
+                if (schedule[i].equals("")) {
+                    rulesVal.addCell(schedule[i] + " - ");
+                } else {
+                    rulesVal.addCell(schedule[i] + " - " + monthlyAmountValue + currency);
+                }
             }
 
             //adding cells to footertable
             footertable.addCell(signature).setHorizontalAlignment(HorizontalAlignment.CENTER);
-            footertable.addCell(stmp.scale(0.08F, 0.08F).setHorizontalAlignment(HorizontalAlignment.CENTER));
+            //           footertable.addCell(stmp.scale(0.08F, 0.08F).setHorizontalAlignment(HorizontalAlignment.CENTER));
+            footertable.addCell(stmp.scale(0.5F, 0.5F).setHorizontalAlignment(HorizontalAlignment.CENTER));
             footertable.addCell(providermail);
             footertable.addCell(providermailvalue);
             footertable.addCell(providerphone);
@@ -822,7 +826,7 @@ public class pdfDesigner {
             String signature = "ელექტრონული ხელმოწერა / Signature";
             String providermail = "მეილი / Contact email";
             //           String providermailvaluer = "####################@##########";
-            String providerphone = "საკონტაქტო ტელეფონის ნომერი /Contact phone numbers";
+//            String providerphone = "საკონტაქტო ტელეფონის ნომერი /Contact phone numbers";
 //            String providerphonevalue = "##########";
             String provideraddress = "მისამართი/Address";
 //            String provideraddressvalue = "######### ########## # ## ## ## ### #### ###";
@@ -892,49 +896,48 @@ public class pdfDesigner {
             body.addCell(addressinsured);
 
             //adding cells to coverage table
-            Paragraph fs = new Paragraph(coverage0).setBold();
-            Paragraph sec = new Paragraph(limit0).setBold();
-            Paragraph thr = new Paragraph(cosponsor0).setBold();
-            coverage.addCell(fs);
-            coverage.addCell(sec);
-            coverage.addCell(thr);
-            coverage.addCell(coverage1);
-            coverage.addCell(limit1);
-            coverage.addCell(cosponsor1);
-            coverage.addCell(coverage2);
-            coverage.addCell(limit2);
-            coverage.addCell(cosponsor2);
-            coverage.addCell(coverage3);
-            coverage.addCell(limit3);
-            coverage.addCell(cosponsor3);
-            coverage.addCell(coverage4);
-            coverage.addCell(limit4);
-            coverage.addCell(cosponsor4);
-            coverage.addCell(coverage5);
-            coverage.addCell(limit5);
-            coverage.addCell(cosponsor5);
-            coverage.addCell(coverage6);
-            coverage.addCell(limit6);
-            coverage.addCell(cosponsor6);
-            coverage.addCell(coverage7);
-            coverage.addCell(limit7);
-            coverage.addCell(cosponsor7);
-            coverage.addCell(coverage8);
-            coverage.addCell(limit8);
-            coverage.addCell(cosponsor8);
-            coverage.addCell(coverage9);
-            coverage.addCell(limit9);
-            coverage.addCell(cosponsor9);
-            coverage.addCell(coverage10);
-            coverage.addCell(limit10);
-            coverage.addCell(cosponsor10);
-            coverage.addCell(coverage11);
-            coverage.addCell(limit11);
-            coverage.addCell(cosponsor11);
-            coverage.addCell(coverage12);
-            coverage.addCell(limit12);
-            coverage.addCell(cosponsor12);
-
+//            Paragraph fs = new Paragraph(coverage0).setBold();
+//            Paragraph sec = new Paragraph(limit0).setBold();
+//            Paragraph thr = new Paragraph(cosponsor0).setBold();
+//            coverage.addCell(fs);
+//            coverage.addCell(sec);
+//            coverage.addCell(thr);
+//            coverage.addCell(coverage1);
+//            coverage.addCell(limit1);
+//            coverage.addCell(cosponsor1);
+//            coverage.addCell(coverage2);
+//            coverage.addCell(limit2);
+//            coverage.addCell(cosponsor2);
+//            coverage.addCell(coverage3);
+//            coverage.addCell(limit3);
+//            coverage.addCell(cosponsor3);
+//            coverage.addCell(coverage4);
+//            coverage.addCell(limit4);
+//            coverage.addCell(cosponsor4);
+//            coverage.addCell(coverage5);
+//            coverage.addCell(limit5);
+//            coverage.addCell(cosponsor5);
+//            coverage.addCell(coverage6);
+//            coverage.addCell(limit6);
+//            coverage.addCell(cosponsor6);
+//            coverage.addCell(coverage7);
+//            coverage.addCell(limit7);
+//            coverage.addCell(cosponsor7);
+//            coverage.addCell(coverage8);
+//            coverage.addCell(limit8);
+//            coverage.addCell(cosponsor8);
+//            coverage.addCell(coverage9);
+//            coverage.addCell(limit9);
+//            coverage.addCell(cosponsor9);
+//            coverage.addCell(coverage10);
+//            coverage.addCell(limit10);
+//            coverage.addCell(cosponsor10);
+//            coverage.addCell(coverage11);
+//            coverage.addCell(limit11);
+//            coverage.addCell(cosponsor11);
+//            coverage.addCell(coverage12);
+//            coverage.addCell(limit12);
+//            coverage.addCell(cosponsor12);
             //adding cells to info table
             Paragraph second = new Paragraph(parameters).setFontColor(ColorConstants.BLUE);
             info.addCell(responsibility);
@@ -973,15 +976,19 @@ public class pdfDesigner {
             rulesVal.setFontSize(6.0F);
             rulesVal.setFont(gefont);
             for (int i = 0; i < 12; i++) {
-            //    rulesVal.addCell("2018." + String.valueOf(01 + i) + ".01 - 70 ლარი");
-                         if (schedule[i].equals("")){rulesVal.addCell(schedule[i]+" - ");} else 
-                rulesVal.addCell(schedule[i]+" - "+ monthlyAmountValue + currency);
-                
+                //    rulesVal.addCell("2018." + String.valueOf(01 + i) + ".01 - 70 ლარი");
+                if (schedule[i].equals("")) {
+                    rulesVal.addCell(schedule[i] + " - ");
+                } else {
+                    rulesVal.addCell(schedule[i] + " - " + monthlyAmountValue + currency);
+                }
+
             }
 
             //adding cells to footertable
             footertable.addCell(signature).setHorizontalAlignment(HorizontalAlignment.CENTER);
-            footertable.addCell(stmp.scale(0.08F, 0.08F).setHorizontalAlignment(HorizontalAlignment.CENTER));
+            //           footertable.addCell(stmp.scale(0.08F, 0.08F).setHorizontalAlignment(HorizontalAlignment.CENTER));
+            footertable.addCell(stmp.scale(0.5F, 0.5F).setHorizontalAlignment(HorizontalAlignment.CENTER));
             footertable.addCell(providermail);
             footertable.addCell(providermailvalue);
             footertable.addCell(providerphone);
@@ -1073,7 +1080,7 @@ public class pdfDesigner {
             String risks = "სადაზღვეო რისკები / Risks Insured ";
             com.itextpdf.layout.element.List riskval = new List();
             riskval.setFontSize(6.0F);
-             riskval.add("       " + covered);
+            riskval.add("       " + covered);
 //            riskval.add("       " + "ხანძარი, მეხის დაცემა, აფეთქება, საჰაერო ხომალდის ან მათი ნაწილების დაცემა.");
 //            riskval.add("შტორმი, გრიგალი, ქარიშხალი, წყალდიდობა, სეტყვა, გრუნტის დაჯდომა, მეწყერი, ზვავი, თოვლის ჩამოშლა.");
 //            riskval.add("წყლით დაზიანება;დატბორვა");
@@ -1083,7 +1090,7 @@ public class pdfDesigner {
                     + "დადასტურებული დანართი #1-ის სახით და წარმოადგენს შესაბამისი ხელშეკრულების და წინამდებარე ქონების დაზღვევის "
                     + "პოლისის განუყოფელ ნაწილს.").setItalic().setFontSize(6.0F);
             String address = "დაზღვეული ქონების მისამართი / Insured Property Address";
-  //          addressValue = "მაღაზია MOD - 29, 99 და M9 - 1, სავაჭრო ცენტრი ლილო მოლი, მის. კახეთის გზატკელიცილი N 112";
+            //          addressValue = "მაღაზია MOD - 29, 99 და M9 - 1, სავაჭრო ცენტრი ლილო მოლი, მის. კახეთის გზატკელიცილი N 112";
             String type = "დაზღვეული ქონების ტიპი / Insured Property Type";
             String typeValue = "სასაქონლო-მატერიალური მარაგები, უძრავი ქონება";
             String object = "დაზღვეული ქონების ობიექტი / Insured Property object";
@@ -1105,7 +1112,7 @@ public class pdfDesigner {
             String signature = "ელექტრონული ხელმოწერა / Signature";
             String providermail = "მეილი / Contact email";
             //           String providermailvaluer = "####################@##########";
-            String providerphone = "საკონტაქტო ტელეფონის ნომერი /Contact phone numbers";
+//            String providerphone = "საკონტაქტო ტელეფონის ნომერი /Contact phone numbers";
 //            String providerphonevalue = "##########";
             String provideraddress = "მისამართი/Address";
 //            String provideraddressvalue = "######### ########## # ## ## ## ### #### ###";
@@ -1178,49 +1185,48 @@ public class pdfDesigner {
             body.addCell(addressinsured);
 
             //adding cells to coverage table
-            Paragraph fs = new Paragraph(coverage0).setBold();
-            Paragraph sec = new Paragraph(limit0).setBold();
-            Paragraph thr = new Paragraph(cosponsor0).setBold();
-            coverage.addCell(fs);
-            coverage.addCell(sec);
-            coverage.addCell(thr);
-            coverage.addCell(coverage1);
-            coverage.addCell(limit1);
-            coverage.addCell(cosponsor1);
-            coverage.addCell(coverage2);
-            coverage.addCell(limit2);
-            coverage.addCell(cosponsor2);
-            coverage.addCell(coverage3);
-            coverage.addCell(limit3);
-            coverage.addCell(cosponsor3);
-            coverage.addCell(coverage4);
-            coverage.addCell(limit4);
-            coverage.addCell(cosponsor4);
-            coverage.addCell(coverage5);
-            coverage.addCell(limit5);
-            coverage.addCell(cosponsor5);
-            coverage.addCell(coverage6);
-            coverage.addCell(limit6);
-            coverage.addCell(cosponsor6);
-            coverage.addCell(coverage7);
-            coverage.addCell(limit7);
-            coverage.addCell(cosponsor7);
-            coverage.addCell(coverage8);
-            coverage.addCell(limit8);
-            coverage.addCell(cosponsor8);
-            coverage.addCell(coverage9);
-            coverage.addCell(limit9);
-            coverage.addCell(cosponsor9);
-            coverage.addCell(coverage10);
-            coverage.addCell(limit10);
-            coverage.addCell(cosponsor10);
-            coverage.addCell(coverage11);
-            coverage.addCell(limit11);
-            coverage.addCell(cosponsor11);
-            coverage.addCell(coverage12);
-            coverage.addCell(limit12);
-            coverage.addCell(cosponsor12);
-
+//            Paragraph fs = new Paragraph(coverage0).setBold();
+//            Paragraph sec = new Paragraph(limit0).setBold();
+//            Paragraph thr = new Paragraph(cosponsor0).setBold();
+//            coverage.addCell(fs);
+//            coverage.addCell(sec);
+//            coverage.addCell(thr);
+//            coverage.addCell(coverage1);
+//            coverage.addCell(limit1);
+//            coverage.addCell(cosponsor1);
+//            coverage.addCell(coverage2);
+//            coverage.addCell(limit2);
+//            coverage.addCell(cosponsor2);
+//            coverage.addCell(coverage3);
+//            coverage.addCell(limit3);
+//            coverage.addCell(cosponsor3);
+//            coverage.addCell(coverage4);
+//            coverage.addCell(limit4);
+//            coverage.addCell(cosponsor4);
+//            coverage.addCell(coverage5);
+//            coverage.addCell(limit5);
+//            coverage.addCell(cosponsor5);
+//            coverage.addCell(coverage6);
+//            coverage.addCell(limit6);
+//            coverage.addCell(cosponsor6);
+//            coverage.addCell(coverage7);
+//            coverage.addCell(limit7);
+//            coverage.addCell(cosponsor7);
+//            coverage.addCell(coverage8);
+//            coverage.addCell(limit8);
+//            coverage.addCell(cosponsor8);
+//            coverage.addCell(coverage9);
+//            coverage.addCell(limit9);
+//            coverage.addCell(cosponsor9);
+//            coverage.addCell(coverage10);
+//            coverage.addCell(limit10);
+//            coverage.addCell(cosponsor10);
+//            coverage.addCell(coverage11);
+//            coverage.addCell(limit11);
+//            coverage.addCell(cosponsor11);
+//            coverage.addCell(coverage12);
+//            coverage.addCell(limit12);
+//            coverage.addCell(cosponsor12);
             //adding cells to info table
             info.addCell(header);
             info.addCell(" ");
@@ -1263,9 +1269,12 @@ public class pdfDesigner {
             rulesVal.setFontSize(6.0F);
             rulesVal.setFont(gefont);
             for (int i = 0; i < 12; i++) {
-              //  rulesVal.addCell("2018." + String.valueOf(01 + i) + ".01 - 70 ლარი");
-                         if (schedule[i].equals("")){rulesVal.addCell(schedule[i]+" - ");} else 
-                              rulesVal.addCell(schedule[i] + " - "+ monthlyAmountValue + currency);
+                //  rulesVal.addCell("2018." + String.valueOf(01 + i) + ".01 - 70 ლარი");
+                if (schedule[i].equals("")) {
+                    rulesVal.addCell(schedule[i] + " - ");
+                } else {
+                    rulesVal.addCell(schedule[i] + " - " + monthlyAmountValue + currency);
+                }
             }
 
             //adding cells to footertable
@@ -1278,7 +1287,8 @@ public class pdfDesigner {
             footertable.addCell(provideraddress);
             footertable.addCell(provideraddressvalue);
             footertable.addCell(signature).setHorizontalAlignment(HorizontalAlignment.CENTER);
-            footertable.addCell(stmp.scale(0.08F, 0.08F).setHorizontalAlignment(HorizontalAlignment.CENTER));
+            //           footertable.addCell(stmp.scale(0.08F, 0.08F).setHorizontalAlignment(HorizontalAlignment.CENTER));
+            footertable.addCell(stmp.scale(0.5F, 0.5F).setHorizontalAlignment(HorizontalAlignment.CENTER));
 
             //adding tables to the doc
             doc.add(head);
