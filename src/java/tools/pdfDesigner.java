@@ -81,9 +81,9 @@ public class pdfDesigner {
         String parameters = "";
         String countrynum = "სახელმწიფო ნომერი / Country code";
         String providerphone = "საკონტაქტო ტელეფონის ნომერი /Contact phone numbers";
-        pheadergeo=pheadergeo+" "+providerphone+" "+providerphonevalue;
-        pheadereng=pheadereng+" "+providerphone+" "+providerphonevalue;
-      //provideraddressvalue+" "+providerphone+" "+providerphonevalue;
+        pheadergeo = pheadergeo + "" + provideraddressvalue + " " + providerphone + " " + providerphonevalue;
+        pheadereng = pheadereng + "" + provideraddressvalue + " " + providerphone + " " + providerphonevalue;
+        //provideraddressvalue+" "+providerphone+" "+providerphonevalue;
         String carMark = "მარკა/ Mark ";
 
         String carModel = "მოდელი / Model";
@@ -111,6 +111,7 @@ public class pdfDesigner {
         sexinsured = "სქესი / Gender : " + sexinsured;
 
         cityzenshipinsurer = "მოქალაქეობა/Citizenship : " + cityzenshipinsurer;
+        System.out.println("cityzenshipinsured===  " + cityzenshipinsured);
         cityzenshipinsured = "მოქალაქეობა/Citizenship : " + cityzenshipinsured;
 
         mailinsurer = "მეილი / Email :" + mailinsurer;
@@ -258,7 +259,7 @@ public class pdfDesigner {
             //adding cells to footertable
             footertable.addCell(signature).setHorizontalAlignment(HorizontalAlignment.CENTER);
             //          footertable.addCell(stmp.scale(0.08F, 0.08F).setHorizontalAlignment(HorizontalAlignment.CENTER));
-            footertable.addCell(stmp.scale(0.5F, 0.5F).setHorizontalAlignment(HorizontalAlignment.CENTER));
+            footertable.addCell(stmp.scale(0.75F, 0.75F).setHorizontalAlignment(HorizontalAlignment.CENTER));
             footertable.addCell(providermail);
             footertable.addCell(providermailvalue);
             footertable.addCell(providerphone);
@@ -347,6 +348,7 @@ public class pdfDesigner {
             Table headerstrings = new Table(1, true);
             Table body = new Table(2, true);
             Table coverage = new Table(3, true);
+            Table infohead = new Table(1, true);
             Table info = new Table(2, true);
             Table cperiod = new Table(2, true);
             Table addservices = new Table(2, true);
@@ -358,6 +360,7 @@ public class pdfDesigner {
             headerstrings.setFont(gefont);
             body.setFont(gefont);
             coverage.setFont(gefont);
+            infohead.setFont(gefont);
             info.setFont(gefont);
             money.setFont(gefont);
             cperiod.setFont(gefont);
@@ -369,6 +372,7 @@ public class pdfDesigner {
             body.setFontSize(6.0F);
             body.setFontSize(6.0F);
             coverage.setFontSize(6.0F);
+            infohead.setFontSize(6.0F);
             info.setFontSize(6.0F);
             money.setFontSize(6.0F);
             cperiod.setFontSize(6.0F);
@@ -453,9 +457,11 @@ public class pdfDesigner {
 //            coverage.addCell(cosponsor12);
             //adding cells to info table
             Paragraph second = new Paragraph(parameters).setFontColor(ColorConstants.BLUE);
-            info.addCell(responsibility);
+
+            infohead.addCell(responsibility);
+
             // 
-            info.addCell(second);
+            //info.addCell(second);
             info.addCell(countrynum);
             info.addCell(countrynumValue);
             info.addCell(vincode);
@@ -500,8 +506,8 @@ public class pdfDesigner {
 
             //adding cells to footertable
             footertable.addCell(signature).setHorizontalAlignment(HorizontalAlignment.CENTER);
-            //          footertable.addCell(stmp.scale(0.08F, 0.08F).setHorizontalAlignment(HorizontalAlignment.CENTER));
-            footertable.addCell(stmp.scale(0.5F, 0.5F).setHorizontalAlignment(HorizontalAlignment.CENTER));
+
+            footertable.addCell(stmp.scale(0.75F, 0.75F).setHorizontalAlignment(HorizontalAlignment.CENTER));
             footertable.addCell(providermail);
             footertable.addCell(providermailvalue);
             footertable.addCell(providerphone);
@@ -518,11 +524,15 @@ public class pdfDesigner {
             doc.add(body);
             body.complete();
             //setting gap between body and coverage
-            coverage.setMarginTop(14f);
-            doc.add(coverage);
-            coverage.complete();
+//            coverage.setMarginTop(14f);
+//            doc.add(coverage);
+//            coverage.complete();
             //setting gap between coverage and info
-            info.setMarginTop(14f);
+            infohead.setMarginTop(14f);
+            doc.add(infohead);
+            infohead.complete();
+
+            //         info.setMarginTop(14f);
             doc.add(info);
             info.complete();
             money.setMarginTop(14f);
@@ -739,8 +749,7 @@ public class pdfDesigner {
 
             //adding cells to footertable
             footertable.addCell(signature).setHorizontalAlignment(HorizontalAlignment.CENTER);
-            //           footertable.addCell(stmp.scale(0.08F, 0.08F).setHorizontalAlignment(HorizontalAlignment.CENTER));
-            footertable.addCell(stmp.scale(0.5F, 0.5F).setHorizontalAlignment(HorizontalAlignment.CENTER));
+            footertable.addCell(stmp.scale(0.75F, 0.75F).setHorizontalAlignment(HorizontalAlignment.CENTER));
             footertable.addCell(providermail);
             footertable.addCell(providermailvalue);
             footertable.addCell(providerphone);
@@ -987,8 +996,7 @@ public class pdfDesigner {
 
             //adding cells to footertable
             footertable.addCell(signature).setHorizontalAlignment(HorizontalAlignment.CENTER);
-            //           footertable.addCell(stmp.scale(0.08F, 0.08F).setHorizontalAlignment(HorizontalAlignment.CENTER));
-            footertable.addCell(stmp.scale(0.5F, 0.5F).setHorizontalAlignment(HorizontalAlignment.CENTER));
+            footertable.addCell(stmp.scale(0.75F, 0.75F).setHorizontalAlignment(HorizontalAlignment.CENTER));
             footertable.addCell(providermail);
             footertable.addCell(providermailvalue);
             footertable.addCell(providerphone);
@@ -1287,8 +1295,7 @@ public class pdfDesigner {
             footertable.addCell(provideraddress);
             footertable.addCell(provideraddressvalue);
             footertable.addCell(signature).setHorizontalAlignment(HorizontalAlignment.CENTER);
-            //           footertable.addCell(stmp.scale(0.08F, 0.08F).setHorizontalAlignment(HorizontalAlignment.CENTER));
-            footertable.addCell(stmp.scale(0.5F, 0.5F).setHorizontalAlignment(HorizontalAlignment.CENTER));
+            footertable.addCell(stmp.scale(0.75F, 0.75F).setHorizontalAlignment(HorizontalAlignment.CENTER));
 
             //adding tables to the doc
             doc.add(head);

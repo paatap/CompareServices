@@ -634,7 +634,7 @@ public class mainService extends HttpServlet {
                 System.out.println("gender2=" + gender2);
                 String citizenship_code = tools.functions.jsonget(job, "citizenship_code");
                 System.out.println("citizenship_code=" + citizenship_code);
-                String citizenship_code2 = tools.functions.jsonget(job, "2citizenship_coder");
+                String citizenship_code2 = tools.functions.jsonget(job, "2citizenship_code");
                 System.out.println("citizenship_code2=" + citizenship_code2);
                 String phone = tools.functions.jsonget(job, "phone");
                 System.out.println("phone=" + phone);
@@ -680,11 +680,15 @@ public class mainService extends HttpServlet {
                 System.out.println("countryqwe=" + countryqwe);
                 ArrayList<String[]> tcountry = tools.functions.getResult(countryqwe, tools.functions.isnewcompare);
                 System.out.println("2 tcountry=     " + tcountry.get(0)[0]);
+                
+                
+                
 
                 if (forwho.equals("forme")) {
                     pnumberinsured = "pnumberinsurer";
                     birthday2 = birthday;
                     gender2 = gender;
+                    System.out.println("forwho= "+forwho);
                     citizenship_code2 = citizenship_code;
                     addressinsured = addressinsurer;
 
@@ -1075,6 +1079,9 @@ public class mainService extends HttpServlet {
 
                 String model = tools.functions.jsonget(job, "model");
                 System.out.println("model=" + model);
+                
+                String modelname = tools.functions.jsonget(job, "modelname");
+                System.out.println("modelname=" + modelname);
 
                 String caryear = tools.functions.jsonget(job, "year");
                 System.out.println("caryear=" + caryear);
@@ -1146,7 +1153,7 @@ public class mainService extends HttpServlet {
                             + "<tr><td><b>სახელმწიფო ნომერი</b></td><td>" + carnumber + "</td></tr>\\n"
                             + "<tr><td><b>ვინკოდი</b></td><td>" + carvin + "</td></tr>\\n"
                             + "<tr><td><b>მარკა</b></td><td>" + marca + "</td></tr>\\n"
-                            + "<tr><td><b>მოდელი</b></td><td>" + model + "</td></tr>\\n"
+                            + "<tr><td><b>მოდელი</b></td><td>" + modelname + "</td></tr>\\n"
                             + "<tr><td><b>წელი</b></td><td>" + caryear + "</td></tr>\\n"
                             + "<tr><td><b>სადაზღვევო პერიოდი</b></td><td>" + datestart + "-" + dateend + "</td></tr>\\n"
                             + "<tr><td><b>სადაზღვევო თანხა</b> </td><td>" + liabilitylimit + " " + currency + "</td></tr>\\n"
