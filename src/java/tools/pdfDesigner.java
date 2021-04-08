@@ -78,12 +78,14 @@ public class pdfDesigner {
         String mounthly = " თვიური / Mounthly";
         String mounthlyValue = monthlyAmountValue + currency;
         String responsibility = "დაზღვევის დეტალები / Insurance Details ";
+        String policyinfoheader = "ინფორმაცია პოლისის შესახებ/Police Info ";
         String parameters = "";
         String countrynum = "სახელმწიფო ნომერი / Country code";
         String providerphone = "საკონტაქტო ტელეფონის ნომერი /Contact phone numbers";
         pheadergeo = pheadergeo + "" + provideraddressvalue + " " + providerphone + " " + providerphonevalue;
         pheadereng = pheadereng + "" + provideraddressvalue + " " + providerphone + " " + providerphonevalue;
         //provideraddressvalue+" "+providerphone+" "+providerphonevalue;
+        
         String carMark = "მარკა/ Mark ";
 
         String carModel = "მოდელი / Model";
@@ -156,7 +158,7 @@ public class pdfDesigner {
 
             //data for head table
             // data for info table
-            String policyinfoheader = "ინფორმაცია პოლისის შესახებ/Police Info ";
+           
 
             String coveragelimit = "დაზღვევის ლიმიტი / Coverage limit";
 //            String coveragelimitvalue = "5000 EURO";
@@ -239,10 +241,15 @@ public class pdfDesigner {
             body.addCell(addressinsured);
 
             //adding cells to info table
-            Cell poCell = new Cell(1, 2);
-            Paragraph myparagraph = new Paragraph(policyinfoheader);
-            poCell.add(myparagraph);
-            info.addCell(poCell);
+//            Cell poCell = new Cell(1, 2);
+//            Paragraph myparagraph = new Paragraph(responsibility);
+             Cell infoheadCell = new Cell(1, 2);
+             Paragraph myparagraph = new Paragraph(responsibility);
+            infoheadCell.add(myparagraph.setTextAlignment(TextAlignment.CENTER));
+            info.addCell(infoheadCell);
+            
+//            poCell.add(myparagraph);
+//            info.addCell(poCell);
             info.addCell(countries);
             info.addCell(countriesvalue);
             info.addCell(coveragelimit);
@@ -259,7 +266,7 @@ public class pdfDesigner {
             //adding cells to footertable
             footertable.addCell(signature).setHorizontalAlignment(HorizontalAlignment.CENTER);
             //          footertable.addCell(stmp.scale(0.08F, 0.08F).setHorizontalAlignment(HorizontalAlignment.CENTER));
-            footertable.addCell(stmp.scale(0.75F, 0.75F).setHorizontalAlignment(HorizontalAlignment.CENTER));
+            footertable.addCell(stmp.scale(0.60F, 0.60F).setHorizontalAlignment(HorizontalAlignment.CENTER));
             footertable.addCell(providermail);
             footertable.addCell(providermailvalue);
             footertable.addCell(providerphone);
@@ -272,15 +279,15 @@ public class pdfDesigner {
             doc.add(headerstrings);
             headerstrings.complete();
             //setting gap between headers and body
-            body.setMarginTop(80f);
+            body.setMarginTop(14f);
             doc.add(body);
             body.complete();
             //setting gap between body and info
-            info.setMarginTop(65f);
+            info.setMarginTop(14f);
             doc.add(info);
             info.complete();
             //setting gap between info and footertable
-            footertable.setMarginTop(80f);
+            footertable.setMarginTop(14f);
             doc.add(footertable);
             footertable.complete();
             doc.close();
@@ -462,6 +469,11 @@ public class pdfDesigner {
 
             // 
             //info.addCell(second);
+            Cell infoheadCell = new Cell(1, 2);
+            Paragraph myparagraph = new Paragraph(responsibility);
+            infoheadCell.add(myparagraph.setTextAlignment(TextAlignment.CENTER));
+            info.addCell(infoheadCell);
+//            
             info.addCell(countrynum);
             info.addCell(countrynumValue);
             info.addCell(vincode);
@@ -507,7 +519,7 @@ public class pdfDesigner {
             //adding cells to footertable
             footertable.addCell(signature).setHorizontalAlignment(HorizontalAlignment.CENTER);
 
-            footertable.addCell(stmp.scale(0.75F, 0.75F).setHorizontalAlignment(HorizontalAlignment.CENTER));
+            footertable.addCell(stmp.scale(0.60F, 0.60F).setHorizontalAlignment(HorizontalAlignment.CENTER));
             footertable.addCell(providermail);
             footertable.addCell(providermailvalue);
             footertable.addCell(providerphone);
@@ -528,11 +540,11 @@ public class pdfDesigner {
 //            doc.add(coverage);
 //            coverage.complete();
             //setting gap between coverage and info
-            infohead.setMarginTop(14f);
-            doc.add(infohead);
-            infohead.complete();
+//            infohead.setMarginTop(14f);
+//            doc.add(infohead);
+//            infohead.complete();
 
-            //         info.setMarginTop(14f);
+            info.setMarginTop(14f);
             doc.add(info);
             info.complete();
             money.setMarginTop(14f);
@@ -667,58 +679,19 @@ public class pdfDesigner {
 
             //adding cells to info table
             //new
-            info.addCell(header);
-            info.addCell(" ");
+            
+            Cell infoheadCell = new Cell(1, 2);
+            Paragraph myparagraph = new Paragraph(responsibility);
+            infoheadCell.add(myparagraph.setTextAlignment(TextAlignment.CENTER));
+            info.addCell(infoheadCell);
+
             info.addCell(risks);
             Cell riskebi = new Cell();
             riskebi.add(riskval);
             info.addCell(riskebi);
 
             //new
-//            
-//            Paragraph first = new Paragraph(coverage).setBold();
-//            Paragraph second = new Paragraph(limit).setBold();
-//            Paragraph third = new Paragraph(cosponsor).setBold();
-//            info.addCell(first);
-//            info.addCell(second);
-//            info.addCell(third);
-//            info.addCell(death);
-//            info.addCell(deathValue);
-//            info.addCell(codeath);
-//            info.addCell(nurse);
-//            info.addCell(nurseValue);
-//            info.addCell(conurse);
-//            info.addCell(service);
-//            info.addCell(serviceValue);
-//            info.addCell(coservice);
-//            info.addCell(medicament);
-//            info.addCell(medicamentValue);
-//            info.addCell(comedicament);
-//            info.addCell(stomatolog);
-//            info.addCell(stomatologValue);
-//            info.addCell(costomatolog);
-//            info.addCell(gadauvadebel);
-//            info.addCell(gadauvadebelValue);
-//            info.addCell(cogadauvadebel);
-//            info.addCell(satelofono);
-//            info.addCell(satelofonoValue);
-//            info.addCell(cosatelofono);
-//            info.addCell(medicament);
-//            info.addCell(medicamentValue);
-//            info.addCell(comedicament);
-//            info.addCell(stomatolog);
-//            info.addCell(stomatologValue);
-//            info.addCell(costomatolog);
-//            info.addCell(gadauvadebel);
-//            info.addCell(gadauvadebelValue);
-//            info.addCell(cogadauvadebel);
-//            info.addCell(satelofono);
-//            info.addCell(satelofonoValue);
-//            info.addCell(cosatelofono);
-//            info.addCell(satelofono);
-//            info.addCell(satelofonoValue);
-//            info.addCell(cosatelofono);
-            //adding cells to money table
+
             money.addCell(period);
             cperiod.addCell(datefrom);
             cperiod.addCell(dateto);
@@ -749,7 +722,7 @@ public class pdfDesigner {
 
             //adding cells to footertable
             footertable.addCell(signature).setHorizontalAlignment(HorizontalAlignment.CENTER);
-            footertable.addCell(stmp.scale(0.75F, 0.75F).setHorizontalAlignment(HorizontalAlignment.CENTER));
+            footertable.addCell(stmp.scale(0.60F, 0.60F).setHorizontalAlignment(HorizontalAlignment.CENTER));
             footertable.addCell(providermail);
             footertable.addCell(providermailvalue);
             footertable.addCell(providerphone);
@@ -782,14 +755,7 @@ public class pdfDesigner {
             doc.close();
             System.out.println("Table created successfully..");
         } else if (invoice_type.equals("casco")) {
-            //data for head table
-//            String pheadergeo = "სერთიფიკატი, დამზღვევის ელექტრონულად მოწოდებული ინფორმაცია და დეპონირებული დაზღვევის პირობები წარმოადგენს ერთიან სადაზღვევი პოლისს მზღვეველი - სს \"რისკების\"\nმართვისა და სადაზღვევო კომპანია გლობალ ბენეფიტს ჯორჯია\"(ს / ნ: 404526777), მისამართი: ქ.თბილისი, მთაწმინდის რ-ნი, ჭანტურიას ქ.5, ტელ.: +995 322 50 00 01; +995 557 50 00 02";
-//            String pheader = "This Certificate, electronically sent information and deposited Insurance Terms and conditions is a single insurance agreement of JSC. Risk Management and Insurance Company\nGlobal Benefits Georgia(ID 404526777), address: G.Chanturia street N5, Tbilisi, Tel.: +995 322 50 00 01; +995 557 50 00 02";
-//            String insurer = "დამზღვევი / Policy Holder : ჯამჭურჭელაშვილი ნიკიფორე";
-//            String insured = "დაზღვეული / Insured person : კოჭლამაზაშვილი მარგარიტა";
 
-            //data for body table
-            // data for coverage table
             String coverage0 = "დაფარვა / Coverage ";
             String limit0 = "ლიმიტი / Limit";
             String cosponsor0 = "თანადაფინანსება  / Cosponsor";
@@ -834,11 +800,9 @@ public class pdfDesigner {
             //data for footertable
             String signature = "ელექტრონული ხელმოწერა / Signature";
             String providermail = "მეილი / Contact email";
-            //           String providermailvaluer = "####################@##########";
-//            String providerphone = "საკონტაქტო ტელეფონის ნომერი /Contact phone numbers";
-//            String providerphonevalue = "##########";
+
             String provideraddress = "მისამართი/Address";
-//            String provideraddressvalue = "######### ########## # ## ## ## ### #### ###";
+
 
             // declaring tables
             Table head = new Table(2, true);
@@ -904,52 +868,13 @@ public class pdfDesigner {
             body.addCell(addressinsurer);
             body.addCell(addressinsured);
 
-            //adding cells to coverage table
-//            Paragraph fs = new Paragraph(coverage0).setBold();
-//            Paragraph sec = new Paragraph(limit0).setBold();
-//            Paragraph thr = new Paragraph(cosponsor0).setBold();
-//            coverage.addCell(fs);
-//            coverage.addCell(sec);
-//            coverage.addCell(thr);
-//            coverage.addCell(coverage1);
-//            coverage.addCell(limit1);
-//            coverage.addCell(cosponsor1);
-//            coverage.addCell(coverage2);
-//            coverage.addCell(limit2);
-//            coverage.addCell(cosponsor2);
-//            coverage.addCell(coverage3);
-//            coverage.addCell(limit3);
-//            coverage.addCell(cosponsor3);
-//            coverage.addCell(coverage4);
-//            coverage.addCell(limit4);
-//            coverage.addCell(cosponsor4);
-//            coverage.addCell(coverage5);
-//            coverage.addCell(limit5);
-//            coverage.addCell(cosponsor5);
-//            coverage.addCell(coverage6);
-//            coverage.addCell(limit6);
-//            coverage.addCell(cosponsor6);
-//            coverage.addCell(coverage7);
-//            coverage.addCell(limit7);
-//            coverage.addCell(cosponsor7);
-//            coverage.addCell(coverage8);
-//            coverage.addCell(limit8);
-//            coverage.addCell(cosponsor8);
-//            coverage.addCell(coverage9);
-//            coverage.addCell(limit9);
-//            coverage.addCell(cosponsor9);
-//            coverage.addCell(coverage10);
-//            coverage.addCell(limit10);
-//            coverage.addCell(cosponsor10);
-//            coverage.addCell(coverage11);
-//            coverage.addCell(limit11);
-//            coverage.addCell(cosponsor11);
-//            coverage.addCell(coverage12);
-//            coverage.addCell(limit12);
-//            coverage.addCell(cosponsor12);
-            //adding cells to info table
             Paragraph second = new Paragraph(parameters).setFontColor(ColorConstants.BLUE);
-            info.addCell(responsibility);
+             Cell infoheadCell = new Cell(1, 2);
+             Paragraph myparagraph = new Paragraph(responsibility);
+            infoheadCell.add(myparagraph.setTextAlignment(TextAlignment.CENTER));
+            info.addCell(infoheadCell);
+            
+ //           info.addCell(responsibility);
             info.addCell(second);
             info.addCell(countrynum);
             info.addCell(countrynumValue);
@@ -996,7 +921,7 @@ public class pdfDesigner {
 
             //adding cells to footertable
             footertable.addCell(signature).setHorizontalAlignment(HorizontalAlignment.CENTER);
-            footertable.addCell(stmp.scale(0.75F, 0.75F).setHorizontalAlignment(HorizontalAlignment.CENTER));
+            footertable.addCell(stmp.scale(0.60F, 0.60F).setHorizontalAlignment(HorizontalAlignment.CENTER));
             footertable.addCell(providermail);
             footertable.addCell(providermailvalue);
             footertable.addCell(providerphone);
@@ -1036,13 +961,7 @@ public class pdfDesigner {
 
             System.out.println("I Am here Property");
 
-            //data for head table
-//            String pheadergeo = "სერთიფიკატი, დამზღვევის ელექტრონულად მოწოდებული ინფორმაცია და დეპონირებული დაზღვევის პირობები წარმოადგენს ერთიან სადაზღვევი პოლისს მზღვეველი - სს \"რისკების\"\nმართვისა და სადაზღვევო კომპანია გლობალ ბენეფიტს ჯორჯია\"(ს / ნ: 404526777), მისამართი: ქ.თბილისი, მთაწმინდის რ-ნი, ჭანტურიას ქ.5, ტელ.: +995 322 50 00 01; +995 557 50 00 02";
-            //           String pheader = "This Certificate, electronically sent information and deposited Insurance Terms and conditions is a single insurance agreement of JSC. Risk Management and Insurance Company\nGlobal Benefits Georgia(ID 404526777), address: G.Chanturia street N5, Tbilisi, Tel.: +995 322 50 00 01; +995 557 50 00 02";
-//            String insurer = "დამზღვევი / Policy Holder : ჯამჭურჭელაშვილი ნიკიფორე";
-//            String insured = "დაზღვეული / Insured person : კოჭლამაზაშვილი მარგარიტა";
-            //data for body table
-            // data for coverage table
+
             String coverage0 = "დაფარვა / Coverage ";
             String limit0 = "ლიმიტი / Limit";
             String cosponsor0 = "თანადაფინანსება  / Cosponsor";
@@ -1089,16 +1008,11 @@ public class pdfDesigner {
             com.itextpdf.layout.element.List riskval = new List();
             riskval.setFontSize(6.0F);
             riskval.add("       " + covered);
-//            riskval.add("       " + "ხანძარი, მეხის დაცემა, აფეთქება, საჰაერო ხომალდის ან მათი ნაწილების დაცემა.");
-//            riskval.add("შტორმი, გრიგალი, ქარიშხალი, წყალდიდობა, სეტყვა, გრუნტის დაჯდომა, მეწყერი, ზვავი, თოვლის ჩამოშლა.");
-//            riskval.add("წყლით დაზიანება;დატბორვა");
-//            riskval.add("სხვადასხვა საგნების დაცემა");
-//            riskval.add("მესამე პირთა მართლსაწინააღმდეგო ქმედება, ვანდალიზმი");
             Paragraph risksValue = new Paragraph("* დაზღვევის სხვა დეტალური პირობები წარმოდგენილია, მხარეთა მიერ ხელმოწერებით "
                     + "დადასტურებული დანართი #1-ის სახით და წარმოადგენს შესაბამისი ხელშეკრულების და წინამდებარე ქონების დაზღვევის "
                     + "პოლისის განუყოფელ ნაწილს.").setItalic().setFontSize(6.0F);
             String address = "დაზღვეული ქონების მისამართი / Insured Property Address";
-            //          addressValue = "მაღაზია MOD - 29, 99 და M9 - 1, სავაჭრო ცენტრი ლილო მოლი, მის. კახეთის გზატკელიცილი N 112";
+          
             String type = "დაზღვეული ქონების ტიპი / Insured Property Type";
             String typeValue = "სასაქონლო-მატერიალური მარაგები, უძრავი ქონება";
             String object = "დაზღვეული ქონების ობიექტი / Insured Property object";
@@ -1119,11 +1033,9 @@ public class pdfDesigner {
             String policyDateValue = "12 თებერვალი / 12th of February";
             String signature = "ელექტრონული ხელმოწერა / Signature";
             String providermail = "მეილი / Contact email";
-            //           String providermailvaluer = "####################@##########";
-//            String providerphone = "საკონტაქტო ტელეფონის ნომერი /Contact phone numbers";
-//            String providerphonevalue = "##########";
+
             String provideraddress = "მისამართი/Address";
-//            String provideraddressvalue = "######### ########## # ## ## ## ### #### ###";
+
 
             // declaring tables
             Table head = new Table(2).useAllAvailableWidth();
@@ -1192,52 +1104,13 @@ public class pdfDesigner {
             body.addCell(addressinsurer);
             body.addCell(addressinsured);
 
-            //adding cells to coverage table
-//            Paragraph fs = new Paragraph(coverage0).setBold();
-//            Paragraph sec = new Paragraph(limit0).setBold();
-//            Paragraph thr = new Paragraph(cosponsor0).setBold();
-//            coverage.addCell(fs);
-//            coverage.addCell(sec);
-//            coverage.addCell(thr);
-//            coverage.addCell(coverage1);
-//            coverage.addCell(limit1);
-//            coverage.addCell(cosponsor1);
-//            coverage.addCell(coverage2);
-//            coverage.addCell(limit2);
-//            coverage.addCell(cosponsor2);
-//            coverage.addCell(coverage3);
-//            coverage.addCell(limit3);
-//            coverage.addCell(cosponsor3);
-//            coverage.addCell(coverage4);
-//            coverage.addCell(limit4);
-//            coverage.addCell(cosponsor4);
-//            coverage.addCell(coverage5);
-//            coverage.addCell(limit5);
-//            coverage.addCell(cosponsor5);
-//            coverage.addCell(coverage6);
-//            coverage.addCell(limit6);
-//            coverage.addCell(cosponsor6);
-//            coverage.addCell(coverage7);
-//            coverage.addCell(limit7);
-//            coverage.addCell(cosponsor7);
-//            coverage.addCell(coverage8);
-//            coverage.addCell(limit8);
-//            coverage.addCell(cosponsor8);
-//            coverage.addCell(coverage9);
-//            coverage.addCell(limit9);
-//            coverage.addCell(cosponsor9);
-//            coverage.addCell(coverage10);
-//            coverage.addCell(limit10);
-//            coverage.addCell(cosponsor10);
-//            coverage.addCell(coverage11);
-//            coverage.addCell(limit11);
-//            coverage.addCell(cosponsor11);
-//            coverage.addCell(coverage12);
-//            coverage.addCell(limit12);
-//            coverage.addCell(cosponsor12);
-            //adding cells to info table
-            info.addCell(header);
-            info.addCell(" ");
+            
+                         Cell infoheadCell = new Cell(1, 2);
+             Paragraph myparagraph = new Paragraph(responsibility);
+            infoheadCell.add(myparagraph.setTextAlignment(TextAlignment.CENTER));
+            info.addCell(infoheadCell);
+    //        info.addCell(header);
+    //        info.addCell(" ");
             info.addCell(risks);
             Cell riskebi = new Cell();
             riskebi.add(riskval);
@@ -1295,7 +1168,7 @@ public class pdfDesigner {
             footertable.addCell(provideraddress);
             footertable.addCell(provideraddressvalue);
             footertable.addCell(signature).setHorizontalAlignment(HorizontalAlignment.CENTER);
-            footertable.addCell(stmp.scale(0.75F, 0.75F).setHorizontalAlignment(HorizontalAlignment.CENTER));
+            footertable.addCell(stmp.scale(0.60F, 0.60F).setHorizontalAlignment(HorizontalAlignment.CENTER));
 
             //adding tables to the doc
             doc.add(head);
@@ -1309,9 +1182,9 @@ public class pdfDesigner {
 
             //          if (!par.equals("null")) {
             //setting gap between body and coverage
-            coverage.setMarginTop(13f);
-            doc.add(coverage);
-            coverage.complete();
+//            coverage.setMarginTop(13f);
+//            doc.add(coverage);
+//            coverage.complete();
             //         }
             //setting gap between coverage and info
             info.setMarginTop(13f);

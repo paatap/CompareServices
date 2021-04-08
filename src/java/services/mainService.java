@@ -120,7 +120,7 @@ public class mainService extends HttpServlet {
                                 + "</table>\\n"
                                 //            +"<table class='orderlist' id='policelist1b' style='display: none;width:100%;margin-top: 20px'>\\n"
                                 + "<table class='orderlist' id='policelist" + s22[3] + "b' style='display: none;width:100%;margin-top: 20px'>\\n"
-                                + "<tr onclick=\\\"$('#policelist" + s22[3] + "b').css('display', 'none');$('#policelist" + s22[3] + "a').css('display', 'table');\\\" style='color:blue;cursor:hand;'><td  colspan='2' style='width:50%'>_" + s22[4] + "</td></tr>\\n"
+                                + "<tr onclick=\\\"$('#policelist" + s22[3] + "b').css('display', 'none');$('#policelist" + s22[3] + "a').css('display', 'table');\\\" style='color:blue;cursor:hand;'><td  colspan='2' style='width:50%'>?_" + s22[4] + "?</td></tr>\\n"
                                 //                          
                                 + "<tr> <td style='padding-left: 20px;'>პროვაიდერი</td> <td><img style='margin: auto;' src='icons/" + s22[5] + ".png'></td> </tr>\\n"
                                 + "<tr> <td style='padding-left: 20px;'>დაზღვეული</td> <td >'" + s22[1] + "'</td> </tr>\\n"
