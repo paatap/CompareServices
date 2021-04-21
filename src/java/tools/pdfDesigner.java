@@ -55,7 +55,7 @@ public class pdfDesigner {
             String cityzenshipinsurer, String cityzenshipinsured, String phoneinsurer, String mailinsurer, String addressinsurer,
             String vincodeValue, String releaseYearValue, String SumAmountValue, String monthlyAmountValue, String addressinsured,
             String datefrom, String dateto, String countriesvalue, String carMarkValue, String carModelValue, String countrynumValue, String currency, String[] schedule,
-            String covered, String addressValue
+            String covered, String addressValue, String amount_text
     )
             throws Exception, NullPointerException {
         if (currency.equals("_lari")) {
@@ -419,50 +419,6 @@ public class pdfDesigner {
             body.addCell(addressinsurer);
             body.addCell(addressinsured);
 
-            //adding cells to coverage table
-//            Paragraph fs = new Paragraph(coverage0).setBold();
-//            Paragraph sec = new Paragraph(limit0).setBold();
-//            Paragraph thr = new Paragraph(cosponsor0).setBold();
-//            coverage.addCell(fs);
-//            coverage.addCell(sec);
-//            coverage.addCell(thr);
-//            coverage.addCell(coverage1);
-//            coverage.addCell(limit1);
-//            coverage.addCell(cosponsor1);
-//            coverage.addCell(coverage2);
-//            coverage.addCell(limit2);
-//            coverage.addCell(cosponsor2);
-//            coverage.addCell(coverage3);
-//            coverage.addCell(limit3);
-//            coverage.addCell(cosponsor3);
-//            coverage.addCell(coverage4);
-//            coverage.addCell(limit4);
-//            coverage.addCell(cosponsor4);
-//            coverage.addCell(coverage5);
-//            coverage.addCell(limit5);
-//            coverage.addCell(cosponsor5);
-//            coverage.addCell(coverage6);
-//            coverage.addCell(limit6);
-//            coverage.addCell(cosponsor6);
-//            coverage.addCell(coverage7);
-//            coverage.addCell(limit7);
-//            coverage.addCell(cosponsor7);
-//            coverage.addCell(coverage8);
-//            coverage.addCell(limit8);
-//            coverage.addCell(cosponsor8);
-//            coverage.addCell(coverage9);
-//            coverage.addCell(limit9);
-//            coverage.addCell(cosponsor9);
-//            coverage.addCell(coverage10);
-//            coverage.addCell(limit10);
-//            coverage.addCell(cosponsor10);
-//            coverage.addCell(coverage11);
-//            coverage.addCell(limit11);
-//            coverage.addCell(cosponsor11);
-//            coverage.addCell(coverage12);
-//            coverage.addCell(limit12);
-//            coverage.addCell(cosponsor12);
-            //adding cells to info table
             Paragraph second = new Paragraph(parameters).setFontColor(ColorConstants.BLUE);
 
             infohead.addCell(responsibility);
@@ -535,14 +491,7 @@ public class pdfDesigner {
             body.setMarginTop(14f);
             doc.add(body);
             body.complete();
-            //setting gap between body and coverage
-//            coverage.setMarginTop(14f);
-//            doc.add(coverage);
-//            coverage.complete();
-            //setting gap between coverage and info
-//            infohead.setMarginTop(14f);
-//            doc.add(infohead);
-//            infohead.complete();
+
 
             info.setMarginTop(14f);
             doc.add(info);
@@ -638,7 +587,7 @@ public class pdfDesigner {
             headerstrings.setFontSize(4.0F);
             body.setFontSize(6.0F);
             body.setFontSize(6.0F);
-            info.setFontSize(6.0F);
+            info.setFontSize(4.0F);
             money.setFontSize(6.0F);
             cperiod.setFontSize(6.0F);
             addservices.setFontSize(6.0F);
@@ -696,8 +645,8 @@ public class pdfDesigner {
             cperiod.addCell(datefrom);
             cperiod.addCell(dateto);
             money.addCell(cperiod);
-            money.addCell(InsuranceLimit).setBorder(null);
-            money.addCell(InsuranceLimitValue).setBorder(null);
+//            money.addCell(InsuranceLimit).setBorder(null);
+//            money.addCell(InsuranceLimitValue).setBorder(null);
             money.addCell(SumAmount).setBorder(null);
             money.addCell(SumAmountValue).setBorder(null);
             money.addCell(mounthly);
@@ -1014,13 +963,13 @@ public class pdfDesigner {
             String address = "დაზღვეული ქონების მისამართი / Insured Property Address";
           
             String type = "დაზღვეული ქონების ტიპი / Insured Property Type";
-            String typeValue = "სასაქონლო-მატერიალური მარაგები, უძრავი ქონება";
+            String typeValue = " უძრავი ქონება";
             String object = "დაზღვეული ქონების ობიექტი / Insured Property object";
-            String objectValue = "";
-            String insmon = "სადაზღვეო თანხა / Total Sum Insured";
-            String insmonValue = "100 000 (ასი ათასი ლარი) / 100 000 (hundred thousand) Lari";
+            String objectValue = "ბინა";
+//            String insmon = "სადაზღვეო თანხა / Total Sum Insured";
+//            String insmonValue = "100 000 (ასი ათასი ლარი) / 100 000 (hundred thousand) Lari";
             String deduct = "ფრანშიზა / Deductible";
-            String deductValue = "მზღვევევლის მიერ დადგენილი ზარალის 10%, მინიმუმ 400 (ოთხასი) ლარი";
+            String deductValue = amount_text;
             String annprem = "წლიური სადაზღვეო პრემია / Annual Insurance Premium";
             String annpremValue = " 840 (რვაას ორმოცი) ლარი / 840 (eight hundred and forty) Lari";
 
@@ -1063,8 +1012,8 @@ public class pdfDesigner {
             headerstrings.setFontSize(4.0F);
             body.setFontSize(6.0F);
             body.setFontSize(6.0F);
-            coverage.setFontSize(6.0F);
-            info.setFontSize(6.0F);
+            coverage.setFontSize(4.0F);
+            info.setFontSize(4.0F);
             money.setFontSize(6.0F);
             addservices.setFontSize(6.0F);
             footertable.setFontSize(6.0F);
@@ -1114,7 +1063,7 @@ public class pdfDesigner {
             info.addCell(risks);
             Cell riskebi = new Cell();
             riskebi.add(riskval);
-            riskebi.add(risksValue);
+//            riskebi.add(risksValue);
             info.addCell(riskebi);
             info.addCell(address);
             info.addCell(addressValue);
@@ -1122,8 +1071,7 @@ public class pdfDesigner {
             info.addCell(typeValue);
             info.addCell(object);
             info.addCell(objectValue);
-            info.addCell(insmon);
-            info.addCell(insmonValue);
+
             info.addCell(deduct);
             info.addCell(deductValue);
             info.addCell(annprem);
@@ -1136,6 +1084,7 @@ public class pdfDesigner {
             cperiod.addCell(datefrom);
             cperiod.addCell(dateto);
             money.addCell(cperiod);
+            
             money.addCell(InsuranceBill).setBorder(null);
             money.addCell(InsuranceBillValue).setBorder(null);
             money.addCell(SumAmount).setBorder(null);

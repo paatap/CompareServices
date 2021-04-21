@@ -617,6 +617,10 @@ public class mainService extends HttpServlet {
 
                 String price1 = tools.functions.jsonget(job, "price1");
                 System.out.println("price1=" + price1);
+                
+                 String limit = tools.functions.jsonget(job, "limit");
+                System.out.println("limit=" + limit);
+                
 
                 String paymentschedule = tools.functions.jsonget(job, "paymentschedule");
                 System.out.println("paymentschedule=" + paymentschedule);
@@ -712,6 +716,8 @@ public class mainService extends HttpServlet {
                     tablename = "casco";
                 } else if (tablename.equals("property")) {
                     tablename = "property";
+                    franchise=tools.functions.jsonget(job, "limit");
+                    System.out.println("franchise=" + franchise);
          //           covering=",covering";
                 } else if (tablename.equals("health")) {
                     tablename = "health";
@@ -758,7 +764,7 @@ public class mainService extends HttpServlet {
                 
                 // endSchedule
 
-                String pqwr = "select p.name,headergeo,headereng,addressgeo,phone,mail,covering from " + tablename + "_params pp left join provider p on pp.provider_id=p.id where pp.id=" + productid;
+                String pqwr = "select p.name,headergeo,headereng,addressgeo,phone,mail,covering,amount_text from " + tablename + "_params pp left join provider p on pp.provider_id=p.id where pp.id=" + productid;
                 System.out.println("pqwr=" + pqwr);
 
                 ArrayList<String[]> spqwr = tools.functions.getResult(pqwr, tools.functions.isnewcompare);
@@ -766,10 +772,11 @@ public class mainService extends HttpServlet {
                 String insurer = namefirst + " " + namelast;
                 String insured = namefirst_2 + " " + namelast_2;;
                 String covered=spqwr.get(0)[6];
+                String amount_text=spqwr.get(0)[7];
                 String filename = tools.pdfDesigner.makepolice(tablename, userid, insurer, insured, spqwr.get(0)[0], spqwr.get(0)[1],
                         spqwr.get(0)[2], spqwr.get(0)[3], spqwr.get(0)[4], spqwr.get(0)[5], franchise, pnumberinsurer, pnumberinsured, birthday,
                         birthday2, gender, gender2, citizenship_code, citizenship_code2, phone, email, addressinsurer, carvin, year, price0, payprice,
-                        addressinsured, startdate, enddate, tcountry.get(0)[0], marca, modelname, carnumber, currency,schedule,covered,property_address);
+                        addressinsured, startdate, enddate, tcountry.get(0)[0], marca, modelname, carnumber, currency,schedule,covered,property_address,amount_text);
                 // make police end
                 String qwr = "insert into order_params (user_id,product_id,product_name,payment_schedule,policyholder,policyowner,company_name,filename,addressinsurer,addressinsured,start_date,end_date)"
                         + " values (" + userid + "," + productid + ",'" + tablename + "','" + paymentschedule + "','" + policyowner + "','"
@@ -1595,6 +1602,10 @@ public class mainService extends HttpServlet {
                 String gender2 = tools.functions.jsonget(job, "2gender");
                 System.out.println("gender2=" + gender);
 
+               
+                
+
+
                 if (forwho.equals("forme")) {
                     personal_n2 = tools.functions.jsonget(job, "personal_n");
                     System.out.println("2personal_n=" + personal_n2);
@@ -1625,6 +1636,8 @@ public class mainService extends HttpServlet {
                 // product parameters
                 String insurancelimit = tools.functions.jsonget(job, "homeinsurancelimit");
                 System.out.println("homeinsurancelimit=" + insurancelimit);
+                
+               
 
                 String currency = tools.functions.jsonget(job, "currency");
                 System.out.println("currency=" + currency);
@@ -1669,7 +1682,13 @@ public class mainService extends HttpServlet {
 
                 String neighborinsurance = tools.functions.jsonget(job, "neighborinsurance");
                 System.out.println("neighborinsurance=" + neighborinsurance);
+                
+                String neighborsel=" and neighbor_price =0 ";
+                        
 
+                if(neighborinsurance.equals("yes"))  neighborsel=" and neighbor_price > 0 ";
+                
+                
                 Double aread = functions.str2double0(area);
                 System.out.println("aread=" + aread);
 // product parameters
@@ -1685,7 +1704,7 @@ public class mainService extends HttpServlet {
                 }
 /// insert into
                 String qwr = "select provider_id,provider.name,amount_limit*" + aread + ",area_price*" + aread + "+neighbor_price,p.id,add_html,franchise_txt from property_params p,provider \n"
-                        + "where provider_id=provider.id ";
+                        + "where provider_id=provider.id "+ neighborsel;
                 //                      + "where provider_id=provider.id and p.amount_limit='" + insurancelimit + "' and exchange_rate_id='" + curr + "'";
                 System.out.println("qwr=    " + qwr);
 
