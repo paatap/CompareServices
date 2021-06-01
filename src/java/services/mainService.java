@@ -228,7 +228,7 @@ public class mainService extends HttpServlet {
                 System.out.println("1.   s1=" + s1.get(0)[0]);
 
                 qwr = "insert into crm_contact  (name,email,idn,userid,pid,contact_type_id,name_first,name_last,gender,birthday,phone,phonepre,name_first_lat,name_last_lat)"
-                        + "values('" + namefirst + " " + namelast + "','" + email + "'," + citizenship_code + "'," + s1.get(0)[0] + ",'" + personal_n + "',1,'"
+                        + "values('" + namefirst + " " + namelast + "','" + email + "','" + citizenship_code + "'," + s1.get(0)[0] + ",'" + personal_n + "',1,'"
                         + namefirst + "','" + namelast + "','" + gender + "','" + birthday + "','" + phone + "','" + phonepre
                         + "','" + namefirstlat + "','" + namelastlat + "') returning id;";
 
