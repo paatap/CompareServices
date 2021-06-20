@@ -99,8 +99,11 @@ public class mainService extends HttpServlet {
 
                 //               String qwr = "select u.id,name_first,name_last from users u left join crm_contact cc on u.id=cc.userid where username='" + user + "'  and password='" + pass + "'";
                 //            String qwr = "select now()";
-                String qwr = "select policyholder,policyowner,creation_date,id,product_name,company_name,filename,date(start_date),date(end_date),price0,payprice from order_params where  user_id=" + userid + " order by creation_date desc ";
+                String qwr = "select policyholder,policyowner,creation_date,id,product_name,company_name,filename,date(start_date),date(end_date),price0,payprice,payment_schedule from order_params where  user_id=" + userid + " order by creation_date desc ";
                 ArrayList<String[]> s2 = tools.functions.getResult(qwr, tools.functions.isnewcompare);
+                
+                
+                
 
                 String ss = "{\n\"command\":\"getpolicelist\",\n"
                         + "\"result\":\"ok\",\n"
@@ -127,7 +130,7 @@ public class mainService extends HttpServlet {
                                 + "<tr> <td style='padding-left: 20px;'>შეძენისთარიღი</td> <td>"+s22[2]+"</td> </tr>\\n"
                                 + "<tr> <td style='padding-left: 20px;'>მოქმედებისვადა</td> <td>"+s22[7]+" - "+s22[8]+"</td> </tr>\\n"
                                 + "<tr> <td style='padding-left: 20px;'>ღირებულება</td> <td>"+s22[9]+" აქედან რომელი - "+s22[10]+"</td> </tr>\\n"
-                                + "<tr> <td style='padding-left: 20px;cursor:hand;text-decoration: underline;' onclick=\\\"detalssubmitajax('"+s22[4]+"','getmodalgraphic');\\\">გადახდისგრაფიკი</td> <td>მიმდინარე გადასახადი 30 ლარი</td> </tr>\\n"
+                                + "<tr> <td style='padding-left: 20px;cursor:hand;text-decoration: underline;' onclick=\\\"detalssubmitajax('"+s22[4]+"','getmodalgraphic');\\\">გადახდის გრაფიკი</td> <td>მიმდინარე გადასახადი 30 ლარი</td> </tr>\\n"
                                 + "<tr> <td style='padding-left: 20px;cursor:hand;text-decoration: underline;' onclick=\\\"detalssubmitajax('"+s22[4]+"','getmodalphoto');\\\">ფოტოსატვირთვა</td> <td>ფოტოებს არ საჭიროებს</td> </tr>\\n"
                                 + "<tr> <td style='padding-left: 20px;cursor:hand;text-decoration: underline;' onclick=\\\"showpdf('pdf/getliability" + s22[5] + ".pdf')\\\">ხელშეკრულება</td> <td>იხილეთ მიმაგრებული ხელშეკრულება</td></tr>\\n"
                                 + "<tr> <td style='padding-left: 20px;cursor:hand;text-decoration: underline;' onclick=\\\"showpdf('pdf/" + s22[6] + ".pdf')\\\">პოლისი</td> <td>იხილეთ მიმაგრებული პოლისი</td></tr>\\n"
