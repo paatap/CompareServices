@@ -99,7 +99,7 @@ public class mainService extends HttpServlet {
 
                 //               String qwr = "select u.id,name_first,name_last from users u left join crm_contact cc on u.id=cc.userid where username='" + user + "'  and password='" + pass + "'";
                 //            String qwr = "select now()";
-                String qwr = "select policyholder,policyowner,creation_date,id,product_name,company_name,filename from order_params where  user_id=" + userid + " order by creation_date desc ";
+                String qwr = "select policyholder,policyowner,creation_date,id,product_name,company_name,filename,date(start_date),date(end_date),price0,payprice from order_params where  user_id=" + userid + " order by creation_date desc ";
                 ArrayList<String[]> s2 = tools.functions.getResult(qwr, tools.functions.isnewcompare);
 
                 String ss = "{\n\"command\":\"getpolicelist\",\n"
@@ -123,10 +123,10 @@ public class mainService extends HttpServlet {
                                 + "<tr onclick=\\\"$('#policelist" + s22[3] + "b').css('display', 'none');$('#policelist" + s22[3] + "a').css('display', 'table');\\\" style='color:blue;cursor:hand;'><td  colspan='2' style='width:50%'>?_" + s22[4] + "?</td></tr>\\n"
                                 //                          
                                 + "<tr> <td style='padding-left: 20px;'>პროვაიდერი</td> <td><img style='margin: auto;' src='icons/" + s22[5] + ".png'></td> </tr>\\n"
-                                + "<tr> <td style='padding-left: 20px;'>დაზღვეული</td> <td >'" + s22[1] + "'</td> </tr>\\n"
-                                + "<tr> <td style='padding-left: 20px;'>შეძენისთარიღი</td> <td></td> </tr>\\n"
-                                + "<tr> <td style='padding-left: 20px;'>მოქმედებისვადა</td> <td>პოლისის გააქტიურება</td> </tr>\\n"
-                                + "<tr> <td style='padding-left: 20px;'>ღირებულება</td> <td></td> </tr>\\n"
+                                + "<tr> <td style='padding-left: 20px;'>დაზღვეული</td> <td >" + s22[1] + "</td> </tr>\\n"
+                                + "<tr> <td style='padding-left: 20px;'>შეძენისთარიღი</td> <td>"+s22[2]+"</td> </tr>\\n"
+                                + "<tr> <td style='padding-left: 20px;'>მოქმედებისვადა</td> <td>"+s22[7]+" - "+s22[8]+"</td> </tr>\\n"
+                                + "<tr> <td style='padding-left: 20px;'>ღირებულება</td> <td>"+s22[9]+" აქედან რომელი - "+s22[10]+"</td> </tr>\\n"
                                 + "<tr> <td style='padding-left: 20px;cursor:hand;text-decoration: underline;' onclick=\\\"detalssubmitajax('"+s22[4]+"','getmodalgraphic');\\\">გადახდისგრაფიკი</td> <td>მიმდინარე გადასახადი 30 ლარი</td> </tr>\\n"
                                 + "<tr> <td style='padding-left: 20px;cursor:hand;text-decoration: underline;' onclick=\\\"detalssubmitajax('"+s22[4]+"','getmodalphoto');\\\">ფოტოსატვირთვა</td> <td>ფოტოებს არ საჭიროებს</td> </tr>\\n"
                                 + "<tr> <td style='padding-left: 20px;cursor:hand;text-decoration: underline;' onclick=\\\"showpdf('pdf/getliability" + s22[5] + ".pdf')\\\">ხელშეკრულება</td> <td>იხილეთ მიმაგრებული ხელშეკრულება</td></tr>\\n"
@@ -778,9 +778,9 @@ public class mainService extends HttpServlet {
                         birthday2, gender, gender2, citizenship_code, citizenship_code2, phone, email, addressinsurer, carvin, year, price0, payprice,
                         addressinsured, startdate, enddate, tcountry.get(0)[0], marca, modelname, carnumber, currency,schedule,covered,property_address,amount_text);
                 // make police end
-                String qwr = "insert into order_params (user_id,product_id,product_name,payment_schedule,policyholder,policyowner,company_name,filename,addressinsurer,addressinsured,start_date,end_date)"
+                String qwr = "insert into order_params (user_id,product_id,product_name,payment_schedule,policyholder,policyowner,company_name,filename,addressinsurer,addressinsured,start_date,end_date,price0,payprice)"
                         + " values (" + userid + "," + productid + ",'" + tablename + "','" + paymentschedule + "','" + policyowner + "','"
-                        + policyholder + "','" + spqwr.get(0)[0] + "','" + filename + "','" + addressinsurer + "','" + addressinsured + "','" + startdate + "','" + enddate + "')  returning id; ";
+                        + policyholder + "','" + spqwr.get(0)[0] + "','" + filename + "','" + addressinsurer + "','" + addressinsured + "','" + startdate + "','" + enddate + "','" +price0+ "','" +payprice+ "')  returning id; ";
 
                 System.out.println(qwr);
 
