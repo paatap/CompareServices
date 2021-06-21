@@ -101,9 +101,6 @@ public class mainService extends HttpServlet {
                 //            String qwr = "select now()";
                 String qwr = "select policyholder,policyowner,creation_date,id,product_name,company_name,filename,date(start_date),date(end_date),price0,payprice,payment_schedule from order_params where  user_id=" + userid + " order by creation_date desc ";
                 ArrayList<String[]> s2 = tools.functions.getResult(qwr, tools.functions.isnewcompare);
-                
-                
-                
 
                 String ss = "{\n\"command\":\"getpolicelist\",\n"
                         + "\"result\":\"ok\",\n"
@@ -127,11 +124,11 @@ public class mainService extends HttpServlet {
                                 //                          
                                 + "<tr> <td style='padding-left: 20px;'>პროვაიდერი</td> <td><img style='margin: auto;' src='icons/" + s22[5] + ".png'></td> </tr>\\n"
                                 + "<tr> <td style='padding-left: 20px;'>დაზღვეული</td> <td >" + s22[1] + "</td> </tr>\\n"
-                                + "<tr> <td style='padding-left: 20px;'>შეძენისთარიღი</td> <td>"+s22[2]+"</td> </tr>\\n"
-                                + "<tr> <td style='padding-left: 20px;'>მოქმედებისვადა</td> <td>"+s22[7]+" - "+s22[8]+"</td> </tr>\\n"
-                                + "<tr> <td style='padding-left: 20px;'>ღირებულება</td> <td>"+s22[9]+" აქედან რომელი - "+s22[10]+"</td> </tr>\\n"
-                                + "<tr> <td style='padding-left: 20px;cursor:hand;text-decoration: underline;' onclick=\\\"detalssubmitajax('"+s22[4]+"','getmodalgraphic');\\\">გადახდის გრაფიკი</td> <td>მიმდინარე გადასახადი 30 ლარი</td> </tr>\\n"
-                                + "<tr> <td style='padding-left: 20px;cursor:hand;text-decoration: underline;' onclick=\\\"detalssubmitajax('"+s22[4]+"','getmodalphoto');\\\">ფოტოსატვირთვა</td> <td>ფოტოებს არ საჭიროებს</td> </tr>\\n"
+                                + "<tr> <td style='padding-left: 20px;'>შეძენისთარიღი</td> <td>" + s22[2] + "</td> </tr>\\n"
+                                + "<tr> <td style='padding-left: 20px;'>მოქმედებისვადა</td> <td>" + s22[7] + " - " + s22[8] + "</td> </tr>\\n"
+                                + "<tr> <td style='padding-left: 20px;'>ღირებულება</td> <td>" + s22[9] + " აქედან რომელი - " + s22[10] + "</td> </tr>\\n"
+                                + "<tr> <td style='padding-left: 20px;cursor:hand;text-decoration: underline;' onclick=\\\"detalssubmitajax('" + s22[3] + "','getmodalgraphic');\\\">გადახდის გრაფიკი</td> <td>მიმდინარე გადასახადი 30 ლარი</td> </tr>\\n"
+                                + "<tr> <td style='padding-left: 20px;cursor:hand;text-decoration: underline;' onclick=\\\"detalssubmitajax('" + s22[4] + "','getmodalphoto');\\\">ფოტოსატვირთვა</td> <td>ფოტოებს არ საჭიროებს</td> </tr>\\n"
                                 + "<tr> <td style='padding-left: 20px;cursor:hand;text-decoration: underline;' onclick=\\\"showpdf('pdf/getliability" + s22[5] + ".pdf')\\\">ხელშეკრულება</td> <td>იხილეთ მიმაგრებული ხელშეკრულება</td></tr>\\n"
                                 + "<tr> <td style='padding-left: 20px;cursor:hand;text-decoration: underline;' onclick=\\\"showpdf('pdf/" + s22[6] + ".pdf')\\\">პოლისი</td> <td>იხილეთ მიმაგრებული პოლისი</td></tr>\\n"
                                 + "</table>\\n";
@@ -155,36 +152,70 @@ public class mainService extends HttpServlet {
 //                String lang = tools.functions.jsonget(job, "namefirst");
 //                System.out.println("lang=" + lang);
 
+
+
+
+
                 String productid = tools.functions.jsonget(job, "productid");
                 System.out.println("productid=" + productid);
-                productid = "123456";
+                //           productid = "123456";
 
                 //               String qwr = "select u.id,name_first,name_last from users u left join crm_contact cc on u.id=cc.userid where username='" + user + "'  and password='" + pass + "'";
-                String qwr = "select now()";
+                String qwr = "select payment_schedule,payprice from order_params where id=" + productid;
+                System.out.println("qwr=" + qwr);
                 ArrayList<String[]> s2 = tools.functions.getResult(qwr, tools.functions.isnewcompare);
-
-                String ss;
-
+                
+                        int pschedule = 0;
+  
+                
+                
                 if (s2.size() > 0) {
-//  ********************************************   getmodalgraphic
-                    ss = "{\n\"command\":\"getmodalgraphic\",\n"
-                            + "\"result\":\"ok\",\n"
-                            + "\"productid\":\"" + productid + "\",\n"
-                            //    + "\"txt\":\"<style>  table.modalgraphiclist td,th {border: 1px solid #dddddd;text-align: left;padding: 8px;width:100%} </style>\\n"
-                            + "\"txt\":\"<style>  table.modalgraphiclist td,th {border: 1px solid #dddddd;border-collapse: collapse; text-align: left;padding: 8px;}  </style>\\n"
-                            + "<table class='modalgraphiclist' style='width: 100%; margin-bottom:30px;' ><tbody>"
-                            + "<tr><td colspan='2'>გადახდის გრაფიკი</td></tr>"
-                            + "<tr><td>თარიღი</td><td>თანხა</td></tr><tr><td>2020.05.01</td><td>30 ლარი</td></tr>"
-                            + "<tr><td>2020.06.01</td><td>30 ლარი</td></tr><tr><td>2020.07.01</td><td>30 ლარი</td></tr></tbody></table>\\n"
-                            + "\"}";
+                    System.out.println("s2-size="+s2.size());
 
-                    //                + "\"result\":\"passworderror\"\n}";
-                } else {
-                    ss = "{\n\"command\":\"getmodalgrapbhic\",\\n"
-                            + "\"result\":\"productnotfound\"\\n}";
+                    for (String[] s22 : s2) {
+
+                        String[] myschedule = tools.paymentshedule.makeshedule(s22[0]);
+                        
+                        
+                        
+
+                        String ss;
+                        String monthlyAmountValue = s22[1];
+                        String currency = "GEL";
+
+                        ss = "{\n\"command\":\"getmodalgraphic\",\n"
+                                + "\"result\":\"ok\",\n"
+                                + "\"productid\":\"" + productid + "\",\n"
+                                //    + "\"txt\":\"<style>  table.modalgraphiclist td,th {border: 1px solid #dddddd;text-align: left;padding: 8px;width:100%} </style>\\n"
+                                + "\"txt\":\"<style>  table.modalgraphiclist td,th {border: 1px solid #dddddd;border-collapse: collapse; text-align: left;padding: 8px;}  </style>\\n"
+                                + "<table class='modalgraphiclist' style='width: 100%; margin-bottom:30px;' ><tbody>"
+                                + "<tr><td colspan='2'>გადახდის გრაფიკი</td></tr>"
+                                + "<tr><td>თარიღი</td><td>თანხა</td></tr>";
+
+//                        for (int i = 0; i < 12; i++) {
+                            for (int i = 0; i < myschedule.length; i++) {
+                                System.out.println("myscheduleLenght="+myschedule.length);
+                            //  rulesVal.addCell("2018." + String.valueOf(01 + i) + ".01 - 70 ლარი");
+                            if (!myschedule[i].equals("")) {
+                                System.out.println("" + myschedule[i]);
+                               
+
+                                System.out.println("yahoooo" + myschedule[i] + " - " + monthlyAmountValue + currency);
+                                ss = ss +"<tr><td>"+myschedule[i]+"</td><td>"+monthlyAmountValue+" ლარი</td></tr>";
+
+                            }
+//                            else 
+//                                ss = ss + "{\n\"command\":\"getmodalgrapbhic\",\\n"
+//                                        + "\"result\":\"productnotfound\"\\n}";
+//                            
+                        }
+                        ss = ss + "</tbody></table>\\n"
+                                    + "\"}";
+
+                        System.out.println("ss=" + ss);
+                        response.getWriter().write(ss);
+                    }
                 }
-                System.out.println(ss);
-                response.getWriter().write(ss);
             } else if (command.equals("register")) {
 
 // register NameFirst NameLast email etc ...               
@@ -620,10 +651,9 @@ public class mainService extends HttpServlet {
 
                 String price1 = tools.functions.jsonget(job, "price1");
                 System.out.println("price1=" + price1);
-                
-                 String limit = tools.functions.jsonget(job, "limit");
+
+                String limit = tools.functions.jsonget(job, "limit");
                 System.out.println("limit=" + limit);
-                
 
                 String paymentschedule = tools.functions.jsonget(job, "paymentschedule");
                 System.out.println("paymentschedule=" + paymentschedule);
@@ -657,11 +687,10 @@ public class mainService extends HttpServlet {
                 System.out.println("carvin=" + carvin);
                 String year = tools.functions.jsonget(job, "year");
                 System.out.println("year=" + year);
-                
+
                 // property
                 String property_address = tools.functions.jsonget(job, "address");
                 System.out.println("property_address=" + property_address);
-                
 
                 String addressinsured = tools.functions.jsonget(job, "2myaddress");
                 System.out.println("address=" + addressinsured);
@@ -687,21 +716,18 @@ public class mainService extends HttpServlet {
                 System.out.println("countryqwe=" + countryqwe);
                 ArrayList<String[]> tcountry = tools.functions.getResult(countryqwe, tools.functions.isnewcompare);
                 System.out.println("2 tcountry=     " + tcountry.get(0)[0]);
-                
-                
-                
 
                 if (forwho.equals("forme")) {
                     pnumberinsured = "pnumberinsurer";
                     birthday2 = birthday;
                     gender2 = gender;
-                    System.out.println("forwho= "+forwho);
+                    System.out.println("forwho= " + forwho);
                     citizenship_code2 = citizenship_code;
                     addressinsured = addressinsurer;
 
                 }
-                
-                String covering="";
+
+                String covering = "";
                 String tablename = type.substring(3);
                 if (tablename.equals("liability")) {
                     tablename = "ma_mtpl";
@@ -719,9 +745,9 @@ public class mainService extends HttpServlet {
                     tablename = "casco";
                 } else if (tablename.equals("property")) {
                     tablename = "property";
-                    franchise=tools.functions.jsonget(job, "limit");
+                    franchise = tools.functions.jsonget(job, "limit");
                     System.out.println("franchise=" + franchise);
-         //           covering=",covering";
+                    //           covering=",covering";
                 } else if (tablename.equals("health")) {
                     tablename = "health";
                 } else if (tablename.equals("travel")) {
@@ -731,15 +757,18 @@ public class mainService extends HttpServlet {
 
                 }
                 int pschedule = 0;
-                int ischedule=0;
+                int ischedule = 0;
                 if (paymentschedule.equals("inonce")) {
                     pschedule = 1;
                 } else if (paymentschedule.equals("inyear2")) {
-                    pschedule = 2; ischedule=6;
+                    pschedule = 2;
+                    ischedule = 6;
                 } else if (paymentschedule.equals("inkvart")) {
-                    pschedule = 4;ischedule=4;
+                    pschedule = 4;
+                    ischedule = 4;
                 } else if (paymentschedule.equals("inmounth")) {
-                    pschedule = 12;ischedule=1;
+                    pschedule = 12;
+                    ischedule = 1;
                 }
 
                 // Make Schedule
@@ -753,7 +782,7 @@ public class mainService extends HttpServlet {
 
                 System.out.println("now=" + now);
                 for (int i = 0; i < pschedule; i++) {
-                    
+
                     now = myCal.getTime();
                     SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd ");
                     //          System.out.println(formatter.format(now));
@@ -764,9 +793,8 @@ public class mainService extends HttpServlet {
                     System.out.println(i);
                     myCal.add(Calendar.MONTH, +ischedule);
                 }
-                
-                // endSchedule
 
+                // endSchedule
                 String pqwr = "select p.name,headergeo,headereng,addressgeo,phone,mail,covering,amount_text from " + tablename + "_params pp left join provider p on pp.provider_id=p.id where pp.id=" + productid;
                 System.out.println("pqwr=" + pqwr);
 
@@ -774,16 +802,16 @@ public class mainService extends HttpServlet {
                 // make police    begin        
                 String insurer = namefirst + " " + namelast;
                 String insured = namefirst_2 + " " + namelast_2;;
-                String covered=spqwr.get(0)[6];
-                String amount_text=spqwr.get(0)[7];
+                String covered = spqwr.get(0)[6];
+                String amount_text = spqwr.get(0)[7];
                 String filename = tools.pdfDesigner.makepolice(tablename, userid, insurer, insured, spqwr.get(0)[0], spqwr.get(0)[1],
                         spqwr.get(0)[2], spqwr.get(0)[3], spqwr.get(0)[4], spqwr.get(0)[5], franchise, pnumberinsurer, pnumberinsured, birthday,
                         birthday2, gender, gender2, citizenship_code, citizenship_code2, phone, email, addressinsurer, carvin, year, price0, payprice,
-                        addressinsured, startdate, enddate, tcountry.get(0)[0], marca, modelname, carnumber, currency,schedule,covered,property_address,amount_text);
+                        addressinsured, startdate, enddate, tcountry.get(0)[0], marca, modelname, carnumber, currency, schedule, covered, property_address, amount_text);
                 // make police end
                 String qwr = "insert into order_params (user_id,product_id,product_name,payment_schedule,policyholder,policyowner,company_name,filename,addressinsurer,addressinsured,start_date,end_date,price0,payprice)"
                         + " values (" + userid + "," + productid + ",'" + tablename + "','" + paymentschedule + "','" + policyowner + "','"
-                        + policyholder + "','" + spqwr.get(0)[0] + "','" + filename + "','" + addressinsurer + "','" + addressinsured + "','" + startdate + "','" + enddate + "','" +price0+ "','" +payprice+ "')  returning id; ";
+                        + policyholder + "','" + spqwr.get(0)[0] + "','" + filename + "','" + addressinsurer + "','" + addressinsured + "','" + startdate + "','" + enddate + "','" + price0 + "','" + payprice + "')  returning id; ";
 
                 System.out.println(qwr);
 
@@ -1089,7 +1117,7 @@ public class mainService extends HttpServlet {
 
                 String model = tools.functions.jsonget(job, "model");
                 System.out.println("model=" + model);
-                
+
                 String modelname = tools.functions.jsonget(job, "modelname");
                 System.out.println("modelname=" + modelname);
 
@@ -1605,10 +1633,6 @@ public class mainService extends HttpServlet {
                 String gender2 = tools.functions.jsonget(job, "2gender");
                 System.out.println("gender2=" + gender);
 
-               
-                
-
-
                 if (forwho.equals("forme")) {
                     personal_n2 = tools.functions.jsonget(job, "personal_n");
                     System.out.println("2personal_n=" + personal_n2);
@@ -1639,8 +1663,6 @@ public class mainService extends HttpServlet {
                 // product parameters
                 String insurancelimit = tools.functions.jsonget(job, "homeinsurancelimit");
                 System.out.println("homeinsurancelimit=" + insurancelimit);
-                
-               
 
                 String currency = tools.functions.jsonget(job, "currency");
                 System.out.println("currency=" + currency);
@@ -1685,13 +1707,13 @@ public class mainService extends HttpServlet {
 
                 String neighborinsurance = tools.functions.jsonget(job, "neighborinsurance");
                 System.out.println("neighborinsurance=" + neighborinsurance);
-                
-                String neighborsel=" and neighbor_price =0 ";
-                        
 
-                if(neighborinsurance.equals("yes"))  neighborsel=" and neighbor_price > 0 ";
-                
-                
+                String neighborsel = " and neighbor_price =0 ";
+
+                if (neighborinsurance.equals("yes")) {
+                    neighborsel = " and neighbor_price > 0 ";
+                }
+
                 Double aread = functions.str2double0(area);
                 System.out.println("aread=" + aread);
 // product parameters
@@ -1707,7 +1729,7 @@ public class mainService extends HttpServlet {
                 }
 /// insert into
                 String qwr = "select provider_id,provider.name,amount_limit*" + aread + ",area_price*" + aread + "+neighbor_price,p.id,add_html,franchise_txt from property_params p,provider \n"
-                        + "where provider_id=provider.id "+ neighborsel;
+                        + "where provider_id=provider.id " + neighborsel;
                 //                      + "where provider_id=provider.id and p.amount_limit='" + insurancelimit + "' and exchange_rate_id='" + curr + "'";
                 System.out.println("qwr=    " + qwr);
 

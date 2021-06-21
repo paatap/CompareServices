@@ -16,7 +16,7 @@ import java.util.Date;
 public class paymentshedule {
 
     public static String[] makeshedule(String paymentschedule) {
-
+        System.out.println("I am in schedurer  paymentschedule==="+paymentschedule);
         int pschedule = 0;
         int ischedule = 0;
         if (paymentschedule.equals("inonce")) {
