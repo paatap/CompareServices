@@ -152,10 +152,6 @@ public class mainService extends HttpServlet {
 //                String lang = tools.functions.jsonget(job, "namefirst");
 //                System.out.println("lang=" + lang);
 
-
-
-
-
                 String productid = tools.functions.jsonget(job, "productid");
                 System.out.println("productid=" + productid);
                 //           productid = "123456";
@@ -164,20 +160,15 @@ public class mainService extends HttpServlet {
                 String qwr = "select payment_schedule,payprice from order_params where id=" + productid;
                 System.out.println("qwr=" + qwr);
                 ArrayList<String[]> s2 = tools.functions.getResult(qwr, tools.functions.isnewcompare);
-                
-                        int pschedule = 0;
-  
-                
-                
+
+                int pschedule = 0;
+
                 if (s2.size() > 0) {
-                    System.out.println("s2-size="+s2.size());
+                    System.out.println("s2-size=" + s2.size());
 
                     for (String[] s22 : s2) {
 
                         String[] myschedule = tools.paymentshedule.makeshedule(s22[0]);
-                        
-                        
-                        
 
                         String ss;
                         String monthlyAmountValue = s22[1];
@@ -193,15 +184,14 @@ public class mainService extends HttpServlet {
                                 + "<tr><td>თარიღი</td><td>თანხა</td></tr>";
 
 //                        for (int i = 0; i < 12; i++) {
-                            for (int i = 0; i < myschedule.length; i++) {
-                                System.out.println("myscheduleLenght="+myschedule.length);
+                        for (int i = 0; i < myschedule.length; i++) {
+                            System.out.println("myscheduleLenght=" + myschedule.length);
                             //  rulesVal.addCell("2018." + String.valueOf(01 + i) + ".01 - 70 ლარი");
                             if (!myschedule[i].equals("")) {
                                 System.out.println("" + myschedule[i]);
-                               
 
                                 System.out.println("yahoooo" + myschedule[i] + " - " + monthlyAmountValue + currency);
-                                ss = ss +"<tr><td>"+myschedule[i]+"</td><td>"+monthlyAmountValue+" ლარი</td></tr>";
+                                ss = ss + "<tr><td>" + myschedule[i] + "</td><td>" + monthlyAmountValue + " ლარი</td></tr>";
 
                             }
 //                            else 
@@ -210,7 +200,7 @@ public class mainService extends HttpServlet {
 //                            
                         }
                         ss = ss + "</tbody></table>\\n"
-                                    + "\"}";
+                                + "\"}";
 
                         System.out.println("ss=" + ss);
                         response.getWriter().write(ss);
@@ -701,6 +691,21 @@ public class mainService extends HttpServlet {
                 System.out.println("enddate=" + enddate);
                 String currency = tools.functions.jsonget(job, "currency");
                 System.out.println("currency=" + currency);
+                String luggage = tools.functions.jsonget(job, "baggageinsurance");
+                System.out.println("luggage=" + luggage);
+                String flight = tools.functions.jsonget(job, "reisinsurance");
+                System.out.println("flight=" + flight);
+                if (luggage.equals("true")) {
+                    luggage = "  yes";
+                } else {
+                    luggage = "  no";
+                }
+                if (flight.equals("true")) {
+                    flight = "  yes";
+                } else {
+                    flight = "  no";
+                }
+
                 String country_code = "";
                 String marca = "";
                 String model = "";
@@ -804,21 +809,27 @@ public class mainService extends HttpServlet {
                 String insured = namefirst_2 + " " + namelast_2;;
                 String covered = spqwr.get(0)[6];
                 String amount_text = spqwr.get(0)[7];
+
+                String creationdate= java.time.LocalDateTime.now().toString();
+                System.out.println("Creation Date _1 ="+creationdate);
+                
+                
                 String filename = tools.pdfDesigner.makepolice(tablename, userid, insurer, insured, spqwr.get(0)[0], spqwr.get(0)[1],
                         spqwr.get(0)[2], spqwr.get(0)[3], spqwr.get(0)[4], spqwr.get(0)[5], franchise, pnumberinsurer, pnumberinsured, birthday,
                         birthday2, gender, gender2, citizenship_code, citizenship_code2, phone, email, addressinsurer, carvin, year, price0, payprice,
-                        addressinsured, startdate, enddate, tcountry.get(0)[0], marca, modelname, carnumber, currency, schedule, covered, property_address, amount_text);
+                        addressinsured, startdate, enddate, tcountry.get(0)[0], marca, modelname, carnumber, currency, schedule, covered, property_address, amount_text, luggage, flight, creationdate);
                 // make police end
-                String qwr = "insert into order_params (user_id,product_id,product_name,payment_schedule,policyholder,policyowner,company_name,filename,addressinsurer,addressinsured,start_date,end_date,price0,payprice)"
+                
+                String qwr = "insert into order_params (user_id,product_id,product_name,payment_schedule,policyholder,policyowner,company_name,filename,"
+                        + "addressinsurer,addressinsured,start_date,end_date,price0,payprice,luggage,flight)"
                         + " values (" + userid + "," + productid + ",'" + tablename + "','" + paymentschedule + "','" + policyowner + "','"
-                        + policyholder + "','" + spqwr.get(0)[0] + "','" + filename + "','" + addressinsurer + "','" + addressinsured + "','" + startdate + "','" + enddate + "','" + price0 + "','" + payprice + "')  returning id; ";
-
+                        + policyholder + "','" + spqwr.get(0)[0] + "','" + filename + "','" + addressinsurer + "','" + addressinsured + "','"
+                        + startdate + "','" + enddate + "','" + price0 + "','" + payprice + "','" + luggage + "','" + flight + "')  returning creation_date; ";
+                
                 System.out.println(qwr);
-
                 ArrayList<String[]> s1 = tools.functions.getResult(qwr, tools.functions.isnewcompare);
-                System.out.println("2 s1=     " + s1.get(0)[0]);
+                System.out.println("2 s1 Creation_date=     " + s1.get(0)[0]);
 
-                System.out.println(qwr);
 
                 String ss;
                 if (s1.size() > 0) {

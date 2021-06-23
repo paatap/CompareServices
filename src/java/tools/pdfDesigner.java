@@ -55,7 +55,7 @@ public class pdfDesigner {
             String cityzenshipinsurer, String cityzenshipinsured, String phoneinsurer, String mailinsurer, String addressinsurer,
             String vincodeValue, String releaseYearValue, String SumAmountValue, String monthlyAmountValue, String addressinsured,
             String datefrom, String dateto, String countriesvalue, String carMarkValue, String carModelValue, String countrynumValue, String currency, String[] schedule,
-            String covered, String addressValue, String amount_text
+            String covered, String addressValue, String amount_text, String luggagevalue, String flightvalue,String policyDateValue
     )
             throws Exception, NullPointerException {
         if (currency.equals("_lari")) {
@@ -63,6 +63,8 @@ public class pdfDesigner {
         } else if (currency.equals("_usd")) {
             currency = " USD";
         }
+//        if(luggagevalue.equals("true") ){luggagevalue="  yes";} else {luggagevalue="  no";}
+//        if(flightvalue.equals("true") ){flightvalue="  yes";} else {flightvalue="  no";}
 
         String amountValue = coveragelimitvalue + currency;
         String monthlyAmount = "ყოველთვიური თანხა / Monthly bill";
@@ -85,7 +87,7 @@ public class pdfDesigner {
         pheadergeo = pheadergeo + "" + provideraddressvalue + " " + providerphone + " " + providerphonevalue;
         pheadereng = pheadereng + "" + provideraddressvalue + " " + providerphone + " " + providerphonevalue;
         //provideraddressvalue+" "+providerphone+" "+providerphonevalue;
-        
+
         String carMark = "მარკა/ Mark ";
 
         String carModel = "მოდელი / Model";
@@ -129,6 +131,12 @@ public class pdfDesigner {
         datefrom = datefrom + " დან";
         dateto = dateto + " მდე/ჩათვლით";
 
+        String pushasedate = "შეძენის თარიღი / Purchase date";
+        String pushasedatevalue = "##.##.##";
+
+        String policyDate = "გაცემის თარიღი / Date of Policy Issue";
+    //    policyDateValue = "12 თებერვალი / 12th of February";
+
         System.out.println("font=" + FONT);
         PdfFont gefont = PdfFontFactory.createFont(FONT, "Identity-H");
         //   PdfFont gefont = PdfFontFactory.createFont(FONT, PdfEncodings.IDENTITY_H);
@@ -158,16 +166,13 @@ public class pdfDesigner {
 
             //data for head table
             // data for info table
-           
-
             String coveragelimit = "დაზღვევის ლიმიტი / Coverage limit";
 //            String coveragelimitvalue = "5000 EURO";
 
             String addservice = "დამატებითი სერვისები / Additional coverages";
-            String flight = "ფრენა / Flight";
-            String luggage = "ბარგი / Luggage";
-            String pushasedate = "შეძენის თარიღი / Purchase date";
-            String pushasedatevalue = "##.##.##";
+            String flight = "ფრენა / Flight " + flightvalue;
+            String luggage = "ბარგი / Luggage " + luggagevalue;
+
             String provider = "დამზღვევი / Insurer";
             //           String providervalue = "Company Name-Benefit";
 
@@ -243,11 +248,11 @@ public class pdfDesigner {
             //adding cells to info table
 //            Cell poCell = new Cell(1, 2);
 //            Paragraph myparagraph = new Paragraph(responsibility);
-             Cell infoheadCell = new Cell(1, 2);
-             Paragraph myparagraph = new Paragraph(responsibility);
+            Cell infoheadCell = new Cell(1, 2);
+            Paragraph myparagraph = new Paragraph(responsibility);
             infoheadCell.add(myparagraph.setTextAlignment(TextAlignment.CENTER));
             info.addCell(infoheadCell);
-            
+
 //            poCell.add(myparagraph);
 //            info.addCell(poCell);
             info.addCell(countries);
@@ -267,6 +272,8 @@ public class pdfDesigner {
             footertable.addCell(signature).setHorizontalAlignment(HorizontalAlignment.CENTER);
             //          footertable.addCell(stmp.scale(0.08F, 0.08F).setHorizontalAlignment(HorizontalAlignment.CENTER));
             footertable.addCell(stmp.scale(0.60F, 0.60F).setHorizontalAlignment(HorizontalAlignment.CENTER));
+            footertable.addCell(policyDate);
+            footertable.addCell(policyDateValue);
             footertable.addCell(providermail);
             footertable.addCell(providermailvalue);
             footertable.addCell(providerphone);
@@ -476,6 +483,8 @@ public class pdfDesigner {
             footertable.addCell(signature).setHorizontalAlignment(HorizontalAlignment.CENTER);
 
             footertable.addCell(stmp.scale(0.60F, 0.60F).setHorizontalAlignment(HorizontalAlignment.CENTER));
+            footertable.addCell(policyDate);
+            footertable.addCell(policyDateValue);
             footertable.addCell(providermail);
             footertable.addCell(providermailvalue);
             footertable.addCell(providerphone);
@@ -491,7 +500,6 @@ public class pdfDesigner {
             body.setMarginTop(14f);
             doc.add(body);
             body.complete();
-
 
             info.setMarginTop(14f);
             doc.add(info);
@@ -628,7 +636,6 @@ public class pdfDesigner {
 
             //adding cells to info table
             //new
-            
             Cell infoheadCell = new Cell(1, 2);
             Paragraph myparagraph = new Paragraph(responsibility);
             infoheadCell.add(myparagraph.setTextAlignment(TextAlignment.CENTER));
@@ -640,7 +647,6 @@ public class pdfDesigner {
             info.addCell(riskebi);
 
             //new
-
             money.addCell(period);
             cperiod.addCell(datefrom);
             cperiod.addCell(dateto);
@@ -672,6 +678,8 @@ public class pdfDesigner {
             //adding cells to footertable
             footertable.addCell(signature).setHorizontalAlignment(HorizontalAlignment.CENTER);
             footertable.addCell(stmp.scale(0.60F, 0.60F).setHorizontalAlignment(HorizontalAlignment.CENTER));
+            footertable.addCell(policyDate);
+            footertable.addCell(policyDateValue);
             footertable.addCell(providermail);
             footertable.addCell(providermailvalue);
             footertable.addCell(providerphone);
@@ -752,7 +760,6 @@ public class pdfDesigner {
 
             String provideraddress = "მისამართი/Address";
 
-
             // declaring tables
             Table head = new Table(2, true);
             Table headerstrings = new Table(1, true);
@@ -818,12 +825,12 @@ public class pdfDesigner {
             body.addCell(addressinsured);
 
             Paragraph second = new Paragraph(parameters).setFontColor(ColorConstants.BLUE);
-             Cell infoheadCell = new Cell(1, 2);
-             Paragraph myparagraph = new Paragraph(responsibility);
+            Cell infoheadCell = new Cell(1, 2);
+            Paragraph myparagraph = new Paragraph(responsibility);
             infoheadCell.add(myparagraph.setTextAlignment(TextAlignment.CENTER));
             info.addCell(infoheadCell);
-            
- //           info.addCell(responsibility);
+
+            //           info.addCell(responsibility);
             info.addCell(second);
             info.addCell(countrynum);
             info.addCell(countrynumValue);
@@ -871,6 +878,8 @@ public class pdfDesigner {
             //adding cells to footertable
             footertable.addCell(signature).setHorizontalAlignment(HorizontalAlignment.CENTER);
             footertable.addCell(stmp.scale(0.60F, 0.60F).setHorizontalAlignment(HorizontalAlignment.CENTER));
+            footertable.addCell(policyDate);
+            footertable.addCell(policyDateValue);
             footertable.addCell(providermail);
             footertable.addCell(providermailvalue);
             footertable.addCell(providerphone);
@@ -909,7 +918,6 @@ public class pdfDesigner {
         } else if (invoice_type.equals("property")) {
 
             System.out.println("I Am here Property");
-
 
             String coverage0 = "დაფარვა / Coverage ";
             String limit0 = "ლიმიტი / Limit";
@@ -961,7 +969,7 @@ public class pdfDesigner {
                     + "დადასტურებული დანართი #1-ის სახით და წარმოადგენს შესაბამისი ხელშეკრულების და წინამდებარე ქონების დაზღვევის "
                     + "პოლისის განუყოფელ ნაწილს.").setItalic().setFontSize(6.0F);
             String address = "დაზღვეული ქონების მისამართი / Insured Property Address";
-          
+
             String type = "დაზღვეული ქონების ტიპი / Insured Property Type";
             String typeValue = " უძრავი ქონება";
             String object = "დაზღვეული ქონების ობიექტი / Insured Property object";
@@ -978,13 +986,10 @@ public class pdfDesigner {
 
             //data for money table
             //data for footertable
-            String policyDate = "გაცემის თარიღი / Date of Policy Issue";
-            String policyDateValue = "12 თებერვალი / 12th of February";
             String signature = "ელექტრონული ხელმოწერა / Signature";
             String providermail = "მეილი / Contact email";
 
             String provideraddress = "მისამართი/Address";
-
 
             // declaring tables
             Table head = new Table(2).useAllAvailableWidth();
@@ -1053,13 +1058,12 @@ public class pdfDesigner {
             body.addCell(addressinsurer);
             body.addCell(addressinsured);
 
-            
-                         Cell infoheadCell = new Cell(1, 2);
-             Paragraph myparagraph = new Paragraph(responsibility);
+            Cell infoheadCell = new Cell(1, 2);
+            Paragraph myparagraph = new Paragraph(responsibility);
             infoheadCell.add(myparagraph.setTextAlignment(TextAlignment.CENTER));
             info.addCell(infoheadCell);
-    //        info.addCell(header);
-    //        info.addCell(" ");
+            //        info.addCell(header);
+            //        info.addCell(" ");
             info.addCell(risks);
             Cell riskebi = new Cell();
             riskebi.add(riskval);
@@ -1084,7 +1088,7 @@ public class pdfDesigner {
             cperiod.addCell(datefrom);
             cperiod.addCell(dateto);
             money.addCell(cperiod);
-            
+
             money.addCell(InsuranceBill).setBorder(null);
             money.addCell(InsuranceBillValue).setBorder(null);
             money.addCell(SumAmount).setBorder(null);
