@@ -858,17 +858,27 @@ public class mainService extends HttpServlet {
                 ArrayList<String[]> s2 = tools.functions.getResult(qwr, tools.functions.isnewcompare);
                 String ss;
                 if (s2.size() > 0) {
-                    ss = "{\n\"command\":\"getcars\",\n"
+                    ss = "{\n\"command\":\"getcities\",\n"
                             + "\"result\":\"ok\",\n"
-                            + "\"cityid\":\"" + s2.get(0)[0] + "\","
-                            + "\"cityname\":\"" + s2.get(0)[1] + "\"\n}";
+                            + "\"cities\":[\n";
+                    for (int i = 0; i < s2.size(); i++) {
 
+                        if (i == 0) {
+                            ss += "{\"id\":\"" + s2.get(i)[0] + "\","
+                                    + "\"cityname\":\"" + s2.get(i)[1] + "\"}";
+                        } else {
+                            ss += ",\n{\"id\":\"" + s2.get(i)[0] + "\","
+                                    + "\"cityname\":\"" + s2.get(i)[1] + "\"}";
+                        }
+                    }
+                    ss += "\n]\n}";
                 } else {
                     ss = "{\n\"command\":\"getcities\",\n"
                             + "\"result\":\"nocities\"\n}";
                 }
                 System.out.println(ss);
                 response.getWriter().write(ss);
+
             } else if (command.equals("getcars")) {
 // get car models
 
@@ -1165,6 +1175,18 @@ public class mainService extends HttpServlet {
 
                 String paymentschedule = tools.functions.jsonget(job, "paymentschedule");
                 System.out.println("paymentschedule=" + paymentschedule);
+                String paymentschedulet = "";
+                if (paymentschedule.equals("inmounth")) {
+                    paymentschedulet = "ყოველთვიური";
+
+                } else if (paymentschedule.equals("inkvart")) {
+                    paymentschedulet = "კვარტალში ერთხელ";
+                } else if (paymentschedule.equals("inyear2")) {
+                    paymentschedulet = "წელიწადში ორჯერ";
+                    // paymentschedule2=paymentschedule+"br";
+                } else if (paymentschedule.equals("inonce")) {
+                    paymentschedulet = "წელიწადში ერთხელ";
+                }
 
                 String datestart = tools.functions.jsonget(job, "date12");
                 System.out.println("date12=" + datestart);
@@ -1227,8 +1249,8 @@ public class mainService extends HttpServlet {
                             + "<tr><td><b>მოდელი</b></td><td>" + modelname + "</td></tr>\\n"
                             + "<tr><td><b>წელი</b></td><td>" + caryear + "</td></tr>\\n"
                             + "<tr><td><b>სადაზღვევო პერიოდი</b></td><td>" + datestart + "-" + dateend + "</td></tr>\\n"
-                            + "<tr><td><b>სადაზღვევო თანხა</b> </td><td>" + liabilitylimit + " " + currency + "</td></tr>\\n"
-                            + "<tr><td><b>გადახდის გრაფიკი</b></td><td>" + paymentschedule + "</td></tr>\\n"
+                            + "<tr><td><b>სადაზღვევო თანხა</b> </td><td>" + liabilitylimit + " ?" + currency + "?</td></tr>\\n"
+                            + "<tr><td><b>გადახდის გრაფიკი</b></td><td>" + paymentschedulet + "</td></tr>\\n"
                             //                   + "<tr><td><b>ჯამური თანხა</b></td><td>14 ლარი</td></tr>\\n"
 
                             + "</table>\\n";
@@ -1427,6 +1449,7 @@ public class mainService extends HttpServlet {
                 System.out.println("currency=" + currency);
 
                 String paymentschedule = tools.functions.jsonget(job, "paymentschedule");
+
                 System.out.println("paymentschedule=" + paymentschedule);
 
                 String datestart = tools.functions.jsonget(job, "date12");
@@ -1493,7 +1516,7 @@ public class mainService extends HttpServlet {
                             + "<tr><td style='background-color: #dddddd' ><b>მოგზაურობის დეტალები</b></td><td style='background-color: #dddddd'><a href='#' onclick='myshowtab(1)' >პარამეტრების ცვლილება</a></td></tr>\\n"
                             + "<tr><td><b>რომელ ქვეყანაში მოგზაურობთ</b></td><td>" + country_code + "</td></tr>\\n"
                             + "<tr><td><b>სადაზღვევო პერიოდი</b></td><td>" + datestart + "-" + dateend + "</td></tr>\\n"
-                            + "<tr><td><b>სადაზღვევო თანხა</b> </td><td>" + insurancelimit + " " + currency + "</td></tr>\\n"
+                            + "<tr><td><b>სადაზღვევო თანხა</b> </td><td>" + insurancelimit + " ?" + currency + "?</td></tr>\\n"
                             + "<tr><td><b>ბარგის დაზღვევა</b></td><td>" + baggageinsurance + "</td></tr>\\n"
                             + "<tr><td><b>რეისის დაზღვევა</b></td><td>" + reisinsurance + "</td></tr>\\n"
                             //                   + "<tr><td><b>ჯამური თანხა</b></td><td>14 ლარი</td></tr>\\n"
@@ -1528,7 +1551,7 @@ public class mainService extends HttpServlet {
                             + "<tr><td style='background-color: #dddddd' colspan='2' ><b>მოგზაურობის დეტალები</b></td></tr>\\n"
                             + "<tr><td><b>რომელ ქვეყანაში მოგზაურობთ</b></td><td>" + country_code + "</td></tr>\\n"
                             + "<tr><td><b>სადაზღვევო პერიოდი</b></td><td>" + datestart + "-" + dateend + "</td></tr>\\n"
-                            + "<tr><td><b>სადაზღვევო თანხა</b> </td><td>" + insurancelimit + " " + currency + "</td></tr>\\n"
+                            + "<tr><td><b>სადაზღვევო თანხა</b> </td><td>" + insurancelimit + " ?" + currency + "?</td></tr>\\n"
                             + "<tr><td><b>ბარგის დაზღვევა</b></td><td>" + baggageinsurance + "</td></tr>\\n"
                             + "<tr><td><b>რეისის დაზღვევა</b></td><td>" + reisinsurance + "</td></tr>\\n"
                             //                   + "<tr><td><b>ჯამური თანხა</b></td><td>14 ლარი</td></tr>\\n"
@@ -1714,6 +1737,18 @@ public class mainService extends HttpServlet {
                 //         inmounth inkvart inkvart inyear2  inonce
                 String paymentschedule = tools.functions.jsonget(job, "paymentschedule");
                 System.out.println("paymentschedule=" + paymentschedule);
+                String paymentschedulet = "";
+                if (paymentschedule.equals("inmounth")) {
+                    paymentschedulet = "ყოველთვიური";
+
+                } else if (paymentschedule.equals("inkvart")) {
+                    paymentschedulet = "კვარტალში ერთხელ";
+                } else if (paymentschedule.equals("inyear2")) {
+                    paymentschedulet = "წელიწადში ორჯერ";
+                    // paymentschedule2=paymentschedule+"br";
+                } else if (paymentschedule.equals("inonce")) {
+                    paymentschedulet = "წელიწადში ერთხელ";
+                }
 
                 String checkboxrule = tools.functions.jsonget(job, "checkboxrule");
                 System.out.println("checkboxrule=" + checkboxrule);
@@ -1814,7 +1849,7 @@ public class mainService extends HttpServlet {
                             + "<tr><td><b>მისამართი</b></td><td>" + address + "</td></tr>\\n"
                             + "<tr><td><b>დეტალური ინფორმაცია</b></td><td>" + fulldetail + "</td></tr>\\n"
                             + "<tr><td><b>გსურს მეზობლის მიმართ პასუხისმგებლობის დაზღვევა</b></td><td>" + neighborinsurance + "</td></tr>\\n"
-                            + "<tr><td><b>გადახდის გრაფიკი</b></td><td>" + paymentschedule + "</td></tr>\\n"
+                            + "<tr><td><b>გადახდის გრაფიკი</b></td><td>" + paymentschedulet + "</td></tr>\\n"
                             + "<tr><td><b>სადაზღვევო პერიოდი</b></td><td>" + datestart + "-" + dateend + "</td></tr>\\n"
                             //                   + "<tr><td><b>ჯამური თანხა</b></td><td>14 ლარი</td></tr>\\n"
 
@@ -2027,6 +2062,18 @@ public class mainService extends HttpServlet {
 
                 String paymentschedule = tools.functions.jsonget(job, "paymentschedule");
                 System.out.println("paymentschedule=" + paymentschedule);
+                String paymentschedulet = "";
+                if (paymentschedule.equals("inmounth")) {
+                    paymentschedulet = "ყოველთვიური";
+
+                } else if (paymentschedule.equals("inkvart")) {
+                    paymentschedulet = "კვარტალში ერთხელ";
+                } else if (paymentschedule.equals("inyear2")) {
+                    paymentschedulet = "წელიწადში ორჯერ";
+                    // paymentschedule2=paymentschedule+"br";
+                } else if (paymentschedule.equals("inonce")) {
+                    paymentschedulet = "წელიწადში ერთხელ";
+                }
                 String checkboxrule = tools.functions.jsonget(job, "checkboxrule");
                 System.out.println("checkboxrule=" + checkboxrule);
 
@@ -2083,6 +2130,7 @@ public class mainService extends HttpServlet {
                             + "<tr><td><b>გვარი ლათინურად</b></td><td>" + namelastlat2 + "</td></tr>\\n"
                             + "<tr><td><b>მოქალაქეობა</b></td><td>" + citizenship_code2 + "</td></tr>\\n"
                             + "<tr><td style='background-color: #dddddd' ><b>დაზღვევის დეტალები</b></td><td style='background-color: #dddddd'><a href='#' onclick='myshowtab(1)' >პარამეტრების ცვლილება</a></td></tr>\\n"
+                             + "<tr><td><b>გადახდის გრაფიკი</b></td><td>" + paymentschedulet + "</td></tr>\\n"
                             + "<tr><td><b>სადაზღვევო პერიოდი</b></td><td>" + datestart + "-" + dateend + "</td></tr>\\n"
                             //                   + "<tr><td><b>ჯამური თანხა</b></td><td>14 ლარი</td></tr>\\n"
 
