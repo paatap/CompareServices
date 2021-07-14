@@ -66,17 +66,13 @@ public class mainService extends HttpServlet {
             System.out.println("333");
             String command = tools.functions.jsonget(job, "command");
             System.out.println("command=" + command);
-            
-             String tqwr = "insert into global_transactions(transactionbody) values('"+result+"') returning id";
-     //        insert into global_transactions (transactionbody)values('{"name":"John"}')
-             
-     
-    
-                
-                ArrayList<String[]> ts2 = tools.functions.getResult(tqwr, tools.functions.isnewcompare);
-                System.out.println("========================================transaction_id=========="+ts2.get(0)[0]);
-                String transactin_id=ts2.get(0)[0];
-            
+
+            String tqwr = "insert into global_transactions(transactionbody) values('" + result + "') returning id";
+            //        insert into global_transactions (transactionbody)values('{"name":"John"}')
+
+            ArrayList<String[]> ts2 = tools.functions.getResult(tqwr, tools.functions.isnewcompare);
+            System.out.println("========================================transaction_id==========" + ts2.get(0)[0]);
+            String transactin_id = ts2.get(0)[0];
 
             if (command.equals("login")) {
 // login
@@ -821,26 +817,24 @@ public class mainService extends HttpServlet {
                 String covered = spqwr.get(0)[6];
                 String amount_text = spqwr.get(0)[7];
 
-                String creationdate= java.time.LocalDateTime.now().toString();
-                System.out.println("Creation Date _1 ="+creationdate);
-                
-                
+                String creationdate = java.time.LocalDateTime.now().toString();
+                System.out.println("Creation Date _1 =" + creationdate);
+
                 String filename = tools.pdfDesigner.makepolice(tablename, userid, insurer, insured, spqwr.get(0)[0], spqwr.get(0)[1],
                         spqwr.get(0)[2], spqwr.get(0)[3], spqwr.get(0)[4], spqwr.get(0)[5], franchise, pnumberinsurer, pnumberinsured, birthday,
                         birthday2, gender, gender2, citizenship_code, citizenship_code2, phone, email, addressinsurer, carvin, year, price0, payprice,
                         addressinsured, startdate, enddate, tcountry.get(0)[0], marca, modelname, carnumber, currency, schedule, covered, property_address, amount_text, luggage, flight, creationdate);
                 // make police end
-                
+
                 String qwr = "insert into order_params (user_id,product_id,product_name,payment_schedule,policyholder,policyowner,company_name,filename,"
                         + "addressinsurer,addressinsured,start_date,end_date,price0,payprice,luggage,flight,transactionid)"
                         + " values (" + userid + "," + productid + ",'" + tablename + "','" + paymentschedule + "','" + policyowner + "','"
                         + policyholder + "','" + spqwr.get(0)[0] + "','" + filename + "','" + addressinsurer + "','" + addressinsured + "','"
-                        + startdate + "','" + enddate + "','" + price0 + "','" + payprice + "','" + luggage + "','" + flight + "','" + transactin_id +"')  returning creation_date; ";
-                
+                        + startdate + "','" + enddate + "','" + price0 + "','" + payprice + "','" + luggage + "','" + flight + "','" + transactin_id + "')  returning creation_date; ";
+
                 System.out.println(qwr);
                 ArrayList<String[]> s1 = tools.functions.getResult(qwr, tools.functions.isnewcompare);
                 System.out.println("2 s1 Creation_date=     " + s1.get(0)[0]);
-
 
                 String ss;
                 if (s1.size() > 0) {
@@ -855,29 +849,27 @@ public class mainService extends HttpServlet {
                 System.out.println(ss);
                 response.getWriter().write(ss);
 
-
                 //  pdfDesigner.invoice(tablename);
-            }else if (command.equals("getcities")) {
-// get cityes
+            } else if (command.equals("getcities")) {
+// get cities
 
                 String qwr = "select id,name from city order by name ";
 
                 ArrayList<String[]> s2 = tools.functions.getResult(qwr, tools.functions.isnewcompare);
                 String ss;
                 if (s2.size() > 0) {
-                             ss = "{\n\"command\":\"getcars\",\n"
+                    ss = "{\n\"command\":\"getcars\",\n"
                             + "\"result\":\"ok\",\n"
-                             + "\"cityid\":\"" + s2.get(0)[0] + "\","
-                             + "\"citiname\":\"" + s2.get(0)[1] + "\"\n}";
-                    
-                   
+                            + "\"cityid\":\"" + s2.get(0)[0] + "\","
+                            + "\"cityname\":\"" + s2.get(0)[1] + "\"\n}";
+
                 } else {
                     ss = "{\n\"command\":\"getcities\",\n"
                             + "\"result\":\"nocities\"\n}";
                 }
                 System.out.println(ss);
                 response.getWriter().write(ss);
-            }  else if (command.equals("getcars")) {
+            } else if (command.equals("getcars")) {
 // get car models
 
                 String qwr = "select id,mark,model,supported from car_models order by mark,model ";
@@ -1411,9 +1403,19 @@ public class mainService extends HttpServlet {
 
                 String baggageinsurance = tools.functions.jsonget(job, "baggageinsurance");
                 System.out.println("baggageinsurance=" + baggageinsurance);
-
+                if (baggageinsurance.equals("true")) {
+                    baggageinsurance = "yes";
+                } else {
+                    baggageinsurance = "no";
+                }
                 String reisinsurance = tools.functions.jsonget(job, "reisinsurance");
                 System.out.println("reisinsurance=" + reisinsurance);
+
+                if (reisinsurance.equals("true")) {
+                    reisinsurance = "yes";
+                } else {
+                    reisinsurance = "no";
+                }
 //
 //                String email2 = tools.functions.jsonget(job, "email");
 //                System.out.println("email=" + email);
@@ -1497,6 +1499,7 @@ public class mainService extends HttpServlet {
                             //                   + "<tr><td><b>ჯამური თანხა</b></td><td>14 ლარი</td></tr>\\n"
 
                             + "</table>\\n";
+
                     buytable = "<style>\\n"
                             + "table.pparameters {font-size: 14px;font-family: arial, sans-serif;border-collapse: collapse;width: 100%;}\\n"
                             + "table.pparameters td, th {border: 1px solid #dddddd;text-align: left;padding: 8px}\\n"
