@@ -66,6 +66,17 @@ public class mainService extends HttpServlet {
             System.out.println("333");
             String command = tools.functions.jsonget(job, "command");
             System.out.println("command=" + command);
+            
+             String tqwr = "insert into global_transactions(transactionbody) values('"+result+"') returning id";
+     //        insert into global_transactions (transactionbody)values('{"name":"John"}')
+             
+     
+    
+                
+                ArrayList<String[]> ts2 = tools.functions.getResult(tqwr, tools.functions.isnewcompare);
+                System.out.println("========================================transaction_id=========="+ts2.get(0)[0]);
+                String transactin_id=ts2.get(0)[0];
+            
 
             if (command.equals("login")) {
 // login
@@ -821,10 +832,10 @@ public class mainService extends HttpServlet {
                 // make police end
                 
                 String qwr = "insert into order_params (user_id,product_id,product_name,payment_schedule,policyholder,policyowner,company_name,filename,"
-                        + "addressinsurer,addressinsured,start_date,end_date,price0,payprice,luggage,flight)"
+                        + "addressinsurer,addressinsured,start_date,end_date,price0,payprice,luggage,flight,transactionid)"
                         + " values (" + userid + "," + productid + ",'" + tablename + "','" + paymentschedule + "','" + policyowner + "','"
                         + policyholder + "','" + spqwr.get(0)[0] + "','" + filename + "','" + addressinsurer + "','" + addressinsured + "','"
-                        + startdate + "','" + enddate + "','" + price0 + "','" + payprice + "','" + luggage + "','" + flight + "')  returning creation_date; ";
+                        + startdate + "','" + enddate + "','" + price0 + "','" + payprice + "','" + luggage + "','" + flight + "','" + transactin_id +"')  returning creation_date; ";
                 
                 System.out.println(qwr);
                 ArrayList<String[]> s1 = tools.functions.getResult(qwr, tools.functions.isnewcompare);
@@ -843,11 +854,30 @@ public class mainService extends HttpServlet {
 
                 System.out.println(ss);
                 response.getWriter().write(ss);
-                //          invoice_params [0]="kuku";
-                System.out.println("this is entry");
+
 
                 //  pdfDesigner.invoice(tablename);
-            } else if (command.equals("getcars")) {
+            }else if (command.equals("getcities")) {
+// get cityes
+
+                String qwr = "select id,name from city order by name ";
+
+                ArrayList<String[]> s2 = tools.functions.getResult(qwr, tools.functions.isnewcompare);
+                String ss;
+                if (s2.size() > 0) {
+                             ss = "{\n\"command\":\"getcars\",\n"
+                            + "\"result\":\"ok\",\n"
+                             + "\"cityid\":\"" + s2.get(0)[0] + "\","
+                             + "\"citiname\":\"" + s2.get(0)[1] + "\"\n}";
+                    
+                   
+                } else {
+                    ss = "{\n\"command\":\"getcities\",\n"
+                            + "\"result\":\"nocities\"\n}";
+                }
+                System.out.println(ss);
+                response.getWriter().write(ss);
+            }  else if (command.equals("getcars")) {
 // get car models
 
                 String qwr = "select id,mark,model,supported from car_models order by mark,model ";

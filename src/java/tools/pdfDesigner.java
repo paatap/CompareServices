@@ -55,7 +55,7 @@ public class pdfDesigner {
             String cityzenshipinsurer, String cityzenshipinsured, String phoneinsurer, String mailinsurer, String addressinsurer,
             String vincodeValue, String releaseYearValue, String SumAmountValue, String monthlyAmountValue, String addressinsured,
             String datefrom, String dateto, String countriesvalue, String carMarkValue, String carModelValue, String countrynumValue, String currency, String[] schedule,
-            String covered, String addressValue, String amount_text, String luggagevalue, String flightvalue,String policyDateValue
+            String covered, String addressValue, String amount_text, String luggagevalue, String flightvalue, String policyDateValue
     )
             throws Exception, NullPointerException {
         if (currency.equals("_lari")) {
@@ -135,7 +135,7 @@ public class pdfDesigner {
         String pushasedatevalue = "##.##.##";
 
         String policyDate = "გაცემის თარიღი / Date of Policy Issue";
-    //    policyDateValue = "12 თებერვალი / 12th of February";
+        //    policyDateValue = "12 თებერვალი / 12th of February";
 
         System.out.println("font=" + FONT);
         PdfFont gefont = PdfFontFactory.createFont(FONT, "Identity-H");
@@ -193,6 +193,7 @@ public class pdfDesigner {
             Table cperiod = new Table(2, true);
             Table addservices = new Table(2, true);
             Table footertable = new Table(2, true);
+            Table money = new Table(2, true);
 
             //setting fonts
             head.setFont(gefont);
@@ -202,12 +203,14 @@ public class pdfDesigner {
             cperiod.setFont(gefont);
             footertable.setFont(gefont);
             addservices.setFont(gefont);
+            money.setFont(gefont);
 
             //setting font sizes
             headerstrings.setFontSize(8.0F);
             body.setFontSize(8.0F);
             body.setFontSize(8.0F);
             info.setFontSize(8.0F);
+            money.setFontSize(8.0F);
             cperiod.setFontSize(8.0F);
             addservices.setFontSize(8.0F);
             footertable.setFontSize(8.0F);
@@ -267,6 +270,8 @@ public class pdfDesigner {
             addservices.addCell(flight);
             addservices.addCell(luggage);
             info.addCell(addservices);
+            money.addCell(SumAmount).setBorder(null);  //travel
+            money.addCell(SumAmountValue).setBorder(null);
 
             //adding cells to footertable
             footertable.addCell(signature).setHorizontalAlignment(HorizontalAlignment.CENTER);
@@ -293,6 +298,9 @@ public class pdfDesigner {
             info.setMarginTop(14f);
             doc.add(info);
             info.complete();
+            money.setMarginTop(15f);
+            doc.add(money);
+            money.complete();
             //setting gap between info and footertable
             footertable.setMarginTop(14f);
             doc.add(footertable);
